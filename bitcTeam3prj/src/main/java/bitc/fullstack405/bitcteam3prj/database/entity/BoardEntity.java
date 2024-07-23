@@ -8,13 +8,12 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "article")
+@Table(name = "board")
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardEntity {

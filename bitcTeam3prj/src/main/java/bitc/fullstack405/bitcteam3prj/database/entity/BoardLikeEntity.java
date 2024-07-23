@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "")
+@Table(name = "board_like")
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardLikeEntity {
