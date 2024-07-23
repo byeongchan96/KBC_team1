@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "img_file")
@@ -25,4 +26,13 @@ public class ImgFileEntity {
 
   @Column(nullable = false)
   private String saved_path; // 저장경로
+
+
+  @OneToOne(mappedBy = "img", cascade = CascadeType.ALL)
+  @ToString.Exclude
+  private UserEntity user;
+
+  @OneToOne(mappedBy = "img", cascade = CascadeType.ALL)
+  @ToString.Exclude
+  private MovieEntity movie;
 }

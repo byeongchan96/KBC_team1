@@ -1,21 +1,18 @@
 package bitc.fullstack405.bitcteam3prj.database.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "movie_article")
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class MovieArticleEntity {
+public class MovieArticleEntity extends BaseEntity{
 
   @Id
   @Column(nullable = false)
@@ -24,22 +21,13 @@ public class MovieArticleEntity {
   @Column(nullable = false)
   private long movieId; // 영화 id, movie 테이블과 fk
 
+  @ManyToOne
+  @JoinColumn(name="manager_id")
+  @ToString.Exclude
   @Column(nullable = false)
-  private long managerId; // 관리자 id, manager 테이블과 fk
+  private ManagerEntity manager; // 관리자 id, manager 테이블과 fk
 
   @Column
   private int viewCnt; // 조회수
-
-  @Column(nullable = false)
-  private LocalDateTime createAt = LocalDateTime.now(); // 영화정보 작성일
-
-  @Column(nullable = false)
-  private String createBy; // 영화정보 작성자
-
-  @Column
-  private LocalDateTime updateAt; // 영화정보 수정일
-
-  @Column
-  private String updateBy; // 영화정보 수정자
 
 }

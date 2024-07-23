@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -17,6 +20,13 @@ public class ManagerEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id; // 매니저 id
 
+  @OneToOne
+  @JoinColumn(name="user_id")
   @Column(nullable = false)
-  private long userId; // 매니저 유저id
+  private UserEntity user; // 매니저 유저id
+
+
+  @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+  @ToString.Exclude
+  private List<MovieArticleEntity> movieArticleList;
 }
