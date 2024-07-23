@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.List;
-
+@Data
 @Entity
+@Table(name = "manager")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "manager")
-@Data
 public class ManagerEntity {
 
   @Id
@@ -22,11 +21,10 @@ public class ManagerEntity {
 
   @OneToOne
   @JoinColumn(name="user_id")
-  @Column(nullable = false)
   private UserEntity user; // 매니저 유저id
 
 
   @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
   @ToString.Exclude
-  private List<MovieArticleEntity> movieArticleList;
+  private List<MovieBoardEntity> movieArticleList;
 }

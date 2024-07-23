@@ -19,7 +19,6 @@ public class MovieEntity {
   @Column(nullable = false)
   private long id; // 영화 id(기본키), api 사용시 AI 필요?
 
-  @Column(nullable = false)
   @ManyToOne
   @JoinColumn(name = "director_id")
   @ToString.Exclude

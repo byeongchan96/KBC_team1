@@ -1,16 +1,13 @@
 package bitc.fullstack405.bitcteam3prj.database.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+@Data
 @Entity
 @Table(name = "img_file")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class ImgFileEntity {
 
   @Id
@@ -28,11 +25,11 @@ public class ImgFileEntity {
   private String saved_path; // 저장경로
 
 
-  @OneToOne(mappedBy = "img", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "profileImg", cascade = CascadeType.ALL)
   @ToString.Exclude
   private UserEntity user;
 
-  @OneToOne(mappedBy = "img", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "posterImg", cascade = CascadeType.ALL)
   @ToString.Exclude
   private MovieEntity movie;
 }

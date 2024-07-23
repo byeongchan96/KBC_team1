@@ -2,6 +2,7 @@ package bitc.fullstack405.bitcteam3prj.database.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -12,5 +13,14 @@ public class MovieBoardRatingEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "movie_board_id")
+    @ToString.Exclude
+    private MovieBoardEntity movieBoard;
 
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    @ToString.Exclude
+    private UserEntity user;
 }

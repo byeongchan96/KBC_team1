@@ -8,11 +8,11 @@ import lombok.ToString;
 
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "director")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class DirectorEntity {
 
   @Id
