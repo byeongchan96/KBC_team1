@@ -26,7 +26,10 @@ public class UserEntity {
   @OneToOne
   @JoinColumn(name="img_id")
   private ImgFileEntity profileImg; // 프로필사진, img_file 테이블의 id 와 fk
-  
+
+  @Column(nullable = false)
+  private String userId;
+
   @Column(nullable = false)
   private String userPw;
   

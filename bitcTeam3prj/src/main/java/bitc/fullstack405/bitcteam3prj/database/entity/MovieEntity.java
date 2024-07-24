@@ -39,4 +39,7 @@ public class MovieEntity {
 
   private String movieDisc; // 영화설명
 
+  private String company; // 제작사
+
+  private String grade; // 상영 등급
 }
