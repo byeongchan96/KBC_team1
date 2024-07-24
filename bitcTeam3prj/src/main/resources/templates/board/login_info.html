@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <!-- jQuery -->
+    <script src="/jquery-3.7.1.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="/js/bootstrap.bundle.js"></script>
+    <!-- Datepicker CSS and JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize datepicker
+            $('#datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                todayHighlight: true,
+                autoclose: true
+            });
+
+            // Function to allow only one checkbox to be checked
+            function checkOnlyOne(checkbox) {
+                var checkboxes = document.querySelectorAll('.form-check-input');
+                checkboxes.forEach((item) => {
+                    if (item !== checkbox) item.checked = false;
+                });
+            }
+
+            // Attach the function to the checkboxes
+            document.querySelectorAll('.form-check-input').forEach(checkbox => {
+                checkbox.addEventListener('click', () => checkOnlyOne(checkbox));
+            });
+        });
+    </script>
+    <style>
+        .file-upload .square {
+            height: 250px;
+            width: 250px;
+            margin: auto;
+            border: 1px solid #e5dfe4;
+            background-color: #fff;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .text-secondary {
+            --bs-text-opacity: 1;
+            color: rgba(208, 212, 217, 0.5) !important;
+        }
+        .btn-success-soft {
+            color: #28a745;
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        .btn-danger-soft {
+            color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">회원가입</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row g-3">
+                    <!-- Profile Upload Section -->
+                    <div class="col-sm-12 text-center mb-4">
+                        <div class="bg-secondary-soft px-4 py-5 rounded">
+                            <h4 class="mb-4 mt-0">프로필 사진 업로드</h4>
+                            <div class="text-center">
+                                <!-- Image upload -->
+                                <div class="square position-relative mb-3">
+                                    <i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
+                                </div>
+                                <!-- Button -->
+                                <input type="file" id="customFile" name="file" hidden>
+                                <label class="btn btn-success-soft btn-block" for="customFile">업로드</label>
+                                <button type="button" class="btn btn-danger-soft">제거</button>
+                                <!-- Content -->
+                                <p class="text-muted mt-3 mb-0"><span class="me-1">참고:</span>최소 크기 300px x 300px</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Name and Surname -->
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label">이름</label>
+                        <input type="text" class="form-control" id="firstName" required>
+                        <div class="invalid-feedback">유효한 이름이 필요합니다.</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="lastName" class="form-label">성</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                        <div class="invalid-feedback">유효한 성을 입력하세요.</div>
+                    </div>
+
+                    <!-- Other fields here... -->
+                    <div class="col-12">
+                        <label for="userid" class="form-label">사용자 ID</label>
+                        <input type="text" class="form-control" id="userid" placeholder="사용자 ID" required>
+                        <div class="invalid-feedback">사용자 ID를 입력합니다.</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="userpw" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="userpw" placeholder="비밀번호" required>
+                        <div class="invalid-feedback">비밀번호를 입력합니다.</div>
+                        <hr>
+                        <label for="userpw-confirm" class="form-label">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="userpw-confirm" placeholder="비밀번호 확인" required>
+                        <div class="invalid-feedback">비밀번호를 입력합니다.</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label">이메일 <span class="text-body-secondary">(선택사항)</span></label>
+                        <input type="email" class="form-control" id="email" placeholder="당신@example.com">
+                        <div class="invalid-feedback">유효한 이메일 주소를 입력하세요.</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="address" class="form-label">주소</label>
+                        <input type="text" class="form-control" id="address" placeholder="1234 메인 스트리트" required>
+                        <div class="invalid-feedback">주소를 입력하세요.</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="address2" class="form-label">주소 2 <span class="text-body-secondary">(선택)</span></label>
+                        <input type="text" class="form-control" id="address2" placeholder="아파트 또는 스위트">
+                    </div>
+                    <div class="col-md-5">
+                        <label for="country" class="form-label">국가</label>
+                        <select class="form-select" id="country" required>
+                            <option value="">선택하다...</option>
+                            <option>대한민국</option>
+                        </select>
+                        <div class="invalid-feedback">유효한 국가를 선택해주세요.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="state" class="form-label">도시</label>
+                        <select class="form-select" id="state" required>
+                            <option value="">선택하다...</option>
+                            <option>부산광역시</option>
+                        </select>
+                        <div class="invalid-feedback">유효한 도시를 선택해주세요.</div>
+                    </div>
+                    <div class="col-md-7 col-lg-8">
+                        <label for="dateInput" class="form-label">날짜를 입력하세요 (--년--월--일)</label>
+                        <div class="input-group date" id="datepicker">
+                            <input type="text" class="form-control" id="dateInput" placeholder="YYYY-MM-DD">
+                            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                        </div>
+                    </div>
+
+                </div> <!-- Row END -->
+                <hr class="my-4">
+
+                <div class="col-md-3">
+                    <h3>성별</h3>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox1">
+                        <label class="form-check-label" for="checkbox1">남자</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox2">
+                        <label class="form-check-label" for="checkbox2">여자</label>
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="save-info">
+                    <label class="form-check-label" for="save-info">이 정보를 저장해두세요</label>
+                </div>
+
+                <hr class="my-4">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">가입하기</button>
+                <hr class="my-4">
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="py-3 my-4">
+    <p class="text-center text-body-secondary">made by fullstack405</p>
+</footer>
+</body>
+</html>
