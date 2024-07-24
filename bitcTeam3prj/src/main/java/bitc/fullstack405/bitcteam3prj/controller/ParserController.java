@@ -188,6 +188,19 @@ public class ParserController {
         var data = dataList.get(0);
         var resultList = data.getResult();
         for(var result : resultList){
+            String genre = result.getGenre();
+            if(genre.contains("에로")){
+                continue;
+            }
+            int runTime = 0;
+            if(!result.getRuntime().isEmpty()){
+                runTime = Integer.parseInt(result.getRuntime());
+            }
+
+            if(runTime == 0){
+                continue;
+            }
+
             DirectorDTO director = result.getDirectors().getDirector().get(0);
             String directorNm = director.getDirectorNm();
             if (directorNm.isEmpty()) {
@@ -207,11 +220,6 @@ public class ParserController {
             movieEntity.setMovieCate(result.getGenre());
             movieEntity.setGrade(result.getRating());
             movieEntity.setMovieDisc(result.getPlots().getPlot().get(0).getPlotText());
-
-            int runTime = 0;
-            if(!result.getRuntime().isEmpty()){
-                runTime = Integer.parseInt(result.getRuntime());
-            }
             movieEntity.setShowTm(runTime);
 
             movieEntities.add(movieEntity);
