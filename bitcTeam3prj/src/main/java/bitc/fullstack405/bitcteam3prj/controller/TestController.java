@@ -1,14 +1,20 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
+import bitc.fullstack405.bitcteam3prj.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Objects;
 
 @Controller
 @RequestMapping({"", "/", "index"})
@@ -17,8 +23,7 @@ public class TestController {
   @Autowired
   private UserService userService;
 
-
-//  로그인 화면 뷰
+  //  로그인 화면 뷰
   @RequestMapping("/login.do")
   public String login() throws Exception{
     return "/user/logInTest";
@@ -77,6 +82,36 @@ public class TestController {
     session.removeAttribute("userPw");
 
     session.invalidate();
+
+    return "redirect:/login.do";
+  }
+
+//  회원가입 뷰 페이지
+  @GetMapping("/signIn.do")
+  public String signIn() throws Exception {
+    return "/user/signInTest";
+  }
+
+//  화원가입 프로세스
+  @PostMapping("/signIn.do")
+  public String signInProcess(UserEntity userEntity, @RequestParam("userPwChk") String userPwChk, @RequestParam("userId") String userId, @RequestParam("email") String email) throws Exception {
+
+    if (Objects.equals(userPwChk, userEntity.getUserPw())) {
+      if (userService.userIdCheck(userId) == 0) {
+        if (userService.userEmailCheck(email) == 0) {
+          userService.insertUser(userEntity);
+        }
+        else {
+          return "redirect:/signIn.do?error=existEmail";
+        }
+      }
+      else {
+        return "redirect:/signIn.do?error=existId";
+      }
+    }
+    else {
+      return "redirect:/signIn.do?error=pwChk";
+    }
 
     return "redirect:/login.do";
   }
