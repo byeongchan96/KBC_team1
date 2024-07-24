@@ -1,9 +1,7 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
-import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
-import bitc.fullstack405.bitcteam3prj.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +22,14 @@ public class TestController {
   private UserService userService;
 
   //  로그인 화면 뷰
-  @RequestMapping("/login.do")
+  @GetMapping("/login.do")
   public String login() throws Exception{
     return "/user/logInTest";
   }
 
 
 //  로그인 프로세스
-  @RequestMapping("/loginProcess.do")
+  @PostMapping("/login.do")
   public String loginProcess(@RequestParam("userId")String userId, @RequestParam("userPw") String userPw, HttpServletRequest req) throws Exception{
 
     int result = userService.isUserInfo(userId, userPw);
