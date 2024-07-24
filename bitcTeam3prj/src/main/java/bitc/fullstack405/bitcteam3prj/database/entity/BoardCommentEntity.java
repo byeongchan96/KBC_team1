@@ -1,9 +1,7 @@
 package bitc.fullstack405.bitcteam3prj.database.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,12 +9,14 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "board_comment")
-@Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardCommentEntity {
+public class BoardCommentEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; // 게시글 댓글 id, pk, board 테이블 fk
@@ -24,17 +24,13 @@ public class BoardCommentEntity {
     @Column(nullable = false)
     private String contents; // 본문
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 작성일
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    @ToString.Exclude
+    private UserEntity user;
 
-    @CreatedBy
-    @Column(nullable = false)
-    private String createdBy; // 작성자
-
-    @LastModifiedDate
-    private String updatedAt; // 수정일
-
-    @LastModifiedBy
-    private String updatedBy; // 수정자
+    @ManyToOne
+    @JoinColumn(name="board_id")
+    @ToString.Exclude
+    private BoardEntity board;
 }
