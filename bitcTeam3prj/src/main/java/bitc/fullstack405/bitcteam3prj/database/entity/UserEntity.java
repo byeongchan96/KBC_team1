@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class UserEntity {
 
   @Id
@@ -23,8 +25,8 @@ public class UserEntity {
   private long id; // 유저키 pk, board 테이블과 fk
 
 
-  @OneToOne
-  @JoinColumn(name="img_id")
+  @ToString.Exclude
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
   private ImgFileEntity profileImg; // 프로필사진, img_file 테이블의 id 와 fk
 
   @Column(nullable = false)
