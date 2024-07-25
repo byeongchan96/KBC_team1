@@ -12,10 +12,10 @@ public class LoginCheck implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception{
     HttpSession session = req.getSession();
 
-    String userId = (String) session.getAttribute("userId");
+    String userId = (String)session.getAttribute("userId");
 
     if (userId == null || userId.equals("")) {
-      res.sendRedirect("/login.do");
+      res.sendRedirect("/login");
 
       return false;
     }

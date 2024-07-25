@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bitcTeam3prj.iml" filepath="$PROJECT_DIR$/.idea/bitcTeam3prj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/team3.bitcTeam3prj.main.iml" filepath="$PROJECT_DIR$/.idea/modules/team3.bitcTeam3prj.main.iml" />
     </modules>
   </component>
 </project>

@@ -12,6 +12,6 @@ public class WebMVCConfig implements WebMvcConfigurer {
 //  현재 세션 유지시간 5초로 지정
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new LoginCheck()).addPathPatterns("/loginSuccess.do"); // 로그인 필요 페이지 추가 가능
+    registry.addInterceptor(new LoginCheck()).addPathPatterns("/loginSuccess"); // 로그인 필요 페이지 추가 가능
   }
 }
