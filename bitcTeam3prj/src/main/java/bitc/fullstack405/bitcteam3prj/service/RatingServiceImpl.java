@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class RatingServiceImpl implements RatingService {
 
   @Autowired
-  private MovieRatingRepository movieratingRepo;
+  private MovieRatingRepository movieRatingRepo;
 
   @Override
   public void findAllByMovieBoard() throws Exception {
@@ -17,6 +17,11 @@ public class RatingServiceImpl implements RatingService {
 
   @Override
   public void deleteByUser() throws Exception {
+
+  }
+
+  @Override
+  public void queryAvgRating() throws Exception {
 
   }
 }
