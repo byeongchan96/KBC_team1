@@ -4,13 +4,15 @@ import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
 
-@RestController
+@Controller
 @RequestMapping({"", "/", "movcom"})
 public class TestController {
 
@@ -18,11 +20,10 @@ public class TestController {
   private UserService userService;
 
   //  로그인 화면 뷰
-  @RequestMapping(value = "/login")
-  public ModelAndView login() throws Exception{
+  @GetMapping ("/login")
+  public ModelAndView  login() throws Exception{
     ModelAndView mv = new ModelAndView();
     mv.setViewName("/user/logInTest");
-
     return mv;
   }
 
@@ -36,7 +37,8 @@ public class TestController {
 
     int result = userService.isUserInfo(userId, userPw);
 
-    if (result == 1) {
+
+    if (userId != null && userPw != null && result == 1) {
 
       HttpSession session = req.getSession();
 
@@ -49,7 +51,7 @@ public class TestController {
 
     }
     else {
-      mv.setViewName("redirect:/logInTest?error=loginFailed");
+      mv.setViewName("redirect:/login?error=loginFailed");
     }
 
     return mv;
@@ -57,7 +59,7 @@ public class TestController {
 
 
 //  로그인 성공 뷰
-  @RequestMapping("/loginSuccess")
+  @GetMapping("/loginSuccess")
   public ModelAndView loginSuccess(HttpServletRequest req) throws Exception{
     Object userId = req.getSession().getAttribute("userId");
     Object userPw = req.getSession().getAttribute("userPw");
@@ -69,7 +71,7 @@ public class TestController {
       mv.setViewName("redirect:/login");
     }
     else {
-      mv.setViewName("user/logInSuccessTest");
+      mv.setViewName("/user/logInSuccessTest");
     }
 
     return mv;
@@ -109,6 +111,7 @@ public class TestController {
       if (userService.userIdCheck(userId) == 0) {
         if (userService.userEmailCheck(email) == 0) {
           userService.insertUser(userEntity);
+          mv.setViewName("redirect:/login");
         }
         else {
           mv.setViewName("redirect:/signIn?error=existEmail");
@@ -124,4 +127,95 @@ public class TestController {
 
     return mv;
   }
+
+//  비밀번호 찾기 뷰
+  @GetMapping("/findPassword")
+  public ModelAndView findPasswordView() throws Exception {
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("/user/findPassword");
+    return mv;
+  }
+
+//  비밀번호 찾기 프로세스 및 변경 뷰
+  @PostMapping("/findPassword")
+  public ModelAndView findPassword(@RequestParam("userId") String userId, @RequestParam("email") String email) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    UserEntity entity = userService.findPassword(userId, email);
+    mv.addObject("userId", entity.getUserId());
+    mv.addObject("email", entity.getEmail());
+
+    if (Objects.equals(entity.getUserId(), userId) && Objects.equals(entity.getEmail(), email)) {
+      mv.setViewName("redirect:/changePassword");
+    }
+    else {
+      mv.setViewName("redirect:/findPassword?error=notFoundUser");
+    }
+
+    return mv;
+  }
+
+//  비밀번호 변경 뷰
+  @PostMapping("/changePassword")
+  public ModelAndView changePasswordView(@RequestParam("userId") String userId) {
+    ModelAndView mv = new ModelAndView();
+
+    mv.setViewName("/user/changePassword");
+    mv.addObject("userId", userId);
+
+    return mv;
+  }
+
+//  비밀번호 변경 프로세스
+  @PutMapping("/changePassword")
+  public ModelAndView changePassword(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw, @RequestParam("userPwChk") String userPwChk) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    if (userPw.equals(userPwChk)) {
+      userService.updateUserPw(userId, userPw);
+      mv.setViewName("redirect:/login");
+    }
+    else {
+      mv.setViewName("redirect:/changePassword?error=pwChk");
+    }
+    return mv;
+  }
+
+//  id 찾기 뷰
+  @GetMapping("/findId")
+  public ModelAndView findIdView() throws Exception {
+    ModelAndView mv = new ModelAndView();
+    mv.setViewName("/user/findId");
+    return mv;
+  }
+
+  @PostMapping("/findId")
+  public ModelAndView findId(@RequestParam("email") String email, @RequestParam("userPw") String userPw) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    UserEntity userEntity = userService.findUserId(email, userPw);
+
+    mv.addObject("userId", userEntity.getUserId());
+    mv.addObject("email", email);
+    mv.addObject("userPw", userPw);
+
+    if (email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
+      mv.setViewName("redirect:/foundId");
+    }
+    else {
+      mv.setViewName("redirect:/findId?error=notFoundUser");
+    }
+
+    return mv;
+  }
+
+  @GetMapping("/foundId")
+  public ModelAndView foundId() throws Exception {
+    ModelAndView mv = new ModelAndView();
+    
+    mv.setViewName("/user/foundId");
+
+    return mv;
+  }
+
 }

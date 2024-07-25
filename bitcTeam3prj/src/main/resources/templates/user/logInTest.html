@@ -10,6 +10,17 @@
   <script src="/js/jquery-3.7.1.js"></script>
   <script src="/js/bootstrap.bundle.js"></script>
 
+  <script>
+    $(document).ready(function () {
+       const error = "";
+       if (error == "loginFailed") {
+           const tag = "<p class='text-danger'>로그인 실패</p>";
+
+           $("#div1").append(tag);
+       }
+    });
+  </script>
+
 </head>
 <body>
 <main class="container mt-5">
@@ -35,9 +46,13 @@
               <button type="reset" class="btn btn-secondary" id="btn-cancel">취소</button>
             </div>
           </form>
+            <div class="justify-content-start">
+              <p><a href="/findId" class="btn btn-link text-decoration-none">id</a>/<a href="/findPassword" class="btn btn-link text-decoration-none">pw</a>찾기</p>
+            </div>
             <div class="mt-1 d-flex justify-content-end">
               <a href="/signIn" class="btn btn-link">회원가입</a>
             </div>
+          <div id="div1"></div>
         </div>
       </div>
     </div>
