@@ -19,7 +19,7 @@ public class BoardController {
     //게시글 전체 목록
     @GetMapping("/")
     public ModelAndView selectBoardList() throws Exception {
-        ModelAndView mv = new ModelAndView("/board/boardList");
+        ModelAndView mv = new ModelAndView("board/boardList");
 
         List<BoardEntity> boardList = boardService.selectBoardList();
         mv.addObject("boardList", boardList);
@@ -39,10 +39,10 @@ public class BoardController {
 
     //    게시글 상세보기
     @GetMapping("/{boardId}")
-    public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId) throws Exception {
+    public ModelAndView selectBoardDetail(@PathVariable("boardId") long boardId) throws Exception {
         ModelAndView mv = new ModelAndView("board/boardDetail");
         BoardEntity board = boardService.selectBoardDetail(boardId);
-        mv.addObject("boardId" , boardId);
+        mv.addObject("board" , board);
 
         return mv;
     }
