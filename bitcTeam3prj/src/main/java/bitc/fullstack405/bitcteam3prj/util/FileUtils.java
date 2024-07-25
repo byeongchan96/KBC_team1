@@ -1,21 +1,33 @@
 package bitc.fullstack405.bitcteam3prj.util;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URL;
 
+@Component
 public class FileUtils {
-    public static void UrlToImage(String savePath, String imageURL, String fileName) {
+
+    @Value("${file.img.location}")
+    private String saveImageFileLocation;
+
+    public void UrlToImage(String imageURL, String fileName) {
         fileName = fileName.replace("?", "");
         fileName = fileName.replace(":", "-");
-        savePath = savePath + fileName + ".jpg";
+
+        System.out.println(saveImageFileLocation);
+        File rootPath = new File("src/main/resources/static/image");
+        String savePath = rootPath.getAbsolutePath() +  "/"  + fileName + ".jpg";
 
         File f = new File(savePath);
         if(f.exists()){
             System.out.println("Exists File : " + fileName);
             return;
         }
+
+
 
 
         URL url = null;

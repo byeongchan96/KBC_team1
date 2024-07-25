@@ -39,6 +39,9 @@ public class ParserController {
     @Value("${team3.movie.service.key}")
     private String movieKey;
 
+    @Autowired
+    private FileUtils fileUtils;
+
     @RequestMapping("/insert/director")
     public ModelAndView setDirector() throws Exception {
         String serviceURL = movieURL + "&ServiceKey=" + movieKey;
@@ -159,10 +162,9 @@ public class ParserController {
                     continue;
                 }
                 String[] posterURLs = result.getPosters().split("\\|");
-                FileUtils.UrlToImage("C:/UrlToImage/", posterURLs[0], result.getTitle());
+                fileUtils.UrlToImage( posterURLs[0], result.getTitle());
 
                 ImgFileEntity imgFileEntity = new ImgFileEntity();
-                imgFileEntity.setSavedPath("C:/UrlToImage/");
                 imgFileEntity.setOriName(posterURLs[0]);
                 imgFileEntity.setSavedName(result.getTitle());
 
@@ -231,8 +233,12 @@ public class ParserController {
                 continue;
             }
             String[] posterURLs = result.getPosters().split("\\|");
-            FileUtils.UrlToImage("C:/UrlToImage/", posterURLs[0], result.getTitle());
-
+            try {
+                fileUtils.UrlToImage(posterURLs[0], result.getTitle());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
             ImgFileEntity imgFileEntity = new ImgFileEntity();
             imgFileEntity.setSavedPath("C:/UrlToImage/");
             imgFileEntity.setOriName(posterURLs[0]);
