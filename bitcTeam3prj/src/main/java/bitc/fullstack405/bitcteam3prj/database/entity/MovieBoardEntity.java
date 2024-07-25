@@ -16,6 +16,7 @@ public class MovieBoardEntity extends BaseEntity{
 
   @Id
   @Column(nullable = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id; // 영화정보 id, pk, manager 테이블과 fk
 
   @OneToOne
