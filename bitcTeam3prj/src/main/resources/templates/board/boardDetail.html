@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용하기</title>
+    <script src="/js/jquery-3.7.1.js"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+
+<!-- header -->
+<header th:replace="~{/layout/header::header}"></header>
+<!-- header END -->
+
+<main class="container mt-5">
+    <section>
+        <div class="row">
+            <div class="col-sm mx-auto">
+                <form id="frm" method="post">
+                    <!-- 이름 -->
+                    <div class="mb-3" id="name-group">
+                        <label for="wr_name" class="form-label">이름 <strong>필수</strong></label>
+                        <input type="text" name="wr_name" id="wr_name" required class="form-control" placeholder="이름">
+                    </div>
+
+                    <!-- 이메일 -->
+                    <div class="mb-3" id="email-group">
+                        <label for="wr_email" class="form-label">이메일</label>
+                        <input type="text" name="wr_email" id="wr_email" class="form-control" placeholder="이메일">
+                    </div>
+
+                    <!-- 옵션 -->
+                    <div class="mb-3" id="option-group">
+                        <label class="form-label">옵션</label>
+                        <div id="options">
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="notice" name="notice" value="1">
+                                <label for="notice" class="form-check-label">공지</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="notice2" name="notice" value="2">
+                                <label for="notice2" class="form-check-label">스포일러</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="notice3" name="notice" value="3">
+                                <label for="notice3" class="form-check-label">성인</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 분류 -->
+                    <div class="mb-3" id="category-group">
+                        <label for="ca_name" class="form-label">분류 <strong>필수</strong></label>
+                        <select class="form-select" name="ca_name" id="ca_name" required>
+                            <option value="">분류를 선택하세요</option>
+                            <option value="category1">Category 1</option>
+                            <option value="category2">Category 2</option>
+                        </select>
+                    </div>
+
+                    <!-- 제목 -->
+                    <div class="mb-3">
+                        <label for="wr_subject" class="form-label">제목 <strong>필수</strong></label>
+                        <input type="text" name="wr_subject" id="wr_subject" required class="form-control" maxlength="255" placeholder="제목">
+                    </div>
+
+                    <!-- 내용 -->
+                    <div class="mb-3">
+                        <label for="wr_content" class="form-label">내용 <strong>필수</strong></label>
+                        <textarea name="wr_content" id="wr_content" required class="form-control" rows="10"></textarea>
+                    </div>
+
+
+                    <!-- 버튼 -->
+                    <div class="mb-3 text-center">
+                        <button type="submit" id="btn_submit" class="btn btn-primary">작성완료</button>
+                        <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
+                    </div>
+
+                    <!-- Hidden Inputs and Additional Buttons -->
+                    <div class="d-flex gap-2 mx-auto p-4">
+                        <input type="hidden" id="board-idx" name="boardIdx" >
+                        <input type="hidden" id="method">
+                        <button type="button" class="btn btn-secondary me-2" id="btn-List">목록</button>
+                        <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>
+                        <button type="button" class="btn btn-warning" id="btn-update">수정</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer th:replace="~{/layout/footer::footer}"></footer>
+</body>
+</html>
