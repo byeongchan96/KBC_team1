@@ -1,16 +1,12 @@
-<!DOCTYPE HTML><html lang="ko"><head>
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Use</title>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Popper.js and Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>사용하기</title>
+    <script src="/js/jquery-3.7.1.js"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.js"></script>
     <style>
         .about-text h3 { color: #333; }
         .about-text h4 { color: #007bff; }
@@ -24,28 +20,10 @@
     </style>
 </head>
 <body>
-<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-            </a>
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">영화정보</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">자유게시판</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">자주하는질문</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="검색..." aria-label="Search">
-            </form>
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">회원가입</button>
-            </div>
-        </div>
-    </div></header><main class="container mt-5">
+<!-- header -->
+<header th:replace="~{/layout/header::header}"></header>
+<!-- header END -->
+<main class="container mt-5">
     <div class="row">
         <div class="col-md-12">
             <section class="panel">
@@ -142,8 +120,6 @@
     </nav>
 </main>
 <!-- Footer -->
-<footer class="py-3 my-4">
-    <p class="text-center text-body-secondary">made by fullstack405</p>
-</footer>
+<footer th:replace="~{/layout/footer::footer}"></footer>
 </body>
 </html>

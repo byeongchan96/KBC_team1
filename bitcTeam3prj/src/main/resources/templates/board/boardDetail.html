@@ -1,44 +1,18 @@
-<!DOCTYPE html><html lang="ko">
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사용하기</title>
-    <script src="/jquery-3.7.1.js"></script>
+    <script src="/js/jquery-3.7.1.js"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
 </head>
 <body>
-<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">영화정보</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">자유게시판</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">자주하는질문</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-
-            <form action="#" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <div class="subscribe-form">
-                    <input type="search" name="search" class="form-control" placeholder="검색...">
-                    <button type="submit" class="form-control visually-hidden"></button>
-                </div>
-            </form>
-
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">회원가입</button>
-            </div>
-        </div>
-    </div>
-</header>
+<!-- header -->
+<header th:replace="~{/layout/header::header}"></header>
+<!-- header END -->
 
 <main class="container mt-5">
     <section>
@@ -66,12 +40,12 @@
                                 <label for="notice" class="form-check-label">공지</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="notice" name="notice" value="1">
-                                <label for="notice" class="form-check-label">스포일러</label>
+                                <input type="checkbox" class="form-check-input" id="notice2" name="notice" value="2">
+                                <label for="notice2" class="form-check-label">스포일러</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="notice" name="notice" value="1">
-                                <label for="notice" class="form-check-label">성인</label>
+                                <input type="checkbox" class="form-check-input" id="notice3" name="notice" value="3">
+                                <label for="notice3" class="form-check-label">성인</label>
                             </div>
                         </div>
                     </div>
@@ -98,13 +72,6 @@
                         <textarea name="wr_content" id="wr_content" required class="form-control" rows="10"></textarea>
                     </div>
 
-                    <!-- 자동등록방지 -->
-                    <div class="mb-3" id="captcha-group-template">
-                        <label for="captcha_key" class="form-label">자동등록방지</label>
-                        <div>
-                            <!-- Captcha content here -->
-                        </div>
-                    </div>
 
                     <!-- 버튼 -->
                     <div class="mb-3 text-center">
@@ -114,7 +81,7 @@
 
                     <!-- Hidden Inputs and Additional Buttons -->
                     <div class="d-flex gap-2 mx-auto p-4">
-                        <input type="hidden" id="board-idx" name="boardIdx" th:text="${board.boardIdx}">
+                        <input type="hidden" id="board-idx" name="boardIdx" >
                         <input type="hidden" id="method">
                         <button type="button" class="btn btn-secondary me-2" id="btn-List">목록</button>
                         <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>
@@ -126,8 +93,7 @@
     </section>
 </main>
 
-<footer class="container py-3 my-4">
-    <p class="text-center text-body-secondary">made by fullstack405</p>
-</footer>
+<!-- Footer -->
+<footer th:replace="~{/layout/footer::footer}"></footer>
 </body>
 </html>
