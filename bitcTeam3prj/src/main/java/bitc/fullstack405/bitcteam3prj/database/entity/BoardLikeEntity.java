@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Data
 @Table(name = "board_like")
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class BoardLikeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
