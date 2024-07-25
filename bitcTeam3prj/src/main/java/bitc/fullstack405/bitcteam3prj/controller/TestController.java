@@ -9,6 +9,6 @@ public class TestController {
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String test(){
-        return "board/boardDetail";
+        return "login/Login.html";
     }
 }
