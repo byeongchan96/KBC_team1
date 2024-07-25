@@ -17,16 +17,16 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
-    @CreatedBy
-    @Column(updatable = false, nullable = false)
-    private String createdBy;
+//    @CreatedBy
+//    @Column(updatable = false, nullable = false)
+//    private String createdBy;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedBy
-    private String updatedBy;
+//    @LastModifiedBy
+//    private String updatedBy;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
