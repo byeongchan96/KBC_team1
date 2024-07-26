@@ -5,6 +5,7 @@ import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.database.repository.BoardCommentRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardCommentRepository boardCommentRepository;
 
+
+
     @Override
     public List<BoardEntity> selectBoardList() throws Exception {
         List<BoardEntity> boardList =  boardRepository.findAll();
@@ -27,6 +30,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardEntity selectBoardDetail(Long boardId) throws Exception {
+//        boardService.updateHitCount(BoardId)
+
         Optional<BoardEntity> opt = boardRepository.findById(boardId);
 
         BoardEntity board = null;
@@ -58,8 +63,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardEntity> findAllByTitle(String searchString) throws Exception {
-        return List.of();
+    public Optional<BoardEntity> findAllByTitle(String searchString) throws Exception {
+        Optional<BoardEntity> boardList = boardRepository.findAllByTitle(searchString);
+        return boardList;
     }
 
     @Override
@@ -68,6 +74,7 @@ public class BoardServiceImpl implements BoardService {
         return boardList;
     }
 
+//    코멘트 작성 , 수정, 삭제
     @Override
     public void boardCommentWrite(BoardCommentEntity board) throws Exception {
         boardCommentRepository.save(board);
@@ -83,6 +90,7 @@ public class BoardServiceImpl implements BoardService {
         boardCommentRepository.deleteById(boardId);
     }
 
+//    유저 게시글 칸
     @Override
     public List<BoardEntity> userBoardList(Long userId) throws Exception {
 //        List<BoardEntity> boardList =

@@ -1,6 +1,5 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
-import bitc.fullstack405.bitcteam3prj.database.entity.BoardCommentEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/board")
@@ -28,22 +28,22 @@ public class BoardController {
         return mv;
     }
 
-//    게시글 목록(카테고리)
-    @GetMapping("/{boardCate}")
-    public ModelAndView selectBoardList(@PathVariable("boardCate") String boardCate) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/boardList");
-        List<BoardEntity> boardList = boardService.selectBoardListByCate(boardCate);
-        mv.addObject("boardCate" , boardCate);
-
-        return mv;
-    }
+////    게시글 목록(카테고리)
+//    @GetMapping("/{boardCate}")
+//    public ModelAndView selectBoardList(@PathVariable("boardCate") String boardCate) throws Exception {
+//        ModelAndView mv = new ModelAndView("/board/boardList");
+//        List<BoardEntity> boardList = boardService.selectBoardListByCate(boardCate);
+//        mv.addObject("boardList" , boardList);
+//
+//        return mv;
+//    }
 
 //    게시글 상세보기
     @GetMapping("/{boardId}")
     public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId) throws Exception {
         ModelAndView mv = new ModelAndView("board/boardDetail");
         BoardEntity board = boardService.selectBoardDetail(boardId);
-        mv.addObject("boardId" , boardId);
+        mv.addObject("board" , board);
 
         return mv;
     }
@@ -51,7 +51,7 @@ public class BoardController {
 //    게시글 등록(view)
     @GetMapping("/write")
     public String insertBoard() throws Exception {
-        return "redirect:/board/boardWrite";
+        return "board/boardWrite";
     }
 
 //    게시글 등록 처리
@@ -81,79 +81,21 @@ public class BoardController {
 
 //    게시판 검색
     @GetMapping("/search")
-    public ModelAndView searchIdListBoard(String searchString) throws Exception {
+    public ModelAndView findAllByTitle(String searchString) throws Exception {
         ModelAndView mv = new ModelAndView("/board/boardList");
-        List<BoardEntity> board =  boardService.findAllByTitle(searchString);
+        Optional<BoardEntity> board =  boardService.findAllByTitle(searchString);
         mv.addObject("board" , board);
 
         return mv;
     }
 
 //    게시판 카테고리 검색
-    @GetMapping("/{movieCate}")
-    public ModelAndView searchCateListBoard(@PathVariable("boardId") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/boardList");
-        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);
-        mv.addObject("board" , board);
-
-        return mv;
-    }
-
-//     게시판 댓글 작성
-    @PostMapping("/comment/{boardId}")
-    public String boardCommentWrite(@PathVariable("boardId") int boardId, @PathVariable("commentId") String content, BoardCommentEntity board) throws Exception {
-        board.setId(boardId);
-        board.setContents(content);
-        boardService.boardCommentWrite(board);
-
-        return "redirect:/board/boardDetail";
-    }
-
-//    게시판 댓글 수정
-    @PutMapping("/comment/{commentId}")
-    public String boardCommentUpdate(@PathVariable("boardId") int boardId, @PathVariable("commentId") String content, BoardCommentEntity board) throws Exception {
-        board.setId(boardId);
-        board.setContents(content);
-        boardService.boardCommentUpdate(board);
-
-        return "redirect:/board/boardDetail";
-    }
-
-//    게시판 댓글 삭제
-    @DeleteMapping("/comment/{commentId}")
-    public String boardCommentDelete(@PathVariable("commentId") Long boardId) throws Exception {
-        boardService.boardCommentDelete(boardId);
-
-        return "redirect:/board/boardList";
-    }
-
-//    유저가 작성한 게시글 리스트
-    @GetMapping("/{userId}")
-    public ModelAndView userBoardList(@PathVariable("userId") Long userId) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.userBoardList(userId);
-        mv.addObject("boardList" , boardList);
-
-        return mv;
-    }
-
-//    유저가 비/추천한 게시글 리스트
-    @GetMapping("/boardLike/{userId}")
-    public ModelAndView userLikeBoardList(@PathVariable("userId") Long userId) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.userLikeBoardList(userId);
-        mv.addObject("boardList" , boardList);
-
-        return mv;
-    }
-
-//    유저가 북마크한 영화 리스트
-    @GetMapping("/boardMovieBookmark/{userId}")
-    public ModelAndView movieBookmarkBoardList(@PathVariable("userId") Long userId) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.movieBookmarkList(userId);
-        mv.addObject("boardList" , boardList);
-
-        return mv;
-    }
+//    @GetMapping("/{movieCate}")
+//    public ModelAndView searchCateListBoard(@PathVariable("movieCate") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
+//        ModelAndView mv = new ModelAndView("/board/boardList");
+//        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);
+//        mv.addObject("board" , board);
+//
+//        return mv;
+//    }
 }

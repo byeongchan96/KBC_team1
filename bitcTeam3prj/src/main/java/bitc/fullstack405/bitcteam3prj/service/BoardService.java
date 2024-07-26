@@ -5,6 +5,7 @@ import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface BoardService {
@@ -22,7 +23,7 @@ public interface BoardService {
 
     void updateBoard(BoardEntity board) throws Exception;
 
-    public List<BoardEntity> findAllByTitle(String searchString) throws Exception;
+    Optional<BoardEntity> findAllByTitle(String searchString) throws Exception;
 
     List<BoardEntity> searchCateListBoard(Long boardId, String cate)throws Exception;
 

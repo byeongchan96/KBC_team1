@@ -7,6 +7,16 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
+
+    <script>
+        $(document).ready(()=>{
+           const frm = $("search-form");
+           frm.method = "post";
+           frm.action = "/board/write";
+
+           frm.submit();
+        });
+    </script>
 </head>
 <body>
 <!-- header -->
@@ -17,6 +27,7 @@
     <!-- 검색 폼 -->
     <div class="search-form">
         <form id="search-form" class="row">
+            <input type="hidden" id="method" th:value="_method">
             <!-- 카테고리 선택 -->
             <div class="col-md-3">
                 <label for="categorySelect" class="form-label">카테고리</label>
@@ -83,7 +94,9 @@
         <!-- Example row - replace with dynamic content -->
         <tr>
             <td>1</td>
-            <td><a href="/board/boardDetaildo?boardIdx=1">게시물 제목</a></td>
+
+
+            <td><a href="#" th:href="@{|/board/1|}">게시물 제목</a></td>
             <td>유재석</td>
             <td>2024-07-26</td>
             <td>123</td>
@@ -113,7 +126,8 @@
 
     <!-- 글쓰기 버튼 -->
     <div class="text-center mt-3">
-        <button type="button" class="btn btn-primary">글쓰기</button>
+        <a href="/board/write" class="btn btn-secondary">글쓰기</a>
+<!--        <button type="button" class="btn btn-primary">글쓰기</button>-->
     </div>
 </main>
 
