@@ -18,22 +18,22 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+
+  @GetMapping("")
+  public String index(){
+    return "redirect:/login";
+  }
+
   //  로그인 화면 뷰
   @GetMapping ("/login")
-  public ModelAndView  login() throws Exception{
-    ModelAndView mv = new ModelAndView();
-    mv.setViewName("/user/logInTest");
-    return mv;
+  public String login(){
+    return "/user/logInTest";
   }
 
 
 //  로그인 프로세스
   @PostMapping("/login")
-  public ModelAndView loginProcess(@RequestParam("userId")String userId, @RequestParam("userPw") String userPw, HttpServletRequest req) throws Exception{
-
-    ModelAndView mv = new ModelAndView();
-
-
+  public String loginProcess(@RequestParam("userId")String userId, @RequestParam("userPw") String userPw, HttpServletRequest req) throws Exception{
     int result = userService.isUserInfo(userId, userPw);
 
 
@@ -46,22 +46,19 @@ public class UserController {
 
       session.setMaxInactiveInterval(60 * 60 * 1);
 
-      mv.setViewName("redirect:/loginSuccess");
-
+      return "redirect:/board";
     }
     else {
-      mv.setViewName("redirect:/login?error=loginFailed");
+      return "redirect:/login?error=loginFailed";
     }
-
-    return mv;
   }
 
 
 //  로그인 성공 뷰
   @GetMapping("/loginSuccess")
   public ModelAndView loginSuccess(HttpServletRequest req) throws Exception{
-    Object userId = req.getSession().getAttribute("userId");
-    Object userPw = req.getSession().getAttribute("userPw");
+    String userId = (String)req.getSession().getAttribute("userId");
+    String userPw = (String)req.getSession().getAttribute("userPw");
     ModelAndView mv = new ModelAndView();
     mv.addObject("userId", userId);
     mv.addObject("userPw", userPw);

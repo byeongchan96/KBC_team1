@@ -16,42 +16,40 @@
 <main class="container mt-5">
     <div class="p-4 text-center border rounded-4 bg-secondary-subtle">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 card-margin">
-                    <div class="card search-form">
-                        <div class="card-body p-0">
-                            <form id="search-form">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row no-gutters">
-                                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                    <option>Location</option>
-                                                    <option>London</option>
-                                                    <option>Boston</option>
-                                                    <option>Mumbai</option>
-                                                    <option>New York</option>
-                                                    <option>Toronto</option>
-                                                    <option>Paris</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                                <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
-                                            </div>
-                                            <div class="col-lg-1 col-md-3 col-sm-12 p-0">
-                                                <button type="submit" class="btn btn-base">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                                </button>
-                                            </div>
-                                        </div>
+
+            <h2 class="mt-3"><small>3조가 만든 게시판</small></h2>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-sm-11 mx-auto">
+            <div class=" card-margin">
+            <div class="card search-form">
+                <div class="card-body p-0">
+                    <form id="search-form">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row no-gutters">
+                                    <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                            <option th:each="opt : ${T(bitc.fullstack405.bitcteam3prj.database.constant.MovieCategory).values()}"
+                                                    th:value="${opt}" th:text="${opt.description}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-8 col-md-6 col-sm-12 p-0">
+                                        <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
+                                    </div>
+                                    <div class="col-lg-1 col-md-3 col-sm-12 p-0">
+                                        <button type="submit" class="btn btn-base">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                        </button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <h2 class="mt-3"><small>3조가 만든 게시판</small></h2>
+            </div>
         </div>
     </div>
     <div class="row mt-4">
@@ -91,26 +89,8 @@
                         <div class="row search-body">
                             <div class="col-lg-12">
                                 <div class="search-result">
-                                    <div class="result-header">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="records">Showing: <b>1-20</b> of <b>200</b> result</div>
-                                            </div>
-                                            <div class="col-4">
-                                                <div class="result-actions">
-                                                    <div class="result-sorting">
-                                                        <select class="form-control border-0" id="exampleOption">
-                                                            <option value="1">Relevance</option>
-                                                            <option value="2">Names (A-Z)</option>
-                                                            <option value="3">Names (Z-A)</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="mt-3 d-flex justify-content-end">
-                                        <a href="#" class="btn btn-primary">글쓰기</a>
+                                        <a href="/board/write" class="btn btn-primary">글쓰기</a>
                                     </div>
                                     <nav class="d-flex justify-content-center mt-3">
                                         <ul class="pagination pagination-base pagination-boxed pagination-square mb-0">

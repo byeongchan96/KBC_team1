@@ -1,5 +1,6 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.constant.MovieCategory;
 import bitc.fullstack405.bitcteam3prj.database.entity.ManagerEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardRatingEntity;
