@@ -4,7 +4,6 @@ import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -189,31 +188,22 @@ public class TestController {
     return mv;
   }
 
+//  id 찾기 프로세스
+  @ResponseBody
   @PostMapping("/findId")
   public ModelAndView findId(@RequestParam("email") String email, @RequestParam("userPw") String userPw) throws Exception {
     ModelAndView mv = new ModelAndView();
 
     UserEntity userEntity = userService.findUserId(email, userPw);
 
-    mv.addObject("userId", userEntity.getUserId());
-    mv.addObject("email", email);
-    mv.addObject("userPw", userPw);
 
-    if (email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
-      mv.setViewName("redirect:/foundId");
+    if (userEntity != null && email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
+      mv.addObject("userId", userEntity.getUserId());
+      mv.setViewName("/user/foundId");
     }
     else {
       mv.setViewName("redirect:/findId?error=notFoundUser");
     }
-
-    return mv;
-  }
-
-  @GetMapping("/foundId")
-  public ModelAndView foundId() throws Exception {
-    ModelAndView mv = new ModelAndView();
-    
-    mv.setViewName("/user/foundId");
 
     return mv;
   }

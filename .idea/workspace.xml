@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/changePassword.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/findId.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/findPassword.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/foundId.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/logInTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/logInTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/foundId.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/foundId.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,9 +52,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PerforceDirect.Settings">
-    <option name="CHARSET" value="없음" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -82,7 +73,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.BitcTeam3prjApplication.executor": "Run",
+    "Spring Boot.BitcTeam3prjApplication.executor": "Debug",
     "git-widget-placeholder": "Login",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -127,10 +118,22 @@
       <workItem from="1721873574256" duration="6835000" />
       <workItem from="1721884944699" duration="2620000" />
       <workItem from="1721887610074" duration="12425000" />
+      <workItem from="1721951443568" duration="1820000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/TestController.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

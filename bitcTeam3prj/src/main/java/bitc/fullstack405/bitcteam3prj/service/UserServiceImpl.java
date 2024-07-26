@@ -62,9 +62,7 @@ public class UserServiceImpl implements UserService{
   @Override
   public UserEntity findUserId(String email, String userPw) throws Exception {
 
-    UserEntity entity = userRepository.findByEmailAndUserPw(email, userPw);
-
-    return entity;
+    return userRepository.findByEmailAndUserPw(email, userPw);
 
   }
 }
