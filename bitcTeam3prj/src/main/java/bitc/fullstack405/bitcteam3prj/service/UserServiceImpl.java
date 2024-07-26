@@ -65,4 +65,15 @@ public class UserServiceImpl implements UserService{
     return userRepository.findByEmailAndUserPw(email, userPw);
 
   }
+
+  @Override
+  public UserEntity findUserIdForProfile(String userId) throws Exception {
+
+    return userRepository.findByUserId(userId);
+  }
+
+  @Override
+  public void deleteUser(String userId) throws Exception {
+    userRepository.signOut(userId);
+  }
 }

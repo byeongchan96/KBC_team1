@@ -1,10 +1,8 @@
 package bitc.fullstack405.bitcteam3prj.database.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -60,4 +58,8 @@ public class UserEntity {
   @ToString.Exclude
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   List<MovieBoardRatingEntity> movieRatingList;
+
+  @Column(name = "deleted_yn")
+  private char deletedYn = 'N';
+
 }

@@ -18,11 +18,17 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @GetMapping("/home")
+  public ModelAndView home() {
+    ModelAndView mv = new ModelAndView("/main/mainHome");
+    return mv;
+  }
+
   //  로그인 화면 뷰
   @GetMapping ("/login")
   public ModelAndView  login() throws Exception{
     ModelAndView mv = new ModelAndView();
-    mv.setViewName("/user/logInTest");
+    mv.setViewName("/login/Login");
     return mv;
   }
 
@@ -39,15 +45,20 @@ public class UserController {
 
     if (userId != null && userPw != null && result == 1) {
 
-      HttpSession session = req.getSession();
+      UserEntity entity = userService.findUserIdForProfile(userId);
+      if (entity.getDeletedYn() == 'N'){
+        HttpSession session = req.getSession();
 
-      session.setAttribute("userId", userId);
-      session.setAttribute("userPw", userPw);
+        session.setAttribute("userId", userId);
+        session.setAttribute("userPw", userPw);
 
-      session.setMaxInactiveInterval(60 * 60 * 1);
+        session.setMaxInactiveInterval(60 * 60 * 1);
 
-      mv.setViewName("redirect:/loginSuccess");
-
+        mv.setViewName("redirect:/home");
+      }
+      else {
+        mv.setViewName("redirect:/login?error=signOutUser");
+      }
     }
     else {
       mv.setViewName("redirect:/login?error=loginFailed");
@@ -96,7 +107,7 @@ public class UserController {
   @GetMapping("/signIn")
   public ModelAndView signIn() throws Exception {
     ModelAndView mv = new ModelAndView();
-    mv.setViewName("/user/signInTest");
+    mv.setViewName("/login/signIn");
     return mv;
   }
 
@@ -145,12 +156,16 @@ public class UserController {
     mv.addObject("email", entity.getEmail());
 
     if (Objects.equals(entity.getUserId(), userId) && Objects.equals(entity.getEmail(), email)) {
-      mv.setViewName("redirect:/changePassword");
+      if (entity.getDeletedYn() == 'N') {
+        mv.setViewName("redirect:/changePassword");
+      }
+      else {
+        mv.setViewName("redirect:/findPassword?error=signOutUser");
+      }
     }
     else {
       mv.setViewName("redirect:/findPassword?error=notFoundUser");
     }
-
     return mv;
   }
 
@@ -197,12 +212,123 @@ public class UserController {
     UserEntity userEntity = userService.findUserId(email, userPw);
 
 
-    if (userEntity != null && email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
-      mv.addObject("userId", userEntity.getUserId());
-      mv.setViewName("/user/foundId");
+    if (userEntity.getDeletedYn() == 'N') {
+      if (userEntity != null && email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
+        mv.addObject("userId", userEntity.getUserId());
+        mv.setViewName("/user/foundId");
+      }
+      else {
+        mv.setViewName("redirect:/findId?error=notFoundUser");
+      }
     }
     else {
-      mv.setViewName("redirect:/findId?error=notFoundUser");
+      mv.setViewName("redirect:/findId?error=signOutUser");
+    }
+
+    return mv;
+  }
+
+//  마이페이지(프로필)
+  @GetMapping("profile/{userId}")
+  public ModelAndView userProfile(HttpServletRequest req, @PathVariable String userId) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    HttpSession session = req.getSession();
+
+    UserEntity userEntity = userService.findUserIdForProfile(userId);
+
+    if(session.getAttribute("userId") != null) {
+      mv.addObject("user", userEntity);
+      if (userEntity != null ) {
+        if (userEntity.getDeletedYn() == 'N') {
+          if (session.getAttribute("userId") == userEntity.getUserId()) { // 자신의 프로필인지 타인의 프로필인지 확인
+            mv.addObject("me", true);
+            mv.setViewName("/user/mypage");
+          }
+          else if (session.getAttribute("userId") != userEntity.getUserId()) {
+            mv.addObject("me", false);
+            mv.setViewName("/user/mypage");
+          }
+        }
+        else {
+          mv.setViewName("redirect:/home?error=signOutUser");
+        }
+      }
+      else {
+        mv.setViewName("redirect:/home?error=notFoundUser");
+      }
+    }
+    else {
+      mv.setViewName("redirect:/login");
+    }
+    return mv;
+  }
+
+//  마이페이지(비밀번호 변경)
+  @GetMapping("changePasswordProfile/{userId}")
+  public ModelAndView changePw(@RequestParam("changePw") String changePw, @RequestParam("userPw") String userPw, @RequestParam("changePwChk") String changePwChk, HttpServletRequest req) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    HttpSession session = req.getSession();
+
+    UserEntity userEntity = userService.findUserIdForProfile(session.getId());
+
+    if (session.getAttribute("userId") != null) {
+      if (userEntity.getDeletedYn() == 'N') {
+        if(session.getAttribute("userId").equals(userEntity.getUserId())) {
+          if (changePw.equals(changePwChk)) {
+            userService.updateUserPw((String)session.getAttribute("userId"), userPw);
+            mv.setViewName("redirect:/profile/" + userEntity.getUserId());
+          }
+          else {
+            mv.setViewName("redirect:/changePasswordProfile?error=pwChk");
+          }
+        }
+        else {
+          mv.setViewName("redirect:/changePasswordProfile?error=notYourProfile");
+        }
+      }
+      else {
+        mv.setViewName("redirect:/main?error=signOutUser");
+      }
+    }
+    else if (session.getAttribute("userId") != null) {
+      mv.setViewName("redirect:/login");
+    }
+    return mv;
+  }
+
+  @GetMapping("/signOut")
+  public String signOutPwChk() throws Exception {
+    return "user/signOutTest";
+  }
+
+  @PostMapping("/signOut")
+  public String signOutPwReChk() throws Exception {
+    return "user/signOutTest";
+  }
+
+  @DeleteMapping("/signOut")
+  public ModelAndView deleteUser(HttpServletRequest req) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    HttpSession session = req.getSession();
+
+    String userId = (String)session.getAttribute("userId");
+
+    if (session.getAttribute("userId") != null) {
+      UserEntity userEntity = userService.findUserIdForProfile(userId);
+      if (userEntity.getDeletedYn() == 'N') {
+        userService.deleteUser(userId);
+        session.invalidate();
+        mv.setViewName("redirect:/home");
+      }
+      else {
+        mv.setViewName("redirect:/login?error=alrdyOutUser");
+      }
+    }
+    else {
+      mv.setViewName("redirect:/login");
     }
 
     return mv;

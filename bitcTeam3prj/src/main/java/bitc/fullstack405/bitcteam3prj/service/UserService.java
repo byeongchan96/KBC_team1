@@ -17,4 +17,8 @@ public interface UserService {
   void updateUserPw(String userId, String userPw) throws Exception; // 암호찾기를 통한 암호변경
 
   UserEntity findUserId(String email, String userPw) throws Exception; // userId 찾기
+
+  UserEntity findUserIdForProfile(String userId) throws Exception;
+
+  void deleteUser(String userId) throws Exception;
 }

@@ -4,7 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="" />
+    <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/board/boardDetail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/board/boardList.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/login/Login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/login/signIn.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/main/mainHome.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/movie/movieInfo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/mypage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/layout/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/layout/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/layout/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/main/testMain.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/main/testMain.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/movie/testMovie.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/movie/testMovie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/testUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/testUser.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +91,7 @@
     "git-widget-placeholder": "Login",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/fullstack405/spring/JPATest",
+    "last_opened_file_path": "C:/fullstack405/spring/team3/bitcTeam3prj/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,6 +100,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\fullstack405\spring\team3\bitcTeam3prj\src\main\resources" />
+      <recent name="C:\fullstack405\spring\team3\bitcTeam3prj\src\main\resources\templates" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="BitcTeam3prjApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -113,7 +138,7 @@
       <workItem from="1721873574256" duration="6835000" />
       <workItem from="1721884944699" duration="2620000" />
       <workItem from="1721887610074" duration="12425000" />
-      <workItem from="1721951443568" duration="2675000" />
+      <workItem from="1721951443568" duration="14115000" />
     </task>
     <servers />
   </component>
