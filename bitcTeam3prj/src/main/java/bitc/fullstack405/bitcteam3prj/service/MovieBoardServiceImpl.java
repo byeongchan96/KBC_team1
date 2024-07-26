@@ -43,7 +43,7 @@ public class MovieBoardServiceImpl implements MovieBoardService {
     @Override
     public MovieBoardEntity findByMovieId(long movieId) throws Exception {
 
-      return movieBoardRepository.findById(movieId);
+        return movieBoardRepository.findById(movieId);
 
     }
 

@@ -109,18 +109,18 @@
                     제지소 주인의 아들 인권은 흉흉한 마을 분위기를 강압적인 태도로 잡으며 원규와 끊임없이 대립하기만 한다.
                     여기에 참형 당한 강객주에게 은혜를 입었던 두호의 등장으로 원규는 점점 혼란속에 빠지게 되는데...
                 </p>
-                <form action="/movie/" method="post" th:action="@{| /movie/{movieBoardId}/rating |}">
+                <form action="#" method="post" th:action="@{| /movie/${movieBoardId}/rating |}">
                     <h4 class="mb-5 fw-bold">관람평</h4>
-                    <select class="form-control" id="rating-sel">
+                    <select class="form-control" id="movieRating">
                         <option value="" selected>평점 선택</option>
-                        <option value="5">5</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
+                        <option value="5" name="movieRating" >5</option>
+                        <option value="4" name="movieRating">4</option>
+                        <option value="3" name="movieRating">3</option>
+                        <option value="2" name="movieRating">2</option>
+                        <option value="1" name="movieRating">1</option>
                     </select>
                     <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="What are you thinking?"></textarea>
+                        <textarea class="form-control" id="content" name="content" rows="3" placeholder="What are you thinking?"></textarea>
                     </div>
                     <div class="mt-3 py-2">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-pencil-alt"></i> 글등록</button>
@@ -136,11 +136,11 @@
                                 <div class="d-flex mt-3 gap-3 justify-content-around">
                                     <div class="input-group">
                                         <span class="input-group-text">유저ID</span>
-                                        <input type="text" class="form-control" name="userId" th:value="${item.user.userId}">
+                                        <input type="text" class="form-control" th:value="${item.user.userId}">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-text">평점</span>
-                                        <input type="text" class="form-control" name="userId" th:value="${item.movieRating}">
+                                        <input type="text" class="form-control" th:value="${item.movieRating}">
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
                                 <div class="input-group">
                                     <div class="input-group">
                                         <span class="input-group-text">한줄평</span>
-                                        <textarea class="form-control" name="contents"th:text="${item.content}"></textarea>
+                                        <textarea class="form-control" th:text="${item.content}"></textarea>
                                     </div>
                                 </div>
                             </div>

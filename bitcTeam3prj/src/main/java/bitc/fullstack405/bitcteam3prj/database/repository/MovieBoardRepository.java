@@ -10,4 +10,3 @@ public interface MovieBoardRepository extends JpaRepository<MovieBoardEntity, Lo
   MovieBoardEntity findById(long id) throws Exception;
 
 }
-
