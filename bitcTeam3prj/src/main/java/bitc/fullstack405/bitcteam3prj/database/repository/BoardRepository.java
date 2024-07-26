@@ -2,6 +2,7 @@ package bitc.fullstack405.bitcteam3prj.database.repository;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,5 +38,9 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
     List<BoardEntity> findByTitleLike(String title);
     List<BoardEntity> findByCategoryLike(String Category);
+
+
+    @Query("SELECT b FROM BoardEntity AS b WHERE b.title LIKE '%?1%'")
+    List<BoardEntity> findAllBySearch(String search);
 
 }
