@@ -13,6 +13,10 @@ public class MovieBoardRatingEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+
+    @Column(length = 100)
+    private String content;
+
     @ManyToOne
     @JoinColumn(name = "movie_board_id")
     @ToString.Exclude
