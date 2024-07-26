@@ -45,22 +45,54 @@ public class MovieBoardController {
     public ModelAndView getMovieBoardDetail(
             @PathVariable("movieId") long id) throws Exception {
 
+
+
         ModelAndView mv = new ModelAndView();
 
-        MovieEntity entity = movieService.selectMovieById(id);
-        mv.addObject("movieId", entity.getId());
-        mv.addObject("directorId", entity.getDirector());
-        mv.addObject("movieCate", entity.getMovieCate());
-        mv.addObject("posterImg", entity.getPosterImg());
-        mv.addObject("movieName", entity.getMovieName());
-        mv.addObject("openDt", entity.getOpenDt());
-        mv.addObject("showTm", entity.getShowTm());
-        mv.addObject("movieDisc", entity.getMovieDisc());
-        mv.addObject("company", entity.getCompany());
-        mv.addObject("grade", entity.getGrade());
+        MovieBoardEntity entity = movieBoardService.findByMovieId(id);
+        var ratingList = ratingService.findAllByMovieBoard(entity);
+
+
+        float avg = 0.0f;
+        int size = ratingList.size();
+        if(size > 0) {
+            int sum = 0;
+            for (var rating : ratingList) {
+                sum += rating.getMovieRating();
+            }
+
+            avg = sum / size;
+            mv.addObject("avg", avg);
+        }
+
+
+        mv.addObject("movie", entity);
+        mv.addObject("ratingList", ratingList);
+
+        MovieEntity movieEntity = movieService.selectMovieById(id);
+
+//        mv.addObject("movieId", movieEntity.getId());
+//        mv.addObject("directorId", movieEntity.getDirector());
+//        mv.addObject("movieCate", movieEntity.getMovieCate());
+//        mv.addObject("posterImg", movieEntity.getPosterImg());
+//        mv.addObject("movieName", movieEntity.getMovieName());
+//        mv.addObject("openDt", movieEntity.getOpenDt());
+//        mv.addObject("showTm", movieEntity.getShowTm());
+//        mv.addObject("movieDisc", movieEntity.getMovieDisc());
+//        mv.addObject("company", movieEntity.getCompany());
+//        mv.addObject("grade", movieEntity.getGrade());
 
 
 
+//        MovieBoardEntity movieBoardEntity = movieBoardService.findByMovieId(entity.getId());
+//
+//        mv.addObject("movieBoardId", movieBoardEntity.getId());
+//        mv.addObject("movieBoard")
+//
+//
+//
+//
+//        MovieBoardRatingEntity ratingEntity = ratingService.findAllByMovieBoard(id);
 
 
         mv.setViewName("/movie/movieInfo");

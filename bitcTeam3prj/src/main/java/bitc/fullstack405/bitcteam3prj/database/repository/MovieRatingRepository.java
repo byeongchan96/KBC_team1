@@ -15,7 +15,7 @@ public interface MovieRatingRepository extends JpaRepository<MovieBoardRatingEnt
 
   void deleteByUser(UserEntity user);
 
-  @Query("select avg(mbr.movieRating) from MovieBoardRatingEntity as mbr where mbr.movieBoard = :movieBoard ")
+  @Query("select avg(mbr.movieRating) from MovieBoardRatingEntity mbr where mbr.movieBoard = :movieBoard ")
   MovieBoardRatingEntity queryAvgRating(@Param("movieBoard") MovieBoardEntity movieBoard);
 
 }

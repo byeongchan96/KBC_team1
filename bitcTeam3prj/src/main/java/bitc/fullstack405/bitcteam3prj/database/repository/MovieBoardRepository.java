@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MovieBoardRepository extends JpaRepository<MovieBoardEntity, Long> {
 
+  MovieBoardEntity findById(long id) throws Exception;
+
 }
 

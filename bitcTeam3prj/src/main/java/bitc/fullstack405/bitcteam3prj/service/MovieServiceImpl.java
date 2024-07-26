@@ -9,11 +9,17 @@ import java.util.List;
 
 @Service
 public class MovieServiceImpl implements MovieService {
+
     @Autowired
     private MovieRepository movieRepository;
 
     @Override
     public List<MovieEntity> selectMovieList() throws Exception {
         return movieRepository.findAll();
+    }
+
+    @Override
+    public MovieEntity selectMovieById(long id) {
+        return movieRepository.findById(id);
     }
 }

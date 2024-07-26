@@ -40,5 +40,12 @@ public class MovieBoardServiceImpl implements MovieBoardService {
         movieBoardRepository.saveAll(movieBoardList);
     }
 
+    @Override
+    public MovieBoardEntity findByMovieId(long movieId) throws Exception {
+
+      return movieBoardRepository.findById(movieId);
+
+    }
+
 
 }
