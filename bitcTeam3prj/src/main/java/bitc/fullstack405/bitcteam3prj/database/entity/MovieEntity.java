@@ -32,6 +32,8 @@ public class MovieEntity {
   @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL)
   private ImgFileEntity posterImg; // 영화포스터, movie_article 테이블과 외래키
 
+
+
   @Column(nullable = false)
   private String movieName; // 영화이름
 

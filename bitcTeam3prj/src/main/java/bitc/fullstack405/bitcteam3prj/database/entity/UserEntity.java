@@ -24,6 +24,8 @@ public class UserEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id; // 유저키 pk, board 테이블과 fk
 
+  @Column(nullable = false)
+  private String userId;
 
   @ToString.Exclude
   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

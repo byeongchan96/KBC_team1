@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용하기</title>
+    <script src="/js/jquery-3.7.1.js"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.js"></script>
+    <style>
+        .about-text h3 { color: #333; }
+        .about-text h4 { color: #007bff; }
+        .btn-bar a { margin-right: 10px; }
+        .gray-bg { background-color: #f8f9fa; }
+        .theme { background-color: #007bff; color: #fff; }
+        .theme-t { background-color: #6c757d; color: #fff; }
+        .btn-trans { background: transparent; border: none; }
+        .btn-round { border-radius: 50%; }
+        .panel-body { margin: 20px 0; }
+    </style>
+</head>
+<body>
+<!-- header -->
+<header th:replace="~{/layout/header::header}"></header>
+<!-- header END -->
+<main class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="pro-img-details">
+                                <img src="https://www.bootdey.com/image/550x380/FFB6C1/000000" alt="Product image" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="pro-d-title">
+                                <a href="#">영화제목</a>
+                            </h4>
+                            <p>장화 홍련</p>
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <th scope="row">게시판:</th>
+                                    <td>
+                                        <a rel="tag" href="#">리뷰</a>,
+                                        <a rel="tag" href="#">자유게시판</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">장르:</th>
+                                    <td><a rel="tag" href="#">공포/스릴러</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">감독:</th>
+                                    <td><a rel="tag" href="#">홍길동</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">러닝타임:</th>
+                                    <td><a rel="tag" href="#">150분</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">관람등급:</th>
+                                    <td><a rel="tag" href="#">전체관람가</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">출연자:</th>
+                                    <td><a rel="tag" href="#">mens</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <nav>
+        <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="true">줄거리</a>
+        </div>
+        <div class="tab-content mt-5" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                <p>
+                    19세기 조선시대 말엽, 제지업을 기반으로 성장한 외딴 섬 마을 동화도. 어느 날 조정에 바쳐야 할 제지가 수송선과 함께 불타는 사고가 벌어지고....
+                    사건을 해결하고자 수사관 원규 일행이 동화도로 파견된다. 섬에 도착한 첫 날, 화재사건의 해결을 서두르던 원규 일행 앞에서 참혹한 살인사건이 일어난다.
+                    범인을 알 수 없는 살인 사건으로 동요하는 마을 사람들은 7년전, 역모를 이끈 천주교도와 한패로 낙인찍혀 온 가족이 참형을 당한 강객주의 원혼이 일으킨 저주라 여기며 점점 광기에 휩싸여간다. 그리고.....
+                    불길한 섬에 고립 되어가는 원규 일행은 살인범의 자취를 찾지 못한 채 점점 광기어린 마을 사람들의 분위기에 동요되고 만다.
+                    게다가 사건을 해결하기 위해 냉철하게 추리해나가던 원규 앞에 참혹한 연쇄 살인 사건이 이어지고....
+                    제지소 주인의 아들 인권은 흉흉한 마을 분위기를 강압적인 태도로 잡으며 원규와 끊임없이 대립하기만 한다.
+                    여기에 참형 당한 강객주에게 은혜를 입었던 두호의 등장으로 원규는 점점 혼란속에 빠지게 되는데...
+                </p>
+                <form action="#">
+                    <h4 class="mb-5 fw-bold">관람평</h4>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" placeholder="What are you thinking?"></textarea>
+                    </div>
+                    <div class="mt-3 py-2">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-pencil-alt"></i> 글등록</button>
+                        <a class="btn btn-trans btn-icon fa fa-video-camera" href="#"></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</main>
+<!-- Footer -->
+<footer th:replace="~{/layout/footer::footer}"></footer>
+</body>
+</html>

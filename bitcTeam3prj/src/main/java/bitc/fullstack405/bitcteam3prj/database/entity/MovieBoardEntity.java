@@ -2,6 +2,7 @@ package bitc.fullstack405.bitcteam3prj.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class MovieBoardEntity extends BaseEntity{
   @OneToMany(mappedBy = "movieBoard", cascade = CascadeType.ALL)
   private List<MovieBoardRatingEntity> movieRatingList;
 
-  @Column
+  @Column(nullable = false)
+  @ColumnDefault("0")
   private int viewCnt; // 조회수
 
 }
