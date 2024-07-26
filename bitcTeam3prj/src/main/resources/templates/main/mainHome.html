@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사용하기</title>
+<<<<<<< HEAD
     <script src="/js/jquery-3.7.1.js"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
+=======
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/jquery-3.7.1.js"></script>
+>>>>>>> HTML_KBC
     <script src="/js/bootstrap.bundle.js"></script>
     <style>
         .carousel-item img {
@@ -19,10 +24,17 @@
             border-radius: 5px;
         }
 
+<<<<<<< HEAD
         .carousel-caption h5,
         .carousel-caption p {
             color: #fff;
         }
+=======
+        .carousel-caption h5, .carousel-caption p {
+            color: #fff;
+        }
+
+>>>>>>> HTML_KBC
         .carousel-indicators {
             display: none;
         }
@@ -39,6 +51,7 @@
             color: #343a40;
         }
 
+<<<<<<< HEAD
         .articles .item .image {
             min-width: 50px;
             max-width: 50px;
@@ -49,16 +62,29 @@
         .articles .item img {
             padding: 3px;
             border: 1px solid #28a745
+=======
+        .articles .item img {
+            max-width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border: 1px solid #28a745;
+            padding: 3px;
+>>>>>>> HTML_KBC
         }
 
         .articles .item h3 {
             color: #555;
             font-weight: 400;
+<<<<<<< HEAD
             margin-bottom: 0
+=======
+            margin-bottom: 0;
+>>>>>>> HTML_KBC
         }
 
         .articles .item small {
             color: #aaa;
+<<<<<<< HEAD
             font-size: 0.75em
         }
 
@@ -116,6 +142,19 @@
         <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
         <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
     </ol>
+=======
+            font-size: 0.75em;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Header -->
+<header th:replace="~{/layout/header::header}"></header>
+
+<!-- Carousel -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+>>>>>>> HTML_KBC
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="First slide">
@@ -148,6 +187,7 @@
         <span class="visually-hidden">Next</span>
     </a>
 </div>
+<<<<<<< HEAD
 
 <div class="container mt-5">
     <div class="row">
@@ -223,10 +263,113 @@
                         <div class="text"><a href="#">
                             <h3 class="h5">Lorem Ipsum Dolor</h3>
                         </a><small>Posted on 5th June 2017 by Sam Martinez.</small></div>
+=======
+<!---->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm">
+            <img class="img-responsive img-effect" src="https://www.bootdey.com/image/700x500/FFB6C1/000000">
+        </div>
+        <div class="col-sm">
+            <img class="img-responsive img-effect" src="https://www.bootdey.com/image/700x500/FFB6C1/000000">
+        </div>
+        <div class="col-sm">
+            <img class="img-responsive img-effect" src="https://www.bootdey.com/image/700x500/FFB6C1/000000">
+        </div>
+    </div>
+    <!---->
+    <div class="container mt-5">
+        <!-- Cards -->
+
+        <div class="row">
+            <!-- Movie Review Card -->
+            <div class="col-sm mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h2 class="h3 mb-0">공지사항 게시판</h2>
+                        <div class="badge badge-rounded bg-success">4 New</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group mt-3">
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <!-- Repeat list items as needed -->
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-danger">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice Board Card -->
+            <div class="col-sm mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h2 class="h3 mb-0">영화 리뷰 게시판</h2>
+                        <div class="badge badge-rounded bg-success">4 New</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group mt-3">
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <!-- Repeat list items as needed -->
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-danger">Remove</button>
+>>>>>>> HTML_KBC
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 
         <div class="col-lg-6">
             <div class="articles card">
@@ -265,15 +408,108 @@
                         <div class="text"><a href="#">
                             <h3 class="h5">Lorem Ipsum Dolor</h3>
                         </a><small>Posted on 5th June 2017 by Sam Martinez.</small></div>
+=======
+        <div class="row">
+            <!-- Movie Review Card -->
+            <div class="col-sm mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h2 class="h3 mb-0">공지사항 게시판</h2>
+                        <div class="badge badge-rounded bg-success">4 New</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group mt-3">
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <!-- Repeat list items as needed -->
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-danger">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice Board Card -->
+            <div class="col-sm mb-4">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h2 class="h3 mb-0">영화 리뷰 게시판</h2>
+                        <div class="badge badge-rounded bg-success">4 New</div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group mt-3">
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <div class="text">
+                                    <a href="#">
+                                        <h3 class="h5">Lorem Ipsum Dolor</h3>
+                                    </a>
+                                    <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                </div>
+                            </li>
+                            <!-- Repeat list items as needed -->
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-secondary">Edit</button>
+                        <button class="btn btn-danger">Remove</button>
+>>>>>>> HTML_KBC
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
 
 <!-- Footer -->
 <footer th:replace="~{/layout/footer::footer}"></footer>
 </body>
 
+=======
+
+    <!-- Footer -->
+    <footer th:replace="~{/layout/footer::footer}"></footer>
+
+</body>
+>>>>>>> HTML_KBC
 </html>
