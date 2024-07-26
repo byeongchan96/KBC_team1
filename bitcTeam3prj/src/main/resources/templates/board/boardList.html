@@ -74,14 +74,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${#List.size(boardList)>0}" th:each="item:${boardList}">
-                    <td th:text="${item.boardIdx}"></td>
+                <tr th:if="${#lists.size(boardList)}" th:each="item:${boardList}">
+                    <td th:text="${item.id}"></td>
                     <td>
-                        <a href="/board/boardDetaildo?boardIdx=" th:attrappend="href=${item.boardIdx}" th:text="${item.title}"></a>
+                        <a href="#" th:href="@{|/board/${item.id}|}" th:text="${item.title}"></a>
                     </td>
-                    <td th:text="${item.createuser}"></td>
-                    <td th:text="${item.createdate}"></td>
-                    <td th:text="${item.hitCnt}"></td>
+                    <td th:text="${item.user.userId}"></td>
+                    <td th:text="${item.createdAt}"></td>
+                    <td th:text="${item.visitCnt}"></td>
                 </tr>
                 </tbody>
             </table>
