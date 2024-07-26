@@ -10,4 +10,5 @@ public interface RatingService {
   List<MovieBoardRatingEntity> findAllByMovieBoard(MovieBoardEntity movieBoard) throws Exception;
   void deleteByUser() throws Exception;
   void queryAvgRating() throws Exception;
+  void insert(MovieBoardRatingEntity ratingEntity);
 }

@@ -34,4 +34,9 @@ public class RatingServiceImpl implements RatingService {
   public void queryAvgRating() throws Exception {
 
   }
+
+  @Override
+  public void insert(MovieBoardRatingEntity ratingEntity) {
+    movieRatingRepo.save(ratingEntity);
+  }
 }
