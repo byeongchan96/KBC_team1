@@ -2,7 +2,11 @@ package bitc.fullstack405.bitcteam3prj.service;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 
+import java.util.List;
+
 public interface UserService {
+
+  List<UserEntity> selectUserList() throws Exception;
 
   int isUserInfo(String userId, String userPw) throws Exception;
 

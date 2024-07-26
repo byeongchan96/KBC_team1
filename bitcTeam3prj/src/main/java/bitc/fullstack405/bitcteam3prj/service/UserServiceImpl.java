@@ -15,7 +15,13 @@ public class UserServiceImpl implements UserService{
   @Autowired
   private UserRepository userRepository;
 
-//  로그인 시도 유저 존재 확인
+  @Override
+  public List<UserEntity> selectUserList() throws Exception {
+    var userList = userRepository.findAll();
+    return userList;
+  }
+
+  //  로그인 시도 유저 존재 확인
   @Override
   public int isUserInfo(String userId, String userPw) throws Exception {
     int result = userRepository.countByUserIdAndUserPw(userId, userPw);

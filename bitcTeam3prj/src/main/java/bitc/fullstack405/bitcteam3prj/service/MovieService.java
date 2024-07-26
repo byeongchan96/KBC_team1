@@ -5,5 +5,8 @@ import bitc.fullstack405.bitcteam3prj.database.entity.MovieEntity;
 import java.util.List;
 
 public interface MovieService {
+
+    List<MovieEntity> selectMovieList() throws Exception;
+
     void saveAllMovie(List<MovieEntity> movieEntities) throws Exception;
 }

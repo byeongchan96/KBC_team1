@@ -13,6 +13,10 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    public List<MovieEntity> selectMovieList() throws Exception {
+        return movieRepository.findAll();
+    }
+
     @Override
     public void saveAllMovie(List<MovieEntity> movieEntities) throws Exception {
         movieRepository.saveAll(movieEntities);

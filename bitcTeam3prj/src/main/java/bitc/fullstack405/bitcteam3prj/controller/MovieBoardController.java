@@ -1,12 +1,8 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
-import bitc.fullstack405.bitcteam3prj.database.entity.ManagerEntity;
-import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardEntity;
-import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardRatingEntity;
-import bitc.fullstack405.bitcteam3prj.database.entity.MovieEntity;
-import bitc.fullstack405.bitcteam3prj.service.ManagerService;
-import bitc.fullstack405.bitcteam3prj.service.MovieBoardService;
-import bitc.fullstack405.bitcteam3prj.service.MovieService;
+import bitc.fullstack405.bitcteam3prj.database.entity.*;
+import bitc.fullstack405.bitcteam3prj.database.repository.MovieRatingRepository;
+import bitc.fullstack405.bitcteam3prj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,20 +22,25 @@ public class MovieBoardController {
     private MovieService movieService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ManagerService managerService;
 
+    @Autowired
+    private MovieRatingService ratingService;
+
+//    @GetMapping("/")
+//    public ModelAndView getMovieBoardList() throws Exception {
+//        ModelAndView mv = new ModelAndView("");
+//
+//        var movieBoardList = movieBoardService.selectMovieBoardList();
+//        mv.addObject("movieBoardList", movieBoardList);
+//
+//        return mv;
+//    }
 
     @GetMapping("/")
-    public ModelAndView getMovieBoardList() throws Exception {
-        ModelAndView mv = new ModelAndView("");
-
-        var movieBoardList = movieBoardService.selectMovieBoardList();
-        mv.addObject("movieBoardList", movieBoardList);
-
-        return mv;
-    }
-
-    @PostMapping("/")
     public String writeMovieBoard() throws Exception{
         ManagerEntity manager = managerService.selectManagerById(1L);
 
@@ -59,6 +60,34 @@ public class MovieBoardController {
         movieBoardService.insertMovieBoardList(movieBoardList);
 
         return "redirect:/board/testBoard";
+    }
+
+    @GetMapping("/rating")
+    public String ratingDummy() throws Exception{
+        var movieBoardList = movieBoardService.selectMovieBoardList();
+        var userList = userService.selectUserList();
+
+        List<MovieBoardRatingEntity> ratingList = new ArrayList<>();
+
+        for(var movieBoard : movieBoardList){
+            int randUserIdx = (int) (Math.random() * 4);
+            for(int i = 0; i <= randUserIdx; i++){
+                double randRating = (int) (Math.random() * 100) / 10.0;
+                UserEntity user = userList.get(i);
+                MovieBoardRatingEntity rating = new MovieBoardRatingEntity();
+                rating.setMovieBoard(movieBoard);
+                rating.setContent("제 점수는..." + randRating);
+                rating.setUser(user);
+                rating.setMovieRating(randRating);
+
+                ratingList.add(rating);
+            }
+
+        }
+
+        ratingService.insertRatingList(ratingList);
+
+        return"";
     }
 
     @GetMapping("/{movieBoardId}")

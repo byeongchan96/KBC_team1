@@ -43,7 +43,7 @@ public class ParserController {
     private FileUtils fileUtils;
 
     @RequestMapping("/insert/director")
-    public ModelAndView setDirector() throws Exception {
+    public String setDirector() throws Exception {
         String serviceURL = movieURL + "&ServiceKey=" + movieKey;
 
         MovieDTO movieData = parserService.getMovieData(serviceURL);
@@ -89,7 +89,7 @@ public class ParserController {
             directorService.saveAllDirector(directorEntities);
         }
 
-        return mv;
+        return "redirect:/insert/dummy";
     }
 
 
@@ -251,6 +251,6 @@ public class ParserController {
         movieService.saveAllMovie(movieEntities);
         imgFileService.saveAllImageFile(imgFileEntities);
 
-        return "/board/testBoard";
+        return "/movie/";
     }
 }
