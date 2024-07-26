@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping({"", "/", "movcom"})
-public class TestController {
+public class UserController {
 
   @Autowired
   private UserService userService;
