@@ -8,24 +8,12 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
     <style>
-        .file-upload .square {
-            height: 250px;
-            width: 250px;
-            margin: auto;
-            border: 1px solid #e5dfe4;
-            background-color: #fff;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto; /* Center align the form container */
         }
-        .btn-success-soft {
-            color: #28a745;
-            background-color: rgba(40, 167, 69, 0.1);
-        }
-        .btn-danger-soft {
-            color: #dc3545;
-            background-color: rgba(220, 53, 69, 0.1);
+        .card-body {
+            padding: 2rem; /* Add padding inside the card */
         }
     </style>
 </head>
@@ -33,105 +21,82 @@
 <!-- header -->
 <header th:replace="~{/layout/header::header}"></header>
 <!-- header END -->
+<!-- Main Content -->
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-7 col-lg-8">
-            <h4 class="mb-3">회원가입</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row g-3">
-                    <!-- Profile Upload Section -->
-                    <div class="col-sm-12 text-center mb-4">
-                        <div class="bg-secondary-soft px-4 py-5 rounded">
-                            <h4 class="mb-4 mt-0">프로필 사진 업로드</h4>
-                            <div class="text-center">
-                                <!-- Image upload -->
-                                <div class="square position-relative mb-3">
-                                    <i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
-                                </div>
-                                <!-- Button -->
-                                <input type="file" id="customFile" name="file" hidden>
-                                <label class="btn btn-success-soft btn-block" for="customFile">업로드</label>
-                                <button type="button" class="btn btn-danger-soft">제거</button>
-                                <!-- Content -->
-                                <p class="text-muted mt-3 mb-0"><span class="me-1">참고:</span>최소 크기 300px x 300px</p>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card form-container">
+                <div class="card-body">
+                    <h4 class="mb-3">회원가입</h4>
+                    <form class="needs-validation" novalidate>
+                        <!-- Email Input -->
+                        <div class="mb-3">
+                            <label for="Email1" class="form-label">Email <span class="text-body-secondary">(필수사항)</span></label>
+                            <input type="email" class="form-control" id="Email1" placeholder="Enter email" required>
+                            <div class="invalid-feedback">유효한 이메일 주소를 입력하세요.</div>
+                        </div>
+
+                        <!-- User ID Input -->
+                        <div class="mb-3">
+                            <label for="userid" class="form-label">사용자 ID</label>
+                            <input type="text" class="form-control" id="userid" placeholder="사용자 ID" required>
+                            <div class="invalid-feedback">사용자 ID를 입력합니다.</div>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="mb-3">
+                            <label for="userpw" class="form-label">비밀번호</label>
+                            <input type="password" class="form-control" id="userpw" placeholder="비밀번호" required>
+                            <div class="invalid-feedback">비밀번호를 입력합니다.</div>
+                        </div>
+
+                        <!-- Confirm Password Input -->
+                        <div class="mb-3">
+                            <label for="userpw-confirm" class="form-label">비밀번호 확인</label>
+                            <input type="password" class="form-control" id="userpw-confirm" placeholder="비밀번호 확인" required>
+                            <div class="invalid-feedback">비밀번호를 입력합니다.</div>
+                        </div>
+
+                        <!-- Preferred Movies Input -->
+                        <div class="mb-3">
+                            <h3>선호하는 영화</h3>
+                            <label for="inputDefault" class="form-label">장르 및 선호하는 영화</label>
+                            <input type="text" class="form-control" placeholder="영화제목 및 장르" id="inputDefault">
+                        </div>
+
+                        <!-- Gender Selection -->
+                        <div class="mb-3">
+                            <h3>성별</h3>
+                            <!-- Male Radio Button -->
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="radio1" name="gender" value="male">
+                                <label class="form-check-label" for="radio1">남자</label>
+                            </div>
+                            <!-- Female Radio Button -->
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="radio2" name="gender" value="female">
+                                <label class="form-check-label" for="radio2">여자</label>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Name and Surname -->
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">이름</label>
-                        <input type="text" class="form-control" id="firstName" required>
-                        <div class="invalid-feedback">유효한 이름이 필요합니다.</div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="email" class="form-label">이메일 <span class="text-body-secondary">(선택사항)</span></label>
-                        <input type="email" class="form-control" id="email" placeholder="당신@example.com">
-                        <div class="invalid-feedback">유효한 이메일 주소를 입력하세요.</div>
-                    </div>
+                        <!-- Save Information Checkbox -->
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="save-info">
+                                <label class="form-check-label" for="save-info">이 정보를 저장해두세요</label>
+                            </div>
+                        </div>
 
-                    <!-- Other fields here... -->
-                    <div class="col-12">
-                        <label for="userid" class="form-label">사용자 ID</label>
-                        <input type="text" class="form-control" id="userid" placeholder="사용자 ID" required>
-                        <div class="invalid-feedback">사용자 ID를 입력합니다.</div>
-                    </div>
-                    <div class="col-12">
-                        <label for="userpw" class="form-label">비밀번호</label>
-                        <input type="password" class="form-control" id="userpw" placeholder="비밀번호" required>
-                        <div class="invalid-feedback">비밀번호를 입력합니다.</div>
-                        <hr>
-                        <label for="userpw-confirm" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="userpw-confirm" placeholder="비밀번호 확인" required>
-                        <div class="invalid-feedback">비밀번호를 입력합니다.</div>
-                    </div>
-                    <div class="col-md-5">
-                        <label for="country" class="form-label">국가</label>
-                        <select class="form-select" id="country" required>
-                            <option value="">선택하다...</option>
-                            <option>대한민국</option>
-                        </select>
-                        <div class="invalid-feedback">유효한 국가를 선택해주세요.</div>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="state" class="form-label">도시</label>
-                        <select class="form-select" id="state" required>
-                            <option value="">선택하다...</option>
-                            <option>부산광역시</option>
-                        </select>
-                        <div class="invalid-feedback">유효한 도시를 선택해주세요.</div>
-                    </div>
+                        <!-- Submit Button -->
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">가입하기</button>
+                    </form>
                 </div>
-                <!-- Row END -->
-                <hr class="my-4">
-
-                <div class="col-md-3">
-                    <h3>성별</h3>
-                    <!-- Male Radio Button -->
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" id="radio1" name="gender" value="male">
-                        <label class="form-check-label" for="radio1">남자</label>
-                    </div>
-                    <!-- Female Radio Button -->
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" id="radio2" name="gender" value="female">
-                        <label class="form-check-label" for="radio2">여자</label>
-                    </div>
-                </div>
-
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="save-info">
-                    <label class="form-check-label" for="save-info">이 정보를 저장해두세요</label>
-                </div>
-
-                <hr class="my-4">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">가입하기</button>
-                <hr class="my-4">
-            </form>
+            </div>
         </div>
     </div>
 </div>
 <!-- Footer -->
 <footer th:replace="~{/layout/footer::footer}"></footer>
+<!-- Footer END -->
 </body>
 </html>
