@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-md-6 mx-auto">
                             <div class="pro-img-details">
-                                <img src="https://www.bootdey.com/image/550x380/FFB6C1/000000" th:src="@{${posterImg}}" alt="Product image" class="img-fluid">
+                                <img src="https://www.bootdey.com/image/550x380/FFB6C1/000000" th:src="@{${posterImg.oriName}}" alt="Product image" class="img-fluid">
                             </div>
                             <div class="pro-img-list mt-2">
                                 <a href="#">
@@ -68,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">감독:</th>
-                                    <td><a rel="tag" href="#" th:text="${directorId}">홍길동</a></td>
+                                    <td><a rel="tag" href="#" th:text="${directorId.name}">홍길동</a></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">러닝타임:</th>
