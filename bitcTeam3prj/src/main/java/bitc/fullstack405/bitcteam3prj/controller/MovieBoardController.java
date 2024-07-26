@@ -61,13 +61,14 @@ public class MovieBoardController {
                 sum += rating.getMovieRating();
             }
 
-            avg = sum / size;
+            avg = (float) sum/ size;
             mv.addObject("avg", avg);
         }
 
 
         mv.addObject("movie", entity);
         mv.addObject("ratingList", ratingList);
+//        mv.addObject("content")
 
         MovieEntity movieEntity = movieService.selectMovieById(id);
 
