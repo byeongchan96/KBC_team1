@@ -7,6 +7,15 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#btn-cancel").on("click", function () {
+                history.back();
+            });
+        });
+    </script>
+
 </head>
 <body>
 
@@ -76,7 +85,7 @@
                     <!-- 버튼 -->
                     <div class="mb-3 text-center">
                         <button type="submit" id="btn_submit" class="btn btn-primary">작성완료</button>
-                        <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
+                        <button type="button" class="btn btn-secondary" id="btn-cancel" onclick="history.back();">취소</button>
                     </div>
 
                     <!-- Hidden Inputs and Additional Buttons -->

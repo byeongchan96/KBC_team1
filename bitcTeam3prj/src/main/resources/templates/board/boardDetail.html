@@ -7,6 +7,36 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const frm = $("search-form");
+            frm.method = "get";
+            frm.action = "/board/{boardId}";
+
+            frm.submit();
+            });
+
+            $("#btn-list").on("click", function () {
+                history.back();
+            });
+
+            $("#btn-delete").on("click", function () {
+                $("#method").val("DELETE");
+                const boardIdx = $("#board-idx").val();
+                const frm = $("#frm")[0];
+                frm.action = "/board/" + boardIdx;
+                frm.submit();
+            });
+
+            $("#btn-update").on("click", function () {
+                $("#method").val("PUT");
+                const boardIdx = $("#board-idx").val();
+                const frm = $("#frm")[0];
+                frm.action = "/board/" + boardIdx;
+                frm.submit();
+        });
+    </script>
 </head>
 <body>
 <!-- header -->
@@ -16,6 +46,7 @@
 <main class="container mt-5">
     <section>
         <div class="row">
+            <form id="frm2" method="get"></form>
             <div class="col-md-8 mx-auto">
                 <!-- 게시물 정보 테이블 -->
                 <table class="table mb-4">
@@ -129,8 +160,9 @@
                 <p>이 게시물을 삭제하시겠습니까?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-danger">삭제</button>
+                <button type="button" class="btn btn-secondary me-2" id="btn-list">목록</button>
+                <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>
+                <button type="button" class="btn btn-warning" id="btn-update">수정</button>
             </div>
         </div>
     </div>

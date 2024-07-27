@@ -30,7 +30,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardEntity selectBoardDetail(Long boardId) throws Exception {
-//        boardService.updateHitCount(BoardId)
 
         Optional<BoardEntity> opt = boardRepository.findById(boardId);
 

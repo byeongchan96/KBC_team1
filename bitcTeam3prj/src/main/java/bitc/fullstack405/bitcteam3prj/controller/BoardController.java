@@ -28,15 +28,15 @@ public class BoardController {
         return mv;
     }
 
-////    게시글 목록(카테고리)
-//    @GetMapping("/{boardCate}")
-//    public ModelAndView selectBoardList(@PathVariable("boardCate") String boardCate) throws Exception {
-//        ModelAndView mv = new ModelAndView("/board/boardList");
-//        List<BoardEntity> boardList = boardService.selectBoardListByCate(boardCate);
-//        mv.addObject("boardList" , boardList);
-//
-//        return mv;
-//    }
+//    게시글 목록(카테고리)
+    @GetMapping("/{boardCate}")
+    public ModelAndView selectBoardList(@PathVariable("boardCate") String boardCate) throws Exception {
+        ModelAndView mv = new ModelAndView("/board/boardList");
+        List<BoardEntity> boardList = boardService.selectBoardListByCate(boardCate);
+        mv.addObject("boardList" , boardList);
+
+        return mv;
+    }
 
 //    게시글 상세보기
     @GetMapping("/{boardId}")
@@ -90,12 +90,12 @@ public class BoardController {
     }
 
 //    게시판 카테고리 검색
-//    @GetMapping("/{movieCate}")
-//    public ModelAndView searchCateListBoard(@PathVariable("movieCate") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
-//        ModelAndView mv = new ModelAndView("/board/boardList");
-//        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);
-//        mv.addObject("board" , board);
-//
-//        return mv;
-//    }
+    @GetMapping("/{movieCate}")
+    public ModelAndView searchCateListBoard(@PathVariable("movieCate") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
+        ModelAndView mv = new ModelAndView("/board/boardList");
+        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);
+        mv.addObject("board" , board);
+
+        return mv;
+    }
 }

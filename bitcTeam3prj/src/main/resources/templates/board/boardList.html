@@ -9,12 +9,21 @@
     <script src="/js/bootstrap.bundle.js"></script>
 
     <script>
-        $(document).ready(()=>{
-           const frm = $("search-form");
-           frm.method = "post";
-           frm.action = "/board/write";
+        $(document).ready(function () {
+            const frm = $("search-form");
+            frm.method = "post";
+            frm.action = "/board/write";
 
-           frm.submit();
+            frm.submit();
+        });
+
+            $("#btn").on("click", function () {
+                const boardId = $("#board-idx").val();
+                const frm = $("detail-form");
+                frm.method = "get";
+                frm.action = "/board/" + {boardId};
+
+                frm.submit();
         });
     </script>
 </head>
@@ -80,30 +89,37 @@
     </div>
 
     <!-- 게시물 목록 -->
-    <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th>글번호</th>
-            <th>글제목</th>
-            <th>작성자</th>
-            <th>등록일</th>
-            <th>조회수</th>
-        </tr>
-        </thead>
-        <tbody id="postsTableBody">
-        <!-- Example row - replace with dynamic content -->
-        <tr>
-            <td>1</td>
+    <div class="detail-form">
+        <form id="detail-form" class="row">
+            <input type="hidden" id="method2" th:value="_method">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>글제목</th>
+                    <th>작성자</th>
+                    <th>등록일</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody id="postsTableBody">
+                <!-- Example row - replace with dynamic content -->
+                <tr th:if="${#lists.size(boardList)} > 0" th:each="item : ${boardList}">
+                    <td th:text="${item.id}">글번호</td>
+                    <!--            th:href="@{/board/{boardId}}"-->
+                    <td><a href="board/{boardId}" th:attrappend="href=${item.id}" th:text="${item.title}">게시물 제목</a></td>
+                    <td th:text="${item.createdBy}">작성자</td>
+                    <td th:text="${item.createdAt}">작성일</td>
+                    <td th:text="${item.visitCnt}">조회수</td>
+                </tr>
+                <tr th:unless="${#lists.size(boardList)} > 0">
+                    <td colspan="5">조회된 결과가 없습니다.</td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
 
-
-            <td><a href="#" th:href="@{|/board/1|}">게시물 제목</a></td>
-            <td>유재석</td>
-            <td>2024-07-26</td>
-            <td>123</td>
-        </tr>
-        <!-- Add more rows as needed -->
-        </tbody>
-    </table>
 
     <!-- 페이지 네비게이션 -->
     <nav aria-label="Page navigation">
