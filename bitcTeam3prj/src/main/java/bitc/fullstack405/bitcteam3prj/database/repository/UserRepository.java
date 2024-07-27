@@ -2,6 +2,7 @@ package bitc.fullstack405.bitcteam3prj.database.repository;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import jakarta.transaction.Transactional;
+import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
   UserEntity findByEmailAndUserPw(String email, String userPw);
 
+  UserEntity findByUserId(String userId);
+
+  @Transactional
+  @Modifying
+  @Query("UPDATE UserEntity AS u SET u.deletedYn = 'Y' WHERE u.userId = ?1")
+  void signOut(String userId);
 }

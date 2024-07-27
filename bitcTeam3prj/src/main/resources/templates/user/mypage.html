@@ -99,11 +99,11 @@
                             <!-- Profile Information -->
                             <div class="mb-3">
                                 <label for="name" class="form-label">이름</label>
-                                <input type="text" class="form-control" id="name" value="홍길동">
+                                <input type="text" class="form-control" id="name" value="홍길동" th:value="${user.userId}">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">이메일</label>
-                                <input type="email" class="form-control" id="email" value="hong@example.com">
+                                <input type="email" class="form-control" id="email" value="hong@example.com" th:value="${user.email}">
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">전화번호</label>
@@ -128,15 +128,15 @@
                             <!-- Password Change -->
                             <div class="mb-3">
                                 <label for="current-password" class="form-label">현재 비밀번호</label>
-                                <input type="password" class="form-control" id="current-password" placeholder="현재 비밀번호" required>
+                                <input type="password" class="form-control" id="current-password" name="userPw" placeholder="현재 비밀번호" required>
                             </div>
                             <div class="mb-3">
                                 <label for="new-password" class="form-label">새 비밀번호</label>
-                                <input type="password" class="form-control" id="new-password" placeholder="새 비밀번호" required>
+                                <input type="password" class="form-control" id="new-password" name="changePw" placeholder="새 비밀번호" required>
                             </div>
                             <div class="mb-3">
                                 <label for="confirm-password" class="form-label">비밀번호 확인</label>
-                                <input type="password" class="form-control" id="confirm-password" placeholder="비밀번호 확인" required>
+                                <input type="password" class="form-control" id="confirm-password" name="changePwChk" placeholder="비밀번호 확인" required>
                                 <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
                             </div>
 

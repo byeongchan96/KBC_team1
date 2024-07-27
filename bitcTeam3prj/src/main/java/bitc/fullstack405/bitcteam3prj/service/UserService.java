@@ -1,6 +1,7 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import org.apache.catalina.User;
 
 public interface UserService {
 
@@ -17,4 +18,10 @@ public interface UserService {
   void updateUserPw(String userId, String userPw) throws Exception; // 암호찾기를 통한 암호변경
 
   UserEntity findUserId(String email, String userPw) throws Exception; // userId 찾기
+
+  UserEntity findUserIdForProfile(String userId) throws Exception;
+
+  void deleteUser(String userId) throws Exception;
+
+  UserEntity findByUserIdCheckSignOut(String userId) throws Exception;
 }

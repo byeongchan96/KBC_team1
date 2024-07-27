@@ -28,18 +28,20 @@
 <main class="container mt-5">
     <div class="login-page">
         <h2 class="text-center mb-4">로그인</h2>
-        <form>
+        <form method="post">
             <div class="mb-3">
-                <label for="username" class="form-label">사용자 이름</label>
-                <input type="text" class="form-control" id="username" placeholder="사용자 이름을 입력하세요">
+                <label for="user-id" class="form-label">사용자 이름</label>
+                <input type="text" class="form-control" id="user-id" name="userId" placeholder="사용자 이름을 입력하세요">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">비밀번호</label>
-                <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요">
+                <input type="password" class="form-control" id="password" name="userPw" placeholder="비밀번호를 입력하세요">
             </div>
             <button type="submit" class="btn btn-primary w-100">로그인</button>
             <div class="text-center mt-3">
-                <a href="#" class="text-decoration-none">비밀번호를 잊으셨나요?</a>
+                <span>
+                    <a href="findId" class="text-decoration-none">비밀번호</a><a href="findPassword" class="text-decoration-none">ID</a>를 잊으셨나요?
+                </span>
             </div>
         </form>
     </div>
