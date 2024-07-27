@@ -76,4 +76,9 @@ public class UserServiceImpl implements UserService{
   public void deleteUser(String userId) throws Exception {
     userRepository.signOut(userId);
   }
+
+  @Override
+  public UserEntity findByUserIdCheckSignOut(String userId) throws Exception {
+    return userRepository.findByUserId(userId);
+  }
 }

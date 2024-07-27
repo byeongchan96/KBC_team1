@@ -18,7 +18,8 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @GetMapping("/home")
+//  테스트용 메인페이지
+  @GetMapping({"/home", "/main"})
   public ModelAndView home() {
     ModelAndView mv = new ModelAndView("/main/mainHome");
     return mv;
@@ -26,10 +27,8 @@ public class UserController {
 
   //  로그인 화면 뷰
   @GetMapping ("/login")
-  public ModelAndView  login() throws Exception{
-    ModelAndView mv = new ModelAndView();
-    mv.setViewName("/login/Login");
-    return mv;
+  public String  login() throws Exception{
+    return "/login/Login";
   }
 
 
@@ -105,10 +104,8 @@ public class UserController {
 
 //  회원가입 뷰 페이지
   @GetMapping("/signIn")
-  public ModelAndView signIn() throws Exception {
-    ModelAndView mv = new ModelAndView();
-    mv.setViewName("/login/signIn");
-    return mv;
+  public String signIn() throws Exception {
+    return "/login/signIn";
   }
 
 //  화원가입 프로세스
@@ -117,33 +114,40 @@ public class UserController {
 
     ModelAndView mv = new ModelAndView();
 
+    UserEntity entity = userService.findByUserIdCheckSignOut(userId);
+
     if (Objects.equals(userPwChk, userEntity.getUserPw())) {
-      if (userService.userIdCheck(userId) == 0) {
-        if (userService.userEmailCheck(email) == 0) {
-          userService.insertUser(userEntity);
-          mv.setViewName("redirect:/login");
+      if (entity.getDeletedYn() == 'N') {
+        if (userService.userIdCheck(userId) == 0) {
+          if (userService.userEmailCheck(email) == 0) {
+            userService.insertUser(userEntity);
+            mv.setViewName("redirect:/login");
+          }
+          else {
+            mv.setViewName("redirect:/signIn?error=existEmail");
+          }
         }
         else {
-          mv.setViewName("redirect:/signIn?error=existEmail");
+          mv.setViewName("redirect:/signIn?error=existId");
         }
       }
       else {
-        mv.setViewName("redirect:/signIn?error=existId");
+        mv.setViewName("redirect:/signIn?signOutUser");
       }
     }
     else {
       mv.setViewName("redirect:/signIn?error=pwChk");
     }
 
+
+
     return mv;
   }
 
 //  비밀번호 찾기 뷰
   @GetMapping("/findPassword")
-  public ModelAndView findPasswordView() throws Exception {
-    ModelAndView mv = new ModelAndView();
-    mv.setViewName("/user/findPassword");
-    return mv;
+  public String findPasswordView() throws Exception {
+    return "findPasswordTest";
   }
 
 //  비밀번호 찾기 프로세스 및 변경 뷰
@@ -157,7 +161,7 @@ public class UserController {
 
     if (Objects.equals(entity.getUserId(), userId) && Objects.equals(entity.getEmail(), email)) {
       if (entity.getDeletedYn() == 'N') {
-        mv.setViewName("redirect:/changePassword");
+        mv.setViewName("redirect:/changePasswordTest");
       }
       else {
         mv.setViewName("redirect:/findPassword?error=signOutUser");
@@ -174,7 +178,7 @@ public class UserController {
   public ModelAndView changePasswordView(@RequestParam("userId") String userId) {
     ModelAndView mv = new ModelAndView();
 
-    mv.setViewName("/user/changePassword");
+    mv.setViewName("user/changePasswordTest");
     mv.addObject("userId", userId);
 
     return mv;
@@ -185,22 +189,29 @@ public class UserController {
   public ModelAndView changePassword(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw, @RequestParam("userPwChk") String userPwChk) throws Exception {
     ModelAndView mv = new ModelAndView();
 
-    if (userPw.equals(userPwChk)) {
-      userService.updateUserPw(userId, userPw);
-      mv.setViewName("redirect:/login");
+    UserEntity userEntity = userService.findByUserIdCheckSignOut(userId);
+
+    if (userEntity.getDeletedYn() == 'N') {
+      if (userPw.equals(userPwChk)) {
+        userService.updateUserPw(userId, userPw);
+        mv.setViewName("redirect:/login");
+      }
+      else {
+        mv.setViewName("redirect:/changePassword?error=pwChk");
+      }
     }
     else {
-      mv.setViewName("redirect:/changePassword?error=pwChk");
+      mv.setViewName("redirect:/changePassword?signOutUser");
     }
+
+
     return mv;
   }
 
 //  id 찾기 뷰
   @GetMapping("/findId")
-  public ModelAndView findIdView() throws Exception {
-    ModelAndView mv = new ModelAndView();
-    mv.setViewName("/user/findId");
-    return mv;
+  public String findIdView() throws Exception {
+    return "/user/findIdTest";
   }
 
 //  id 찾기 프로세스
@@ -215,7 +226,7 @@ public class UserController {
     if (userEntity.getDeletedYn() == 'N') {
       if (userEntity != null && email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
         mv.addObject("userId", userEntity.getUserId());
-        mv.setViewName("/user/foundId");
+        mv.setViewName("user/foundIdTest");
       }
       else {
         mv.setViewName("redirect:/findId?error=notFoundUser");
@@ -298,16 +309,21 @@ public class UserController {
     return mv;
   }
 
+//  회원탈퇴 뷰(GET) (기본 뷰)
   @GetMapping("/signOut")
   public String signOutPwChk() throws Exception {
     return "user/signOutTest";
   }
 
+
+//  회원탈퇴 뷰(POST) (비밀번호 체크 실패 시 넘어옴)
   @PostMapping("/signOut")
   public String signOutPwReChk() throws Exception {
     return "user/signOutTest";
   }
 
+
+//  회원탈퇴
   @DeleteMapping("/signOut")
   public ModelAndView deleteUser(HttpServletRequest req) throws Exception {
     ModelAndView mv = new ModelAndView();
@@ -330,7 +346,6 @@ public class UserController {
     else {
       mv.setViewName("redirect:/login");
     }
-
     return mv;
   }
 

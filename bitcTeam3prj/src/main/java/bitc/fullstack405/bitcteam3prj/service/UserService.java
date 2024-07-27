@@ -1,6 +1,7 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import org.apache.catalina.User;
 
 public interface UserService {
 
@@ -21,4 +22,6 @@ public interface UserService {
   UserEntity findUserIdForProfile(String userId) throws Exception;
 
   void deleteUser(String userId) throws Exception;
+
+  UserEntity findByUserIdCheckSignOut(String userId) throws Exception;
 }
