@@ -1,8 +1,10 @@
 package bitc.fullstack405.bitcteam3prj.database.repository;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import org.hibernate.query.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 

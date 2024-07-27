@@ -1,5 +1,6 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.constant.MovieCategory;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class BoardController {
     private BoardService boardService;
 
     //게시글 전체 목록
-    @GetMapping("/")
+    @GetMapping({"", "/"})
     public ModelAndView selectBoardList() throws Exception {
         ModelAndView mv = new ModelAndView("board/boardList");
 
@@ -28,7 +29,7 @@ public class BoardController {
     }
 
     // 게시글 목록(카테고리)
-    @GetMapping("/{boardCate}")
+    @GetMapping("/search/{boardCate}")
     public ModelAndView selectBoardList(@PathVariable("boardCate") String boardCate) throws Exception {
         ModelAndView mv = new ModelAndView("/board/boardList");
         List<BoardEntity> boardList = boardService.selectBoardListByCate(boardCate);
@@ -50,7 +51,7 @@ public class BoardController {
     //    게시글 등록(view)
     @GetMapping("/write")
     public String insertBoard() throws Exception{
-        return "redirect:/board/boardWrite";
+        return "/board/boardWrite";
     }
 
     //    게시글 등록 처리
@@ -58,7 +59,7 @@ public class BoardController {
     public String insertBoard(BoardEntity board) throws Exception{
         boardService.insertBoard(board);
 
-        return "redirect:/board/boardList";
+        return "redirect:/board";
     }
 
 //    게시물 삭제
@@ -66,13 +67,14 @@ public class BoardController {
     public String deleteBoard(@PathVariable("boardId") long boardId) throws Exception {
         boardService.deleteBoardById(boardId);
 
-        return "redirect:/board/boardList";
+        return "redirect:/board";
     }
 
 
 //    게시글 수정
     @PutMapping("/{boardId}")
-    public String updateBoard(@PathVariable("boardId") long boardId, BoardEntity board) throws Exception{
+    public String updateBoard(@PathVariable("boardId") long boardId,
+                              BoardEntity board) throws Exception{
         board.setId(boardId);
         boardService.updateBoard(board);
 
