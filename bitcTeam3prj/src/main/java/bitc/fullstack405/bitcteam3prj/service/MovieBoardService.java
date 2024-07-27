@@ -12,4 +12,6 @@ public interface MovieBoardService {
     void insertMovieBoard(MovieBoardEntity movieBoard) throws Exception;
 
     void insertMovieBoardList(List<MovieBoardEntity> movieBoardList) throws Exception;
+
+    MovieBoardEntity findByMovieId(long movieId) throws Exception;
 }

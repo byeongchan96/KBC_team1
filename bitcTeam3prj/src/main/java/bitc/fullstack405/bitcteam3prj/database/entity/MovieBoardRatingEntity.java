@@ -27,4 +27,11 @@ public class MovieBoardRatingEntity extends BaseEntity{
     @JoinColumn(name="user_id")
     @ToString.Exclude
     private UserEntity user;
+
+    @Column(name = "movie_rating")
+    private int movieRating;
+
+    @Column(length = 1000)
+    private String content;
+
 }

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MovieService {
     List<MovieEntity> selectMovieList() throws Exception;
+
+    MovieEntity selectMovieById(long id) throws Exception;
 }
