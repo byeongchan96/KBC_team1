@@ -32,4 +32,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
   @Modifying
   @Query("UPDATE UserEntity AS u SET u.deletedYn = 'Y' WHERE u.userId = ?1")
   void signOut(String userId);
+
+  @Transactional
+  @Modifying
+  @Query ("UPDATE UserEntity AS u SET u.profileImg = null WHERE u.userId = ?1")
+  void deletingUserProfileImg(String userId);
 }

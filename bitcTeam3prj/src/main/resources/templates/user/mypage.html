@@ -173,7 +173,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:if="${#lists.size()}">
                                     <td><input type="checkbox" name="selectedPosts" value="1"></td>
                                     <td>1</td>
                                     <td><a href="/board/boardDetaildo?boardIdx=1">첫 번째 게시물</a></td>

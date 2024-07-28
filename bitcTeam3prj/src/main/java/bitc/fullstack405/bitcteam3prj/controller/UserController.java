@@ -1,12 +1,15 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Objects;
@@ -248,6 +251,10 @@ public class UserController {
 
     UserEntity userEntity = userService.findUserIdForProfile(userId);
 
+    long imgId = userEntity.getProfileImg().getId();
+
+//    ImgFileEntity imgFileEntity = userService.findImgIdForProfile();
+
     if(session.getAttribute("userId") != null) {
       mv.addObject("user", userEntity);
       if (userEntity != null ) {
@@ -347,6 +354,30 @@ public class UserController {
       mv.setViewName("redirect:/login");
     }
     return mv;
+  }
+
+//  프로필 이미지 업로드
+  @PutMapping("/uploadProfileImg")
+  public ModelAndView uploadProfileImg(@RequestParam("userIdx") long userIdx, MultipartHttpServletRequest multipart) throws Exception {
+
+    ModelAndView mv = new ModelAndView();
+
+    userService.insertUserProfileImg(userIdx, multipart);
+
+    mv.setViewName("redirect:/profile/{userId}");
+
+    return mv;
+
+  }
+
+//  프로필 이미지 삭제
+  @DeleteMapping("/deleteProfileUpload")
+  public String deleteProfileUpload(@RequestParam("userId") String userId) throws Exception{
+
+    userService.deleteProfileImg(userId);
+
+    return "redirect:user/mypage/{userId}";
+
   }
 
 }

@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserImgFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/util/UserFileUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/prifileFileUploadTest.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/layout/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/layout/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/changePassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/changePasswordTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/findId.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/findIdTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/findPassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/findPasswordTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/foundId.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/foundIdTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/mypage.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/user/mypage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +49,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
         <option value="HTML File" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -85,7 +84,7 @@
     "git-widget-placeholder": "Login",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Punkid/Desktop/Busan IT Academy/spring/team3Prj",
+    "last_opened_file_path": "C:/Users/Punkid/Desktop/Busan IT Academy/spring/board3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -135,7 +134,8 @@
       <workItem from="1721887610074" duration="12425000" />
       <workItem from="1721951443568" duration="14115000" />
       <workItem from="1722060866280" duration="3819000" />
-      <workItem from="1722067306112" duration="1995000" />
+      <workItem from="1722067306112" duration="4094000" />
+      <workItem from="1722145922571" duration="10292000" />
     </task>
     <servers />
   </component>

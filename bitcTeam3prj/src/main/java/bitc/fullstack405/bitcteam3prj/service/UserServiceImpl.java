@@ -1,10 +1,14 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
+import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.database.repository.UserImgFileRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
+import bitc.fullstack405.bitcteam3prj.util.UserFileUtil;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +18,12 @@ public class UserServiceImpl implements UserService{
 
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  private UserFileUtil userFileUtil;
+  @Autowired
+  private UserImgFileRepository userImgFileRepository;
 
-//  로그인 시도 유저 존재 확인
+  //  로그인 시도 유저 존재 확인
   @Override
   public int isUserInfo(String userId, String userPw) throws Exception {
     int result = userRepository.countByUserIdAndUserPw(userId, userPw);
@@ -52,6 +60,7 @@ public class UserServiceImpl implements UserService{
     return entity;
   }
 
+// userPw 변경
   @Override
   public void updateUserPw(String userId, String userPw) throws Exception {
 
@@ -59,6 +68,7 @@ public class UserServiceImpl implements UserService{
 
   }
 
+//  userId 찾기
   @Override
   public UserEntity findUserId(String email, String userPw) throws Exception {
 
@@ -73,6 +83,11 @@ public class UserServiceImpl implements UserService{
   }
 
   @Override
+  public ImgFileEntity findImgIdForProfile(long id) throws Exception {
+    return userImgFileRepository.findById(id);
+  }
+
+  @Override
   public void deleteUser(String userId) throws Exception {
     userRepository.signOut(userId);
   }
@@ -80,5 +95,17 @@ public class UserServiceImpl implements UserService{
   @Override
   public UserEntity findByUserIdCheckSignOut(String userId) throws Exception {
     return userRepository.findByUserId(userId);
+  }
+
+  @Override
+  public void insertUserProfileImg(long userIdx, MultipartHttpServletRequest multipart) throws Exception {
+
+    userFileUtil.parseUserFileInfo(userIdx, multipart);
+
+  }
+
+  @Override
+  public void deleteProfileImg(String userId) throws Exception {
+    userRepository.deletingUserProfileImg(userId);
   }
 }
