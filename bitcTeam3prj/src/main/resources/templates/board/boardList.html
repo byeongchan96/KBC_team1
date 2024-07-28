@@ -8,24 +8,23 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
 
-<!--    <script>-->
-<!--        $(document).ready(function () {-->
-<!--            const frm = $("search-form");-->
-<!--            frm.method = "post";-->
-<!--            frm.action = "/board/write";-->
+    <script>
+        $(document).ready(function () {
+            const frm = $("search-form");
+            frm.method = "post";
+            frm.action = "/board/write";
 
-<!--            frm.submit();-->
-<!--        });-->
+            frm.submit();
+        });
 
-<!--            $("#btn").on("click", function () {-->
-<!--                const boardId = $("#board-id").val();-->
-<!--                const frm = $("detail-form");-->
-<!--                frm.method = "get";-->
-<!--                frm.action = "/board/" + {boardId};-->
+        $("#btn").on("click", function () {
+            const frm = $("detail-form");
+            frm.method = "get";
+            frm.action = "/board/" + $("#boardId");
 
-<!--                frm.submit();-->
-<!--        });-->
-<!--    </script>-->
+              frm.submit();
+        });
+    </script>
 </head>
 <body>
 <!-- header -->

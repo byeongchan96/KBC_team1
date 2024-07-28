@@ -40,9 +40,9 @@ public class BoardController {
 
 //    게시글 상세보기
     @GetMapping("/{boardId}")
-    public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId, BoardEntity boardEntity) throws Exception {
+    public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId, BoardEntity board) throws Exception {
         ModelAndView mv = new ModelAndView("/board/boardDetail");
-        BoardEntity board = boardService.selectBoardDetail(boardId);
+        boardService.selectBoardDetail(boardId);
         mv.addObject(board);
 
         return mv;

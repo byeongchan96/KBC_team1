@@ -10,38 +10,23 @@
 
     <script>
         $(document).ready(function () {
-            // const frm = $("search-form");
-            // frm.method = "get";
-            // frm.action = "/board/{boardId}";
-            //
-            // frm.submit();
-            // });
-
-        // $("#btn").on("click", function () {
-        //     const boardId = $("#board-id").val();
-        //     const frm = $("detail-form");
-        //     frm.method = "get";
-        //     frm.action = "/board/" + {boardId};
-        //
-        //     frm.submit();
-
-            $("#btn-list").on("click", function () {
+            $("#btn-detail").on("click", function () {
                 history.back();
             });
 
             $("#btn-delete").on("click", function () {
                 $("#method").val("DELETE");
-                const boardId = $("#board-id").val();
+
                 const frm = $("#frm")[0];
-                frm.action = "/board/" + boardId;
+                frm.action = "/board/" + $("#boardId");
                 frm.submit();
             });
 
             $("#btn-update").on("click", function () {
                 $("#method").val("PUT");
-                const boardId = $("#board-id").val();
+
                 const frm = $("#frm")[0];
-                frm.action = "/board/" + boardId;
+                frm.action = "/board/" + $("#boardId");
                 frm.submit();
             });
         });
