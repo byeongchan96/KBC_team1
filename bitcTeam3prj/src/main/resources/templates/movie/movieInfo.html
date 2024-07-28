@@ -18,6 +18,11 @@
         .btn-round { border-radius: 50%; }
         .panel-body { margin: 20px 0; }
     </style>
+    <script>
+        $(document).ready(function () {
+           $("#btn")
+        });
+    </script>
 
 </head>
 <body>
@@ -144,6 +149,7 @@
                                         <input type="text" class="form-control" th:value="${item.movieRating}">
                                     </div>
                                 </div>
+
                             </div>
                             <div class="row col-sm-6 mt-3">
                                 <div class="input-group">
@@ -151,6 +157,10 @@
                                         <span class="input-group-text">한줄평</span>
                                         <textarea class="form-control" th:text="${item.content}" placeholder="comment"></textarea>
                                     </div>
+                                </div>
+                                <div class="col-sm d-flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2" id="btn-update">수정</button>
+                                    <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
                                 </div>
                             </div>
                         </form>
