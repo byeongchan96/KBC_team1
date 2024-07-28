@@ -18,6 +18,7 @@
         .btn-round { border-radius: 50%; }
         .panel-body { margin: 20px 0; }
     </style>
+
 </head>
 <body>
 <!-- header -->
@@ -111,13 +112,13 @@
                 </p>
                 <form action="#" method="post" th:action="@{| /movie/${movieBoardId}/rating |}">
                     <h4 class="mb-5 fw-bold">관람평</h4>
-                    <select class="form-control" id="movieRating">
+                    <select class="form-control" id="movieRating" name="movieRating">
                         <option value="" selected>평점 선택</option>
-                        <option value="5" name="movieRating" >5</option>
-                        <option value="4" name="movieRating">4</option>
-                        <option value="3" name="movieRating">3</option>
-                        <option value="2" name="movieRating">2</option>
-                        <option value="1" name="movieRating">1</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
                     </select>
                     <div class="form-group">
                         <textarea class="form-control" id="content" name="content" rows="3" placeholder="What are you thinking?"></textarea>
@@ -148,7 +149,7 @@
                                 <div class="input-group">
                                     <div class="input-group">
                                         <span class="input-group-text">한줄평</span>
-                                        <textarea class="form-control" th:text="${item.content}"></textarea>
+                                        <textarea class="form-control" th:text="${item.content}" placeholder="comment"></textarea>
                                     </div>
                                 </div>
                             </div>
