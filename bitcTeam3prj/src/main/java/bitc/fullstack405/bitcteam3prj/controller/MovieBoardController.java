@@ -70,7 +70,7 @@ public class MovieBoardController {
         return mv;
     }
 
-    @ResponseBody
+
     @PostMapping("/{movieBoardId}/rating")
     public String writeMovieRating(@PathVariable("movieBoardId") long movieBoardId, MovieBoardRatingEntity ratingEntity) throws Exception {
 
@@ -81,7 +81,7 @@ public class MovieBoardController {
         ratingService.insertRating(ratingEntity);
         ;
 
-        return "redirect:" + movieBoardId;
+        return "redirect:/movie/movieinfo/{movieBoardId}";
     }
 
 //    @PostMapping("/{movieBoardId}/rating")
