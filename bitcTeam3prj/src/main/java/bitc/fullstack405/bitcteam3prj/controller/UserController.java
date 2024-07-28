@@ -34,36 +34,26 @@ public class UserController {
 
 //  로그인 프로세스
   @PostMapping("/login")
-  public ModelAndView loginProcess(@RequestParam("userId")String userId, @RequestParam("userPw") String userPw, HttpServletRequest req) throws Exception{
-
-    ModelAndView mv = new ModelAndView();
-
-
+  public String loginProcess(@RequestParam("userId")String userId, @RequestParam("userPw") String userPw, HttpServletRequest req) throws Exception {
     int result = userService.isUserInfo(userId, userPw);
-
 
     if (userId != null && userPw != null && result == 1) {
 
-      UserEntity entity = userService.findUserIdForProfile(userId);
-      if (entity.getDeletedYn() == 'N'){
-        HttpSession session = req.getSession();
+      UserEntity user = userService.findUserIdForProfile(userId);
 
-        session.setAttribute("userId", userId);
-        session.setAttribute("userPw", userPw);
+      HttpSession session = req.getSession();
 
-        session.setMaxInactiveInterval(60 * 60 * 1);
+      session.setAttribute("userId", userId);
+      session.setAttribute("userPw", userPw);
+      session.setAttribute("userEmail", user.getEmail());
 
-        mv.setViewName("redirect:/home");
-      }
-      else {
-        mv.setViewName("redirect:/login?error=signOutUser");
-      }
+      session.setMaxInactiveInterval(60 * 60 * 1);
+
+     return "redirect:/home";
+
+    } else {
+      return "redirect:/login?error=loginFailed";
     }
-    else {
-      mv.setViewName("redirect:/login?error=loginFailed");
-    }
-
-    return mv;
   }
 
 

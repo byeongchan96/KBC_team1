@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
 //  로그인 시도 유저 존재 확인
   @Override
   public int isUserInfo(String userId, String userPw) throws Exception {
-    int result = userRepository.countByUserIdAndUserPw(userId, userPw);
+    int result = userRepository.countByUserIdAndUserPwAndDeletedYn(userId, userPw, 'N');
 
     return result;
   }

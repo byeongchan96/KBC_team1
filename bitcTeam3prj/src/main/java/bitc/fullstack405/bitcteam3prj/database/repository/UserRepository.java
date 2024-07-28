@@ -13,9 +13,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
   int countByUserIdAndUserPw(String userId, String userPw); // 로그인 회원정보 확인
 
+  int countByUserIdAndUserPwAndDeletedYn(String userId, String userPw, char deleteYn);
+
   int countByUserId(String userId); // 회원가입 UserId 존재여부 확인
 
   int countByEmail(String email); // 회원가입 Email 존재여부 확인
+
 
   UserEntity findByUserIdAndEmail(String userId, String email);
 
@@ -32,4 +35,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
   @Modifying
   @Query("UPDATE UserEntity AS u SET u.deletedYn = 'Y' WHERE u.userId = ?1")
   void signOut(String userId);
+
 }
