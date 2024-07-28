@@ -36,23 +36,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6 mx-auto">
-                            <div class="pro-img-details">
-                                <img src="https://www.bootdey.com/image/550x380/FFB6C1/000000" th:src="@{${movie.movie.posterImg.oriName}}" alt="Product image" class="img-fluid">
-                            </div>
-                            <div class="pro-img-list mt-2">
-                                <a href="#">
-                                    <img src="https://www.bootdey.com/image/115x100/87CEFA/000000" alt="Thumbnail 1" class="img-thumbnail">
-                                </a>
-                                <a href="#">
-                                    <img src="https://www.bootdey.com/image/115x100/FF7F50/000000" alt="Thumbnail 2" class="img-thumbnail">
-                                </a>
-                                <a href="#">
-                                    <img src="https://www.bootdey.com/image/115x100/20B2AA/000000" alt="Thumbnail 3" class="img-thumbnail">
-                                </a>
-                                <a href="#">
-                                    <img src="https://www.bootdey.com/image/120x100/20B2AA/000000" alt="Thumbnail 4" class="img-thumbnail">
-                                </a>
-                            </div>
+                                <img src="https://www.bootdey.com/image/550x380/FFB6C1/000000"
+                                     th:src="@{${movie.movie.posterImg?.oriName}}"
+                                     alt="Product image"
+                                     class="img-fluid">
                         </div>
                         <div class="col-md-6">
                             <h4 class="pro-d-title">
@@ -61,13 +48,6 @@
                             <p th:text="${movie.movie.movieName}">장화 홍련</p>
                             <table class="table table-bordered">
                                 <tbody>
-                                <tr>
-                                    <th scope="row">게시판:</th>
-                                    <td>
-                                        <a rel="tag" href="#">리뷰</a>,
-                                        <a rel="tag" href="#">자유게시판</a>
-                                    </td>
-                                </tr>
                                 <tr>
                                     <th scope="row">장르:</th>
                                     <td><a rel="tag" href="#" th:text="${movie.movie.movieCate}">공포/스릴러</a></td>
@@ -83,10 +63,6 @@
                                 <tr>
                                     <th scope="row">관람등급:</th>
                                     <td><a rel="tag" href="#" th:text="${movie.movie.grade}">전체관람가</a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">출연자:</th>
-                                    <td><a rel="tag" href="#">mens</a></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">유저평균평점:</th>
@@ -106,7 +82,7 @@
         </div>
         <div class="tab-content mt-5" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                <p th:text="${movie.movie.movieDisc}">
+                <p th:unless="${#strings.isEmpty(movie.movie.movieDisc)}" th:text="${movie.movie.movieDisc}">
                     19세기 조선시대 말엽, 제지업을 기반으로 성장한 외딴 섬 마을 동화도. 어느 날 조정에 바쳐야 할 제지가 수송선과 함께 불타는 사고가 벌어지고....
                     사건을 해결하고자 수사관 원규 일행이 동화도로 파견된다. 섬에 도착한 첫 날, 화재사건의 해결을 서두르던 원규 일행 앞에서 참혹한 살인사건이 일어난다.
                     범인을 알 수 없는 살인 사건으로 동요하는 마을 사람들은 7년전, 역모를 이끈 천주교도와 한패로 낙인찍혀 온 가족이 참형을 당한 강객주의 원혼이 일으킨 저주라 여기며 점점 광기에 휩싸여간다. 그리고.....
@@ -115,6 +91,7 @@
                     제지소 주인의 아들 인권은 흉흉한 마을 분위기를 강압적인 태도로 잡으며 원규와 끊임없이 대립하기만 한다.
                     여기에 참형 당한 강객주에게 은혜를 입었던 두호의 등장으로 원규는 점점 혼란속에 빠지게 되는데...
                 </p>
+                <p th:if="${#strings.isEmpty(movie.movie.movieDisc)}" th:text="'영화 설명이 없습니다'"></p>
                 <form action="#" method="post" th:action="@{| /movie/${movieBoardId}/rating |}">
                     <h4 class="mb-5 fw-bold">관람평</h4>
                     <select class="form-control" id="movieRating" name="movieRating">
@@ -138,7 +115,7 @@
                 <div class="row mt-3">
                     <div class="col-sm">
                         <form id="frm" method="post">
-                            <div class="row col-sm-6">
+                            <div class="row col-xl-10">
                                 <div class="d-flex mt-3 gap-3 justify-content-around">
                                     <div class="input-group">
                                         <span class="input-group-text">유저ID</span>
@@ -151,7 +128,7 @@
                                 </div>
 
                             </div>
-                            <div class="row col-sm-6 mt-3">
+                            <div class="row col-xl-10 mt-3">
                                 <div class="input-group">
                                     <div class="input-group">
                                         <span class="input-group-text">한줄평</span>

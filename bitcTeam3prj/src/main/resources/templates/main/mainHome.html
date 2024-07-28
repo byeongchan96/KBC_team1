@@ -62,56 +62,57 @@
 
 <body>
 <!-- Header -->
-<header th:fragment="header" class="p-3 bg-dark text-white">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home
-                            <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">게시판</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">공지사항</a>
-                            <a class="dropdown-item" href="#">영화리뷰게시판</a>
-                            <a class="dropdown-item" href="#">자유게시판</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">영화 정보</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">국내영화</a>
-                            <a class="dropdown-item" href="#">해외영화</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">문의사항</a>
-                    </li>
-                </ul>
-                <form class="d-flex me-auto">
-                    <input class="form-control me-2" type="search" placeholder="Search">
-                    <button class="btn btn-secondary" type="submit">Search</button>
-                </form>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-black bg-light btn btn-light me-2" href="#">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black bg-warning btn btn-outline-warning" href="#">회원가입</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
+<!--<header th:fragment="header" class="p-3 bg-dark text-white">-->
+<!--    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" data-bs-theme="dark">-->
+<!--        <div class="container-fluid">-->
+<!--            <a class="navbar-brand" href="#">Navbar</a>-->
+<!--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarColor01">-->
+<!--                <ul class="navbar-nav me-auto">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" href="#">Home-->
+<!--                            <span class="visually-hidden">(current)</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item dropdown">-->
+<!--                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">게시판</a>-->
+<!--                        <div class="dropdown-menu">-->
+<!--                            <a class="dropdown-item" href="#">공지사항</a>-->
+<!--                            <a class="dropdown-item" href="#">영화리뷰게시판</a>-->
+<!--                            <a class="dropdown-item" href="#">자유게시판</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item dropdown">-->
+<!--                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">영화 정보</a>-->
+<!--                        <div class="dropdown-menu">-->
+<!--                            <a class="dropdown-item" href="#">국내영화</a>-->
+<!--                            <a class="dropdown-item" href="#">해외영화</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#">문의사항</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <form class="d-flex me-auto">-->
+<!--                    <input class="form-control me-2" type="search" placeholder="Search">-->
+<!--                    <button class="btn btn-secondary" type="submit">Search</button>-->
+<!--                </form>-->
+<!--                <ul class="navbar-nav">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link text-black bg-light btn btn-light me-2" href="#">로그인</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link text-black bg-warning btn btn-outline-warning" href="#">회원가입</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
 <!-- Header -->
+<header th:replace="~{/layout/header::header}"></header>
 <!-- Carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">

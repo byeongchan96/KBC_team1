@@ -30,9 +30,9 @@ public class MovieBoardController {
   private MovieRatingRepository movieRatingRepository;
 
 
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ModelAndView getMovieBoardList() throws Exception {
-        ModelAndView mv = new ModelAndView("");
+        ModelAndView mv = new ModelAndView("/movie/movieList");
 
         var movieBoardList = movieBoardService.selectMovieBoardList();
         mv.addObject("movieBoardList", movieBoardList);

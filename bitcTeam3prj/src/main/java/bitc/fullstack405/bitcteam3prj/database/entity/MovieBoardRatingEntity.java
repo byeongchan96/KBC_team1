@@ -31,7 +31,4 @@ public class MovieBoardRatingEntity extends BaseEntity{
     @Column(name = "movie_rating")
     private int movieRating;
 
-    @Column(length = 1000)
-    private String content;
-
 }
