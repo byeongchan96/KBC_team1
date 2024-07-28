@@ -2,6 +2,7 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.*;
+import bitc.fullstack405.bitcteam3prj.database.repository.MovieRatingRepository;
 import bitc.fullstack405.bitcteam3prj.service.MovieBoardService;
 import bitc.fullstack405.bitcteam3prj.service.MovieService;
 import bitc.fullstack405.bitcteam3prj.service.RatingService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 
 @Controller
@@ -23,6 +26,8 @@ public class MovieBoardController {
 
     @Autowired
     private RatingService ratingService;
+  @Autowired
+  private MovieRatingRepository movieRatingRepository;
 
 
     @GetMapping("/")
@@ -35,9 +40,9 @@ public class MovieBoardController {
         return mv;
     }
 
-    @GetMapping("/movieinfo/{movieId}")
+    @GetMapping("/movieinfo/{movieBoardId}")
     public ModelAndView getMovieBoardDetail(
-            @PathVariable("movieId") long id) throws Exception {
+            @PathVariable("movieBoardId") long id) throws Exception {
 
         ModelAndView mv = new ModelAndView();
 
@@ -65,13 +70,18 @@ public class MovieBoardController {
         return mv;
     }
 
+
     @PostMapping("/{movieBoardId}/rating")
     public String writeMovieRating(@PathVariable("movieBoardId") long movieBoardId, MovieBoardRatingEntity ratingEntity) throws Exception {
 
         ratingEntity.setMovieBoard(movieBoardService.selectMovieBoardDetail(movieBoardId));
-        ratingService.insert(ratingEntity);
+//        ratingEntity.setMovieRating(movieRating);
+//        ratingEntity.setContent(content);
 
-        return "redirect:" + movieBoardId;
+        ratingService.insertRating(ratingEntity);
+        ;
+
+        return "redirect:/movie/movieinfo/{movieBoardId}";
     }
 
 //    @PostMapping("/{movieBoardId}/rating")

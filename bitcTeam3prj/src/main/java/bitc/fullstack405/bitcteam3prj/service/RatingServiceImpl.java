@@ -35,8 +35,13 @@ public class RatingServiceImpl implements RatingService {
 
   }
 
+//  @Override
+//  public void insertRatingList(List<MovieBoardRatingEntity> ratingList) throws Exception {
+
+//  }
+
   @Override
-  public void insert(MovieBoardRatingEntity ratingEntity) {
+  public void insertRating(MovieBoardRatingEntity ratingEntity) {
     movieRatingRepo.save(ratingEntity);
   }
 }

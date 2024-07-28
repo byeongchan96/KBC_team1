@@ -18,6 +18,12 @@
         .btn-round { border-radius: 50%; }
         .panel-body { margin: 20px 0; }
     </style>
+    <script>
+        $(document).ready(function () {
+           $("#btn")
+        });
+    </script>
+
 </head>
 <body>
 <!-- header -->
@@ -111,13 +117,13 @@
                 </p>
                 <form action="#" method="post" th:action="@{| /movie/${movieBoardId}/rating |}">
                     <h4 class="mb-5 fw-bold">관람평</h4>
-                    <select class="form-control" id="movieRating">
+                    <select class="form-control" id="movieRating" name="movieRating">
                         <option value="" selected>평점 선택</option>
-                        <option value="5" name="movieRating" >5</option>
-                        <option value="4" name="movieRating">4</option>
-                        <option value="3" name="movieRating">3</option>
-                        <option value="2" name="movieRating">2</option>
-                        <option value="1" name="movieRating">1</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
                     </select>
                     <div class="form-group">
                         <textarea class="form-control" id="content" name="content" rows="3" placeholder="What are you thinking?"></textarea>
@@ -143,13 +149,18 @@
                                         <input type="text" class="form-control" th:value="${item.movieRating}">
                                     </div>
                                 </div>
+
                             </div>
                             <div class="row col-sm-6 mt-3">
                                 <div class="input-group">
                                     <div class="input-group">
                                         <span class="input-group-text">한줄평</span>
-                                        <textarea class="form-control" th:text="${item.content}"></textarea>
+                                        <textarea class="form-control" th:text="${item.content}" placeholder="comment"></textarea>
                                     </div>
+                                </div>
+                                <div class="col-sm d-flex justify-content-end">
+                                    <button type="button" class="btn btn-success me-2" id="btn-update">수정</button>
+                                    <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
                                 </div>
                             </div>
                         </form>
