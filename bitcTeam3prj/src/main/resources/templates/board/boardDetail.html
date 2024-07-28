@@ -10,12 +10,20 @@
 
     <script>
         $(document).ready(function () {
-            const frm = $("search-form");
-            frm.method = "get";
-            frm.action = "/board/{boardId}";
+            // const frm = $("search-form");
+            // frm.method = "get";
+            // frm.action = "/board/{boardId}";
+            //
+            // frm.submit();
+            // });
 
-            frm.submit();
-            });
+        // $("#btn").on("click", function () {
+        //     const boardId = $("#board-id").val();
+        //     const frm = $("detail-form");
+        //     frm.method = "get";
+        //     frm.action = "/board/" + {boardId};
+        //
+        //     frm.submit();
 
             $("#btn-list").on("click", function () {
                 history.back();
@@ -23,18 +31,19 @@
 
             $("#btn-delete").on("click", function () {
                 $("#method").val("DELETE");
-                const boardIdx = $("#board-idx").val();
+                const boardId = $("#board-id").val();
                 const frm = $("#frm")[0];
-                frm.action = "/board/" + boardIdx;
+                frm.action = "/board/" + boardId;
                 frm.submit();
             });
 
             $("#btn-update").on("click", function () {
                 $("#method").val("PUT");
-                const boardIdx = $("#board-idx").val();
+                const boardId = $("#board-id").val();
                 const frm = $("#frm")[0];
-                frm.action = "/board/" + boardIdx;
+                frm.action = "/board/" + boardId;
                 frm.submit();
+            });
         });
     </script>
 </head>
@@ -46,7 +55,7 @@
 <main class="container mt-5">
     <section>
         <div class="row">
-            <form id="frm2" method="get"></form>
+            <form method="get" th:action="@{|/board/${boardId}|}">
             <div class="col-md-8 mx-auto">
                 <!-- 게시물 정보 테이블 -->
                 <table class="table mb-4">
@@ -76,7 +85,8 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal">수정</button>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-post-modal">삭제</button>
                 </div>
-
+                </div>
+            </form>
                 <!-- 댓글 폼 -->
                 <div class="mb-4">
                     <h3>댓글 작성</h3>
@@ -160,6 +170,7 @@
                 <p>이 게시물을 삭제하시겠습니까?</p>
             </div>
             <div class="modal-footer">
+                <input type="hidden" id="method" name="_method">
                 <button type="button" class="btn btn-secondary me-2" id="btn-list">목록</button>
                 <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>
                 <button type="button" class="btn btn-warning" id="btn-update">수정</button>

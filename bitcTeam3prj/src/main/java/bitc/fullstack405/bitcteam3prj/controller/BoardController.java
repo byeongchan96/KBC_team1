@@ -29,21 +29,21 @@ public class BoardController {
     }
 
 //    게시글 목록(카테고리)
-    @GetMapping("/{boardCate}")
+    @GetMapping("/board/{boardCate}")
     public ModelAndView selectBoardList(@PathVariable("boardCate") String boardCate) throws Exception {
         ModelAndView mv = new ModelAndView("/board/boardList");
         List<BoardEntity> boardList = boardService.selectBoardListByCate(boardCate);
-        mv.addObject("boardList" , boardList);
+        mv.addObject(boardList);
 
         return mv;
     }
 
 //    게시글 상세보기
     @GetMapping("/{boardId}")
-    public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId) throws Exception {
-        ModelAndView mv = new ModelAndView("board/boardDetail");
+    public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId, BoardEntity boardEntity) throws Exception {
+        ModelAndView mv = new ModelAndView("/board/boardDetail");
         BoardEntity board = boardService.selectBoardDetail(boardId);
-        mv.addObject("board" , board);
+        mv.addObject(board);
 
         return mv;
     }
@@ -51,6 +51,7 @@ public class BoardController {
 //    게시글 등록(view)
     @GetMapping("/write")
     public String insertBoard() throws Exception {
+
         return "board/boardWrite";
     }
 
@@ -63,7 +64,7 @@ public class BoardController {
     }
 
 //    게시물 삭제
-    @DeleteMapping("/{boardId}")
+    @DeleteMapping("/board/{boardId}")
     public String deleteBoard(@PathVariable("boardId") long boardId) throws Exception {
         boardService.deleteBoardById(boardId);
 
@@ -71,7 +72,7 @@ public class BoardController {
     }
 
 //    게시글 수정
-    @PutMapping("/{boardId}")
+    @PutMapping("/board/{boardId}")
     public String updateBoard(@PathVariable("boardId") long boardId, BoardEntity board) throws Exception {
         board.setId(boardId);
         boardService.updateBoard(board);
@@ -90,12 +91,12 @@ public class BoardController {
     }
 
 //    게시판 카테고리 검색
-    @GetMapping("/{movieCate}")
-    public ModelAndView searchCateListBoard(@PathVariable("movieCate") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/boardList");
-        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);
-        mv.addObject("board" , board);
-
-        return mv;
-    }
+//    @GetMapping("/{movieCate}")
+//    public ModelAndView searchCateListBoard(@PathVariable("movieCate") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
+//        ModelAndView mv = new ModelAndView("/board/boardList");
+//        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);
+//        mv.addObject("board" , board);
+//
+//        return mv;
+//    }
 }

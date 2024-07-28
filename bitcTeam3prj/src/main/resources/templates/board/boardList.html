@@ -8,24 +8,24 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            const frm = $("search-form");
-            frm.method = "post";
-            frm.action = "/board/write";
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            const frm = $("search-form");-->
+<!--            frm.method = "post";-->
+<!--            frm.action = "/board/write";-->
 
-            frm.submit();
-        });
+<!--            frm.submit();-->
+<!--        });-->
 
-            $("#btn").on("click", function () {
-                const boardId = $("#board-idx").val();
-                const frm = $("detail-form");
-                frm.method = "get";
-                frm.action = "/board/" + {boardId};
+<!--            $("#btn").on("click", function () {-->
+<!--                const boardId = $("#board-id").val();-->
+<!--                const frm = $("detail-form");-->
+<!--                frm.method = "get";-->
+<!--                frm.action = "/board/" + {boardId};-->
 
-                frm.submit();
-        });
-    </script>
+<!--                frm.submit();-->
+<!--        });-->
+<!--    </script>-->
 </head>
 <body>
 <!-- header -->
@@ -107,14 +107,14 @@
                 <tr th:if="${#lists.size(boardList)} > 0" th:each="item : ${boardList}">
                     <td th:text="${item.id}">글번호</td>
                     <!--            th:href="@{/board/{boardId}}"-->
-                    <td><a href="board/{boardId}" th:attrappend="href=${item.id}" th:text="${item.title}">게시물 제목</a></td>
-                    <td th:text="${item.createdBy}">작성자</td>
+                    <td><a href="/board/boardDetail.do" th:href="@{/board/{boardId}}" th:attrappend="href=${item.id}" th:text="${item.title}">게시물 제목</a></td>
+                    <td th:text="${item.updatedAt}">작성자</td>
                     <td th:text="${item.createdAt}">작성일</td>
                     <td th:text="${item.visitCnt}">조회수</td>
                 </tr>
-                <tr th:unless="${#lists.size(boardList)} > 0">
-                    <td colspan="5">조회된 결과가 없습니다.</td>
-                </tr>
+<!--                <tr th:unless="${#lists.size(boardList)} > 0">-->
+<!--                    <td colspan="5">조회된 결과가 없습니다.</td>-->
+<!--                </tr>-->
                 </tbody>
             </table>
         </form>

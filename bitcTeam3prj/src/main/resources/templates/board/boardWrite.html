@@ -84,17 +84,18 @@
 
                     <!-- 버튼 -->
                     <div class="mb-3 text-center">
-                        <button type="submit" id="btn_submit" class="btn btn-primary">작성완료</button>
+                        <a href="/board/" class="btn btn-primary">작성완료</a>
+<!--                        <button type="submit" id="btn_submit" class="btn btn-primary">작성완료</button>-->
                         <button type="button" class="btn btn-secondary" id="btn-cancel" onclick="history.back();">취소</button>
                     </div>
 
                     <!-- Hidden Inputs and Additional Buttons -->
                     <div class="d-flex gap-2 mx-auto p-4">
-                        <input type="hidden" id="board-idx" name="boardIdx" >
+                        <input type="hidden" id="board-id" name="boardId" >
                         <input type="hidden" id="method">
-                        <button type="button" class="btn btn-secondary me-2" id="btn-List">목록</button>
-                        <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>
-                        <button type="button" class="btn btn-warning" id="btn-update">수정</button>
+                        <a href="/board/"  class="btn btn-secondary">목록</a>
+<!--                        <button type="button" class="btn btn-secondary me-2" id="btn-List">목록</button>-->
+
                     </div>
                 </form>
             </div>

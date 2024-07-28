@@ -33,11 +33,16 @@ public class BoardServiceImpl implements BoardService {
 
         Optional<BoardEntity> opt = boardRepository.findById(boardId);
 
-        BoardEntity board = null;
         if(opt.isPresent()){
-            board = opt.get();
-        }
+        BoardEntity board = opt.get();
+            board.setVisitCnt(board.getVisitCnt() + 1);
+            boardRepository.save(board);
+
         return board;
+    }
+        else {
+            throw new NullPointerException();
+        }
     }
 
     @Override
