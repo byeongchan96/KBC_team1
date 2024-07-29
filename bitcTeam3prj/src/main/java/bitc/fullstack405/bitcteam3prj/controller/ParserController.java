@@ -165,8 +165,7 @@ public class ParserController {
                 fileUtils.UrlToImage( posterURLs[0], result.getTitle());
 
                 ImgFileEntity imgFileEntity = new ImgFileEntity();
-                imgFileEntity.setOriName(posterURLs[0]);
-                imgFileEntity.setSavedName(result.getTitle());
+
 
                 imgFileEntities.add(imgFileEntity);
             }
@@ -185,6 +184,8 @@ public class ParserController {
         List<MovieEntity> movieEntities = new ArrayList<>();
 
         List<ImgFileEntity> imgFileEntities = new ArrayList<>();
+
+        int cnt = 1;
 
         var dataList = movieData.getData();
         var data = dataList.get(0);
@@ -224,28 +225,30 @@ public class ParserController {
             movieEntity.setMovieDisc(result.getPlots().getPlot().get(0).getPlotText());
             movieEntity.setShowTm(runTime);
 
-            movieEntities.add(movieEntity);
 
 
             //////////////////////////////
             String posters = result.getPosters();
+            String imageName ="";
             if(posters.isEmpty()){
                 continue;
             }
             String[] posterURLs = result.getPosters().split("\\|");
             try {
-                fileUtils.UrlToImage(posterURLs[0], result.getTitle());
+                imageName = "poster" + cnt;
+                cnt++;
+                fileUtils.UrlToImage(posterURLs[0], imageName);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
             ImgFileEntity imgFileEntity = new ImgFileEntity();
-            imgFileEntity.setSavedPath("C:/UrlToImage/");
-            imgFileEntity.setOriName(posterURLs[0]);
-            imgFileEntity.setSavedName(result.getTitle());
-            imgFileEntity.setMovie(movieEntity);
+            imgFileEntity.setImageName(imageName);
+
+            movieEntity.setPosterImageName(imageName);
 
             imgFileEntities.add(imgFileEntity);
+            movieEntities.add(movieEntity);
         }
 
         movieService.saveAllMovie(movieEntities);

@@ -40,7 +40,7 @@ public class MovieBoardController {
 //        return mv;
 //    }
 
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public String writeMovieBoard() throws Exception{
         ManagerEntity manager = managerService.selectManagerById(1L);
 
@@ -72,7 +72,7 @@ public class MovieBoardController {
         for(var movieBoard : movieBoardList){
             int randUserIdx = (int) (Math.random() * 4);
             for(int i = 0; i <= randUserIdx; i++){
-                double randRating = (int) (Math.random() * 100) / 10.0;
+                float randRating = (int) (Math.random() * 100) / 10.0f;
                 UserEntity user = userList.get(i);
                 MovieBoardRatingEntity rating = new MovieBoardRatingEntity();
                 rating.setMovieBoard(movieBoard);

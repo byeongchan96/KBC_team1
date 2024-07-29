@@ -1,10 +1,8 @@
 package bitc.fullstack405.bitcteam3prj.database.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -27,15 +25,9 @@ public class UserEntity {
   @Column(nullable = false)
   private String userId;
 
-  @ToString.Exclude
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  private ImgFileEntity profileImg; // 프로필사진, img_file 테이블의 id 와 fk
-
-
-
   @Column(nullable = false)
   private String userPw;
-  
+
   @Column(nullable = false)
   private String email;
 
@@ -45,11 +37,13 @@ public class UserEntity {
 
   @Column(nullable = false)
   private char gender; // 성별
-  
+
   @Column(nullable = false)
   private int age; // 나이
-  
+
   private String movieCate; // 선호 영화장르
+
+  private String profileImageName;
 
   @ToString.Exclude
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -62,4 +56,7 @@ public class UserEntity {
   @ToString.Exclude
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   List<MovieBoardRatingEntity> movieRatingList;
+
+  @Column(nullable = false)
+  private char deletedYn = 'N';
 }

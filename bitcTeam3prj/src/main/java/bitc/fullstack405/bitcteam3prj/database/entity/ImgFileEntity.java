@@ -18,22 +18,5 @@ public class ImgFileEntity {
   private long id; // 이미지 파일 id, pk
 
   @Column(nullable = false)
-  private String oriName; // 원본파일명
-
-  @Column(nullable = false)
-  private String savedName; // 저장파일명
-
-  @Column(nullable = false)
-  private String savedPath; // 저장경로
-
-
-  @OneToOne
-  @JoinColumn(name = "user_id")
-  @ToString.Exclude
-  private UserEntity user;
-
-  @OneToOne
-  @JoinColumn(name="movie_id")
-  @ToString.Exclude
-  private MovieEntity movie;
+  private String imageName; // 저장파일명
 }

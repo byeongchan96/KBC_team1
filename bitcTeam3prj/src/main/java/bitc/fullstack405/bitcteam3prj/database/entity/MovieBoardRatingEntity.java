@@ -28,5 +28,7 @@ public class MovieBoardRatingEntity extends BaseEntity{
     @ToString.Exclude
     private UserEntity user;
 
-    private double movieRating;
+    @Column(name = "movie_rating")
+    private float movieRating;
+
 }
