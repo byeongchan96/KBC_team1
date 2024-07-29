@@ -59,10 +59,30 @@
             border-radius: 5px;
         }
     </style>
+
+    <script>
+        $(document).ready(function () {
+           $("#frm").on("submit", function () {
+               const confirmed = confirm("정말로 탈퇴하시겠습니까?\n탈퇴한 아이디/이메일은 재가입할 수 없습니다.");
+
+               if (confirmed) {
+                   $("#method").val("DELETE");
+
+                   const frm = $("#frm")[0];
+                   frm.action = "/signOut";
+                   frm.submit();
+               }
+               else if(!confirmed) {
+                   location.reload();
+               }
+           });
+        });
+    </script>
 </head>
 <body>
 <!-- Main Content -->
 <main class="container mt-5">
+    <input type="hidden" th:value="${session.userId}" id="sessionUserId">
     <div class="row">
         <!-- Profile Sidebar -->
         <div class="col-md-4">
@@ -306,10 +326,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="signOut" method="post" id="frm">
+                    <input type="hidden" id="method" name="_method">
                     <div class="mb-3">
                         <label for="delete-password" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="delete-password" placeholder="비밀번호를 입력하세요" required>
+                        <input type="password" class="form-control" id="delete-password" name="userPw" placeholder="비밀번호를 입력하세요" required>
                         <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
                     </div>
                     <button type="submit" class="btn btn-danger">탈퇴</button>

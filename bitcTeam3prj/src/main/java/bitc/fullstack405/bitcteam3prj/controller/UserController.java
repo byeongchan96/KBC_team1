@@ -346,23 +346,28 @@ public class UserController {
     return mv;
   }
 
-//  회원탈퇴 뷰(GET) (기본 뷰)
-  @GetMapping("/signOut")
-  public String signOutPwChk() throws Exception {
-    return "user/signOutTest";
-  }
+////  회원탈퇴 뷰(GET) (기본 뷰)
+//  @GetMapping("/signOut")
+//  public String signOutPwChk() throws Exception {
+//    return "user/signOutTest";
+//  }
 
 
-//  회원탈퇴 뷰(POST) (비밀번호 체크 실패 시 넘어옴)
-  @PostMapping("/signOut")
-  public String signOutPwReChk() throws Exception {
-    return "user/signOutTest";
+//  마이페이지(프로필) 탈퇴 취소 시 넘어옴
+  @PostMapping("/profile/{userId}")
+  public ModelAndView signOutCancel(HttpServletRequest req) throws Exception {
+    ModelAndView mv = new ModelAndView();
+    HttpSession session = req.getSession();
+
+    mv.setViewName("redirect:/profile/" + session.getAttribute("userId"));
+
+    return mv;
   }
 
 
 //  회원탈퇴
   @DeleteMapping("/signOut")
-  public ModelAndView deleteUser(HttpServletRequest req) throws Exception {
+  public ModelAndView deleteUser(HttpServletRequest req, @RequestParam("userPw") String userPw) throws Exception {
     ModelAndView mv = new ModelAndView();
 
     HttpSession session = req.getSession();
@@ -371,13 +376,18 @@ public class UserController {
 
     if (session.getAttribute("userId") != null) {
       UserEntity userEntity = userService.findUserIdForProfile(userId);
-      if (userEntity.getDeletedYn() == 'N') {
-        userService.deleteUser(userId);
-        session.invalidate();
-        mv.setViewName("redirect:/home");
+      if (userEntity.getUserPw().equals(userPw)){
+        if (userEntity.getDeletedYn() == 'N') {
+          userService.deleteUser(userId);
+          session.invalidate();
+          mv.setViewName("redirect:/home");
+        }
+        else {
+          mv.setViewName("redirect:/login?error=alrdyOutUser");
+        }
       }
       else {
-        mv.setViewName("redirect:/login?error=alrdyOutUser");
+        mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=pwChk");
       }
     }
     else {
