@@ -28,7 +28,7 @@ public class FileUtil {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     ZonedDateTime current = ZonedDateTime.now();
 
-    String path = "C:/fullstack405/images/" + current.format(format);
+    String path = "/image/" + current.format(format);
 
     File file = new File(path);
 
@@ -59,7 +59,7 @@ public class FileUtil {
           else if (contentType.contains("image/png")) {
             originalFileExt = ".png";
           }
-          else if (contentType.contains("immge/gif")) {
+          else if (contentType.contains("image/gif")) {
             originalFileExt = ".gif";
           }
           else {

@@ -298,8 +298,10 @@ public class UserController {
             mv.setViewName("/user/myProfile");
           }
         }
-        else {
-          mv.setViewName("redirect:/home?error=signOutUser");
+        else if (userEntity.getDeletedYn() == 'Y') {
+          mv.addObject("me", false);
+          mv.addObject("signOutUserMsg", "(탈퇴한 회원)");
+          mv.setViewName("/user/myProfile");
         }
       }
       else {
