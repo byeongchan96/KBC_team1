@@ -17,13 +17,6 @@ public class ImgFileEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id; // 이미지 파일 id, pk
 
-  @Column(nullable = false)
-  private String oriName; // 원본파일명
-
-  @Column(nullable = false)
-  private String savedName; // 저장파일명
-
-  @Column(nullable = false)
-  private String savedPath; // 저장경로
+  private String imageName;
 
 }
