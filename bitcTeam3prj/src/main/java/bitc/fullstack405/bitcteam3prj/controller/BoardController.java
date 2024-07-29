@@ -1,7 +1,10 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.service.BoardService;
+import bitc.fullstack405.bitcteam3prj.service.UserService;
+import bitc.fullstack405.bitcteam3prj.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +19,10 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private UserService userService;
 
-//    게시글 전체 목록
+    //    게시글 전체 목록
     @GetMapping({"/", ""})
     public ModelAndView selectBoardList() throws Exception {
         ModelAndView mv = new ModelAndView("/board/boardList");
@@ -43,8 +48,9 @@ public class BoardController {
     public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId) throws Exception {
         ModelAndView mv = new ModelAndView("board/boardDetail");
         BoardEntity board = boardService.selectBoardDetail(boardId);
+        board.setVisitCnt(board.getVisitCnt() + 1);
+        boardService.updateBoard(board);
         mv.addObject("board" , board);
-
         return mv;
     }
 
@@ -56,10 +62,19 @@ public class BoardController {
 
 //    게시글 등록 처리
     @PostMapping("/write")
-    public String insertBoard(BoardEntity board) throws Exception {
+    public String insertBoard(String userId, String title, String category, String content) throws Exception {
+        BoardEntity board = new BoardEntity();
+
+        UserEntity user = userService.findByUserId(userId);
+        board.setTitle(title);
+        board.setCategory(category);
+        board.setContent(content);
+        board.setWarning("warning");
+        board.setUser(user);
+
         boardService.insertBoard(board);
 
-        return "redirect:/board/boardList";
+        return "redirect:/board/";
     }
 
 //    게시물 삭제
@@ -67,16 +82,20 @@ public class BoardController {
     public String deleteBoard(@PathVariable("boardId") long boardId) throws Exception {
         boardService.deleteBoardById(boardId);
 
-        return "redirect:/board/boardList";
+        return "redirect:/board/";
     }
 
 //    게시글 수정
     @PutMapping("/{boardId}")
-    public String updateBoard(@PathVariable("boardId") long boardId, BoardEntity board) throws Exception {
+    public String updateBoard(long boardId, String title, String content) throws Exception {
+        BoardEntity board = boardService.selectBoardDetail(boardId);
+        board.setTitle(title);
+        board.setContent(content);
         board.setId(boardId);
+
         boardService.updateBoard(board);
 
-        return "redirect:/board/boardList";
+        return "redirect:/board/" + boardId;
     }
 
 //    게시판 검색
@@ -89,8 +108,8 @@ public class BoardController {
         return mv;
     }
 
-//    게시판 카테고리 검색
-//    @GetMapping("/{movieCate}")
+////    게시판 카테고리 검색
+//    @GetMapping("/search/{movieCate}")
 //    public ModelAndView searchCateListBoard(@PathVariable("movieCate") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
 //        ModelAndView mv = new ModelAndView("/board/boardList");
 //        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);

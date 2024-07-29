@@ -5,6 +5,8 @@ import org.apache.catalina.User;
 
 public interface UserService {
 
+  UserEntity findByUserId(String userId)throws Exception;
+
   int isUserInfo(String userId, String userPw) throws Exception;
 
   int userIdCheck(String userId) throws Exception; // 회원가입 유저 ID 체크

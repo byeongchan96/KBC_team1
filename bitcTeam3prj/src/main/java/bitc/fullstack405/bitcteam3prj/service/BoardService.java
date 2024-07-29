@@ -10,7 +10,6 @@ import java.util.Optional;
 @Service
 public interface BoardService {
 
-
     List<BoardEntity> selectBoardList() throws Exception;
 
     BoardEntity selectBoardDetail(Long boardId) throws Exception;

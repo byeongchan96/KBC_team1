@@ -1,9 +1,13 @@
 package bitc.fullstack405.bitcteam3prj.database.repository;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardRatingEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import org.hibernate.query.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.awt.print.Pageable;
 import java.util.List;
@@ -41,8 +45,19 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     List<BoardEntity> findByTitleLike(String title);
     List<BoardEntity> findByCategoryLike(String Category);
 
-
-    @Query("SELECT b FROM BoardEntity AS b WHERE b.title LIKE '%?1%'")
-    List<BoardEntity> findAllBySearch(String search);
+//    @Query("SELECT b FROM BoardEntity AS b WHERE b.title LIKE '%?1%'")
+//    List<BoardEntity> findAllBySearch(String search);
+//
+//    @Query("SELECT b FROM BoardEntity AS b WHERE b.category = :category ")
+//    BoardEntity findAllByCategory(@Param("boardEntity") BoardEntity boardEntity);
+//
+//    @Query("SELECT b FROM UserEntity AS b WHERE b.userId = :userId ")
+//    UserEntity findAllByUser(@Param("userEntity") UserEntity userEntity);
+//
+//    @Query("SELECT b FROM BoardEntity AS b WHERE b.visitCnt = :visitCnt ")
+//    BoardEntity findAllByVisitCnt(@Param("boardEntity") BoardEntity boardEntity);
+//
+//    @Query("SELECT b FROM BoardEntity AS b WHERE b.warning = :warning ")
+//    BoardEntity findAllByWarning(@Param("boardEntity") BoardEntity boardEntity);
 
 }

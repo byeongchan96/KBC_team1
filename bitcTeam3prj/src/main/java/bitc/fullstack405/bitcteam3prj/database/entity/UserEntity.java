@@ -61,8 +61,7 @@ public class UserEntity {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   List<MovieBoardRatingEntity> movieRatingList;
 
-  @Column(name = "deleted_yn", nullable = false)
-  @ColumnDefault("N")
-  private char deletedYn;
+  @Column(nullable = false)
+  private char deletedYn = 'N';
 
 }
