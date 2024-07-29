@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사용하기</title>
-    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- 스타일시트 및 스크립트 파일 -->
     <script src="/js/jquery-3.7.1.js"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
+
     <style>
         .profile-header {
             background-color: #f8f9fa;
@@ -61,6 +65,9 @@
     </style>
 </head>
 <body>
+<!-- header -->
+<header th:replace="~{/layout/header::header}"></header>
+<!-- header END -->
 <!-- Main Content -->
 <main class="container mt-5">
     <div class="row">
@@ -318,9 +325,9 @@
         </div>
     </div>
 </div>
-
 <!-- Footer -->
 <footer th:replace="~{/layout/footer::footer}"></footer>
+<!-- Footer END -->
 
 <script>
     $(document).ready(function() {

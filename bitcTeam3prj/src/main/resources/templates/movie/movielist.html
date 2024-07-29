@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용하기</title>
+
+    <!-- 스타일시트 및 스크립트 파일 -->
+    <script src="/js/jquery-3.7.1.js"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.js"></script>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            background: #f8f9fa;
+        }
+
+        .main-content {
+            margin-top: 4rem; /* 헤더와의 여백 설정 */
+            margin-bottom: 3rem; /* 푸터와의 여백 설정 */
+            padding: 2rem; /* 내부 여백 설정 */
+            display: flex;
+            gap: 1rem; /* 항목 간의 간격 설정 */
+            flex-direction: row; /* 항목을 가로 방향으로 배치 */
+        }
+
+        .card-sidebar {
+            max-width: 300px; /* 사이드바 최대 너비 설정 */
+            position: sticky; /* 사이드바를 스크롤 시 고정 위치로 설정 */
+            top: 4rem; /* 상단 여백 설정 */
+        }
+
+        .bg-light-content {
+            background-color: #ffffff; /* 배경 색상 설정 */
+            padding: 2rem; /* 내부 여백 설정 */
+            border-radius: 0.5rem; /* 테두리 둥글기 설정 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+        }
+
+        .movie-card {
+            border: 2px solid #ccc; /* 카드 테두리 설정 */
+            border-radius: 0.5rem; /* 카드 테두리 둥글기 설정 */
+            overflow: hidden; /* 내용이 카드 밖으로 넘어가지 않도록 설정 */
+            background-color: #fff; /* 카드 배경 색상 설정 */
+        }
+
+        .movie-card img {
+            width: 100%; /* 이미지 너비를 카드 너비에 맞춤 */
+            height: 8rem; /* 이미지 높이 설정 */
+            object-fit: cover; /* 이미지 비율 유지하면서 자르기 */
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center; /* 페이지 네비게이션을 중앙 정렬 */
+            padding: 1rem 0; /* 페이지 네비게이션 위아래 여백 설정 */
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff; /* 활성화된 페이지 링크 배경 색상 설정 */
+            border-color: #007bff; /* 활성화된 페이지 링크 테두리 색상 설정 */
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column; /* 화면이 작아지면 항목을 세로 방향으로 배치 */
+            }
+
+            .card-sidebar {
+                position: relative; /* 스크롤 시 사이드바 위치 변경 */
+                max-width: none; /* 사이드바 최대 너비 해제 */
+                margin-bottom: 1rem; /* 사이드바와 영화 목록 간의 여백 설정 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+<!-- Header -->
+<header th:replace="~{/layout/header::header}"></header>
+<!-- Header END -->
+
+<!-- Main Content -->
+<main class="main-content container">
+    <!-- Sidebar -->
+    <div class="card card-sidebar bg-warning text-white">
+        <div class="card-body">
+            <h2 class="text-lg font-semibold mb-4">사이드바 메뉴</h2>
+            <form id="movie-form">
+                <div class="mb-3">
+                    <label class="form-check-label" for="domestic-movies">
+                        <input type="radio" id="domestic-movies" name="movie-type" value="domestic" class="form-check-input" checked>
+                        국내 영화
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-check-label" for="overseas-movies">
+                        <input type="radio" id="overseas-movies" name="movie-type" value="overseas" class="form-check-input">
+                        해외 영화
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Movie List -->
+    <div class="flex-grow-1">
+        <!-- Search and Categories -->
+        <div class="bg-light py-3 mb-4">
+            <div class="container">
+                <div class="d-flex justify-content-center mb-3">
+                    <input type="text" placeholder="Search..." class="form-control w-75 me-2">
+                    <button class="btn btn-warning">검색</button>
+                </div>
+                <div class="d-flex justify-content-center gap-2 mb-3">
+                    <button class="btn btn-primary" onclick="filterMovies('action')">액션</button>
+                    <button class="btn btn-primary" onclick="filterMovies('drama')">드라마</button>
+                    <button class="btn btn-primary" onclick="filterMovies('comedy')">코미디</button>
+                    <button class="btn btn-primary" onclick="filterMovies('romance')">로맨스</button>
+                    <button class="btn btn-primary" onclick="filterMovies('thriller')">스릴러</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Movie Cards Container -->
+        <div id="movies-container" class="bg-light-content">
+            <!-- Domestic Movies -->
+            <div id="domestic-movies-section" class="movie-list">
+                <div class="row">
+                    <!-- Movie Card 1 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Domestic Movie Title 1">
+                                <div class="mt-2 text-center">Domestic Movie Title 1</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Movie Card 2 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Domestic Movie Title 2">
+                                <div class="mt-2 text-center">Domestic Movie Title 2</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Movie Card 3 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Domestic Movie Title 3">
+                                <div class="mt-2 text-center">Domestic Movie Title 3</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Movie Card 4 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Domestic Movie Title 4">
+                                <div class="mt-2 text-center">Domestic Movie Title 4</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- 필요에 따라 반복 -->
+                </div>
+            </div>
+
+            <!-- Overseas Movies -->
+            <div id="overseas-movies-section" class="movie-list d-none">
+                <div class="row">
+                    <!-- Movie Card 1 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Overseas Movie Title 1">
+                                <div class="mt-2 text-center">Overseas Movie Title 1</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Movie Card 2 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Overseas Movie Title 2">
+                                <div class="mt-2 text-center">Overseas Movie Title 2</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Movie Card 3 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Overseas Movie Title 3">
+                                <div class="mt-2 text-center">Overseas Movie Title 3</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Movie Card 4 -->
+                    <div class="col-md-3 mb-4">
+                        <a href="movie-details.html" class="text-decoration-none">
+                            <div class="movie-card">
+                                <img src="https://via.placeholder.com/150" alt="Overseas Movie Title 4">
+                                <div class="mt-2 text-center">Overseas Movie Title 4</div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- 필요에 따라 반복 -->
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer th:replace="~{/layout/footer::footer}"></footer>
+<!-- Footer END -->
+
+<!-- JavaScript for Toggle -->
+<script>
+    document.getElementById('movie-form').addEventListener('change', function () {
+        const selectedType = document.querySelector('input[name="movie-type"]:checked').value;
+        showMovies(selectedType);
+    });
+
+    function showMovies(type) {
+        const domesticMovies = document.getElementById('domestic-movies-section');
+        const overseasMovies = document.getElementById('overseas-movies-section');
+        const allMovieLists = document.querySelectorAll('.movie-list');
+
+        allMovieLists.forEach(list => list.classList.add('d-none')); // 모든 영화 목록 숨기기
+
+        if (type === 'domestic') {
+            domesticMovies.classList.remove('d-none'); // 국내 영화 목록 표시
+        } else if (type === 'overseas') {
+            overseasMovies.classList.remove('d-none'); // 해외 영화 목록 표시
+        }
+    }
+
+    // 페이지 로드 시 국내 영화 목록 표시
+    showMovies('domestic');
+</script>
+</body>
+
+</html>

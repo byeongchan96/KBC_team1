@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용하기</title>
+
+    <!-- 스타일시트 및 스크립트 파일 -->
+    <script src="/js/jquery-3.7.1.js"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.js"></script>
+
+    <!-- 페이지 내 스타일 -->
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            background: #f8f9fa;
+        }
+
+        .container_flex {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .section_20 {
+            height: 50%;
+        }
+
+        .form_container {
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            background: #fff;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .login_page, .register_page, .forgot_password_page, .find_userid_page {
+            display: none;
+        }
+
+        .login_page.active, .register_page.active, .forgot_password_page.active, .find_userid_page.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .form_control {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .form_links {
+            margin-top: 1rem;
+        }
+
+        .form_links a {
+            display: block;
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #007bff;
+        }
+
+        .form_links a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            border-color: #007bff !important;
+            box-shadow: 0 0 0.5rem rgba(0, 123, 255, 0.5) !important;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .header_buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .search_btn {
+            margin-left: 0.5rem;
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #fff;
+        }
+
+        .search_btn:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+    </style>
+</head>
+
+<body>
+<!-- header -->
+<header th:replace="~{/layout/header::header}"></header>
+<!-- header END -->
+
+<!-- 페이지 내용 -->
+<div class="container_flex">
+    <div class="section section_20 bg-warning"></div>
+    <div class="section section_20 bg-light"></div>
+</div>
+
+<!-- 오버레이 -->
+<div class="overlay" id="overlay"></div>
+
+<!-- 로그인 폼 -->
+<div class="form_container login_page active" id="login_form">
+    <h2 class="mb-4">로그인</h2>
+    <form>
+        <div class="mb-3">
+            <label for="email" class="form_label">이메일 주소</label>
+            <input type="email" class="form_control" id="email" placeholder="이메일을 입력하세요">
+        </div>
+        <div class="mb-3">
+            <label for="userid" class="form_label">사용자 ID</label>
+            <input type="text" class="form_control" id="userid" placeholder="아이디를 입력하세요">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form_label">비밀번호</label>
+            <input type="password" class="form_control" id="password" placeholder="비밀번호를 입력하세요">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">로그인</button>
+        <div class="form_links">
+            <a href="#" id="go_to_register">회원가입하기</a>
+            <a href="#" id="go_to_forgot_password">비밀번호를 잊으셨나요?</a>
+            <a href="#" id="go_to_find_userid">아이디 찾기</a>
+        </div>
+    </form>
+</div>
+
+<!-- 회원가입 폼 -->
+<div class="form_container register_page hidden" id="register_form">
+    <div class="card form-container">
+        <div class="card-body">
+            <h4 class="mb-3">회원가입</h4>
+            <form class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="Email1" class="form-label">이메일 <span class="text-body-secondary">(필수사항)</span></label>
+                    <input type="email" class="form-control" id="Email1" placeholder="이메일을 입력하세요" required>
+                    <div class="invalid-feedback">유효한 이메일 주소를 입력하세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="userid" class="form-label">사용자 ID</label>
+                    <input type="text" class="form-control" id="userid" placeholder="사용자 ID" required>
+                    <div class="invalid-feedback">사용자 ID를 입력하세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="userpw" class="form-label">비밀번호</label>
+                    <input type="password" class="form-control" id="userpw" placeholder="비밀번호" required>
+                    <div class="invalid-feedback">비밀번호를 입력하세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="userpw-confirm" class="form-label">비밀번호 확인</label>
+                    <input type="password" class="form-control" id="userpw-confirm" placeholder="비밀번호 확인" required>
+                    <div class="invalid-feedback">비밀번호를 입력하세요.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="inputDefault" class="form-label">선호 영화 및 장르(선택사항)</label>
+                    <input type="text" class="form-control" placeholder="영화 및 장르" id="inputDefault">
+                </div>
+                <div class="mb-3">
+                    <h3>성별</h3>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="radio1" name="gender" value="male">
+                        <label class="form-check-label" for="radio1">남자</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="radio2" name="gender" value="female">
+                        <label class="form-check-label" for="radio2">여자</label>
+                    </div>
+                </div>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">가입하기</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 비밀번호 찾기 폼 -->
+<div class="form_container forgot_password_page hidden" id="forgot_password_form">
+    <h4 class="mb-3">비밀번호 찾기</h4>
+    <form>
+        <div class="mb-3">
+            <label for="forgot_email" class="form_label">이메일 주소</label>
+            <input type="email" class="form_control" id="forgot_email" placeholder="이메일을 입력하세요" required>
+        </div>
+        <div class="mb-3">
+            <label for="forgot_userid" class="form_label">사용자 ID</label>
+            <input type="text" class="form_control" id="forgot_userid" placeholder="아이디를 입력하세요" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">비밀번호 찾기</button>
+    </form>
+</div>
+
+<!-- 아이디 찾기 폼 -->
+<div class="form_container find_userid_page hidden" id="find_userid_form">
+    <h4 class="mb-3">아이디 찾기</h4>
+    <form>
+        <div class="mb-3">
+            <label for="find_email" class="form_label">이메일 주소</label>
+            <input type="email" class="form_control" id="find_email" placeholder="이메일을 입력하세요" required>
+        </div>
+        <div class="mb-3">
+            <label for="find_password" class="form_label">비밀번호</label>
+            <input type="password" class="form_control" id="find_password" placeholder="비밀번호를 입력하세요" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">아이디 찾기</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<footer th:replace="~{/layout/footer::footer}"></footer>
+<!-- Footer END -->
+
+<!-- 스크립트 -->
+<script>
+    // Function to handle switching forms
+    function switchForm(currentFormId, targetFormId) {
+        // Hide current form
+        document.getElementById(currentFormId).classList.remove('active');
+        document.getElementById(currentFormId).classList.add('hidden');
+
+        // Show target form
+        document.getElementById(targetFormId).classList.remove('hidden');
+        document.getElementById(targetFormId).classList.add('active');
+
+        // Show overlay
+        document.getElementById('overlay').classList.add('active');
+    }
+
+    // Handle form switching
+    document.getElementById('go_to_register').addEventListener('click', function(e) {
+        e.preventDefault();
+        switchForm('login_form', 'register_form');
+    });
+
+    document.getElementById('go_to_forgot_password').addEventListener('click', function(e) {
+        e.preventDefault();
+        switchForm('login_form', 'forgot_password_form');
+    });
+
+    document.getElementById('go_to_find_userid').addEventListener('click', function(e) {
+        e.preventDefault();
+        switchForm('login_form', 'find_userid_form');
+    });
+
+    // Close all forms and hide overlay on overlay click
+    document.getElementById('overlay').addEventListener('click', function() {
+        // Hide overlay
+        document.getElementById('overlay').classList.remove('active');
+
+        // Hide all forms
+        document.querySelectorAll('.login_page, .register_page, .forgot_password_page, .find_userid_page').forEach(form => {
+            form.classList.add('hidden');
+            form.classList.remove('active');
+        });
+
+        // Show login form
+        document.getElementById('login_form').classList.remove('hidden');
+        document.getElementById('login_form').classList.add('active');
+    });
+</script>
+</body>
+</html>
