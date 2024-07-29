@@ -62,7 +62,6 @@ public class UserEntity {
   List<MovieBoardRatingEntity> movieRatingList;
 
   @Column(name = "deleted_yn", nullable = false)
-  @ColumnDefault("N")
-  private char deletedYn;
+  private char deletedYn = 'N';
 
 }

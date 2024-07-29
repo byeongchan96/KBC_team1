@@ -4,6 +4,7 @@ import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +38,9 @@ public class UserController {
   public String loginProcess(@RequestParam("userId")String userId, @RequestParam("userPw") String userPw, HttpServletRequest req) throws Exception {
     int result = userService.isUserInfo(userId, userPw);
 
-    if (userId != null && userPw != null && result == 1) {
+    UserEntity userEntity = userService.findUserIdForProfile(userId);
 
+    if (userId != null && userPw != null && result == 1) {
       UserEntity user = userService.findUserIdForProfile(userId);
 
       HttpSession session = req.getSession();
@@ -49,9 +51,9 @@ public class UserController {
 
       session.setMaxInactiveInterval(60 * 60 * 1);
 
-     return "redirect:/home";
-
-    } else {
+      return "redirect:/home";
+    }
+    else {
       return "redirect:/login?error=loginFailed";
     }
   }
@@ -107,7 +109,7 @@ public class UserController {
     UserEntity entity = userService.findByUserIdCheckSignOut(userId);
 
     if (Objects.equals(userPwChk, userEntity.getUserPw())) {
-      if (entity.getDeletedYn() == 'N') {
+//      if (entity.getDeletedYn() == 'N') {
         if (userService.userIdCheck(userId) == 0) {
           if (userService.userEmailCheck(email) == 0) {
             userService.insertUser(userEntity);
@@ -124,10 +126,10 @@ public class UserController {
       else {
         mv.setViewName("redirect:/signIn?signOutUser");
       }
-    }
-    else {
-      mv.setViewName("redirect:/signIn?error=pwChk");
-    }
+//    }
+//    else {
+//      mv.setViewName("redirect:/signIn?error=pwChk");
+//    }
 
 
 
@@ -137,7 +139,7 @@ public class UserController {
 //  비밀번호 찾기 뷰
   @GetMapping("/findPassword")
   public String findPasswordView() throws Exception {
-    return "findPasswordTest";
+    return "user/findPasswordTest";
   }
 
 //  비밀번호 찾기 프로세스 및 변경 뷰
