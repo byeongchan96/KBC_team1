@@ -289,11 +289,11 @@ public class UserController {
 //            mv.addObject("profileImg", "noneProfileImgPath");
 //          }
 
-          if (session.getAttribute("userId") == userEntity.getUserId()) { // 자신의 프로필인지 타인의 프로필인지 확인
+          if (session.getAttribute("userId").equals(userId)) { // 자신의 프로필인지 타인의 프로필인지 확인
             mv.addObject("me", true);
             mv.setViewName("/user/myProfile");
           }
-          else if (session.getAttribute("userId") != userEntity.getUserId()) {
+          else if (!session.getAttribute("userId").equals(userId)) {
             mv.addObject("me", false);
             mv.setViewName("/user/myProfile");
           }
