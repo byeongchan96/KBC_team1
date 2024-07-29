@@ -33,7 +33,7 @@ public class UserEntity {
 
   @Column(nullable = false)
   private String userPw;
-  
+
   @Column(nullable = false)
   private String email;
 
@@ -43,10 +43,10 @@ public class UserEntity {
 
   @Column(nullable = false)
   private char gender; // 성별
-  
+
   @Column(nullable = false)
   private int age; // 나이
-  
+
   private String movieCate; // 선호 영화장르
 
   @ToString.Exclude
@@ -61,8 +61,6 @@ public class UserEntity {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   List<MovieBoardRatingEntity> movieRatingList;
 
-  @Column(name = "deleted_yn", nullable = false)
-  @ColumnDefault("N")
-  private char deletedYn;
-
+  @Column(nullable = false)
+  private char deletedYn = 'N';
 }
