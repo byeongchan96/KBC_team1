@@ -25,10 +25,8 @@ public class UserEntity {
   @Column(nullable = false)
   private String userId;
 
-  @ToString.Exclude
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-  private ImgFileEntity profileImg; // 프로필사진, img_file 테이블의 id 와 fk
 
+  private String profileImageName;
 
 
   @Column(nullable = false)
@@ -61,8 +59,7 @@ public class UserEntity {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   List<MovieBoardRatingEntity> movieRatingList;
 
-  @Column(name = "deleted_yn", nullable = false)
-  @ColumnDefault("N")
+  @Column(nullable = false)
   private char deletedYn;
 
 }

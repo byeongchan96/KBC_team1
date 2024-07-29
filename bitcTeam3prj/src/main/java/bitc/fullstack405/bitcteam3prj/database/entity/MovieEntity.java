@@ -28,9 +28,7 @@ public class MovieEntity {
   @ToString.Exclude
   private DirectorEntity director; // 감독id, director 테이블과 외래키
 
-  @ToString.Exclude
-  @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL)
-  private ImgFileEntity posterImg; // 영화포스터, movie_article 테이블과 외래키
+  private String posterImg; // 영화포스터, movie_article 테이블과 외래키
 
 
 
