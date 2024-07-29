@@ -82,8 +82,8 @@ public class UserServiceImpl implements UserService{
     return userRepository.findByUserId(userId);
   }
 
-  @Override
-  public void deleteProfileImg(String userId) throws Exception {
-    userRepository.deletingUserProfileImg(userId);
-  }
+//  @Override
+//  public void deleteProfileImg(String userId) throws Exception {
+//    userRepository.deletingUserProfileImg(userId);
+//  }
 }

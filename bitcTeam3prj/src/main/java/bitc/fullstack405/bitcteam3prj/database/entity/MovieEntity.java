@@ -28,14 +28,10 @@ public class MovieEntity {
   @ToString.Exclude
   private DirectorEntity director; // 감독id, director 테이블과 외래키
 
-  @ToString.Exclude
-  @OneToOne(mappedBy = "movie", cascade = CascadeType.ALL)
-  private ImgFileEntity posterImg; // 영화포스터, movie_article 테이블과 외래키
-
-
-
   @Column(nullable = false)
   private String movieName; // 영화이름
+
+  private String posterImageName;
 
   private LocalDateTime openDt; // 개봉일
 
