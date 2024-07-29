@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="" />
+    <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/MovieBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/MovieBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/ImgFileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/ImgFileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/MovieBoardRatingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/MovieBoardRatingEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/MovieEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/MovieEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/MovieRatingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/MovieRatingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/database/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/RatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/RatingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/RatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/RatingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/movie/movieInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/movie/movieInfo.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +73,9 @@
     "accountId": "0169c96e-cd99-4b61-87f6-5aac1d2db583"
   }
 }]]></component>
+  <component name="PerforceDirect.Settings">
+    <option name="CHARSET" value="없음" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -82,7 +99,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.BitcTeam3prjApplication.executor": "Run",
-    "git-widget-placeholder": "TeamBranchTemp",
+    "git-widget-placeholder": "Movie__JYE",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/fullstack405/temp",
@@ -99,6 +116,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\fullstack405\spring\team3\bitcTeam3prj\src\main\resources" />
       <recent name="C:\fullstack405\spring\team3\bitcTeam3prj\src\main\resources\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\fullstack405\temp\bitcTeam3prj\src\main\resources\templates\movie" />
     </key>
   </component>
   <component name="RunManager">
@@ -136,11 +156,22 @@
       <workItem from="1721951443568" duration="14115000" />
       <workItem from="1722060866280" duration="3819000" />
       <workItem from="1722067306112" duration="1995000" />
-      <workItem from="1722213870209" duration="28000" />
+      <workItem from="1722213870209" duration="33125000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/bitcTeam3prj/src/main/java/bitc/fullstack405/bitcteam3prj/controller/MovieBoardController.java</url>
+          <line>117</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
