@@ -92,8 +92,8 @@
                         <h3>프로필 정보</h3>
                         <form>
                             <div class="mb-3">
-                                <h5 class="card-title">아이디: 유재석</h5>
-                                <p class="card-text">이메일: honggildong@example.com</p>
+                                <h5 class="card-title">아이디: <span th:text="${user.userId}"></span></h5>
+                                <p class="card-text">이메일: <span th:text="${user.getEmail()}"></span></p>
                             </div>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profile-info-modal">수정</button>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#password-change-modal">비밀번호 변경</button>
@@ -254,11 +254,11 @@
                 <form>
                     <div class="mb-3">
                         <label for="modal-username" class="form-label">아이디</label>
-                        <input type="text" class="form-control" id="modal-username" value="유재석" required>
+                        <input type="text" class="form-control" id="modal-username" value="유재석" required th:value="${user.getUserId()}">
                     </div>
                     <div class="mb-3">
                         <label for="modal-email" class="form-label">이메일</label>
-                        <input type="email" class="form-control" id="modal-email" value="honggildong@example.com" required>
+                        <input type="email" class="form-control" id="modal-email" value="honggildong@example.com" required th:value="${user.getEmail()}">
                     </div>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">저장</button>
                 </form>
@@ -276,18 +276,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="/changePasswordProfile/{userId}" method="post">
                     <div class="mb-3">
                         <label for="current-password" class="form-label">현재 비밀번호</label>
-                        <input type="password" class="form-control" id="current-password" placeholder="현재 비밀번호" required>
+                        <input type="password" class="form-control" id="current-password" name="userPw" placeholder="현재 비밀번호" required>
                     </div>
                     <div class="mb-3">
                         <label for="new-password" class="form-label">새 비밀번호</label>
-                        <input type="password" class="form-control" id="new-password" placeholder="새 비밀번호" required>
+                        <input type="password" class="form-control" id="new-password" name="changePw" placeholder="새 비밀번호" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirm-password" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="confirm-password" placeholder="비밀번호 확인" required>
+                        <input type="password" class="form-control" id="confirm-password" name="changePwChk" placeholder="비밀번호 확인" required>
                         <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
                     </div>
                     <button type="submit" class="btn btn-primary">저장</button>

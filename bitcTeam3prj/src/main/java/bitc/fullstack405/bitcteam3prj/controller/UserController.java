@@ -268,7 +268,7 @@ public class UserController {
 
 //  마이페이지(프로필)
   @GetMapping("profile/{userId}")
-  public ModelAndView userProfile(HttpServletRequest req, @PathVariable String userId) throws Exception {
+  public ModelAndView userProfile(HttpServletRequest req, @PathVariable("userId") String userId) throws Exception {
     ModelAndView mv = new ModelAndView();
 
     HttpSession session = req.getSession();
@@ -291,11 +291,11 @@ public class UserController {
 
           if (session.getAttribute("userId") == userEntity.getUserId()) { // 자신의 프로필인지 타인의 프로필인지 확인
             mv.addObject("me", true);
-            mv.setViewName("/user/mypage");
+            mv.setViewName("/user/myProfile");
           }
           else if (session.getAttribute("userId") != userEntity.getUserId()) {
             mv.addObject("me", false);
-            mv.setViewName("/user/mypage");
+            mv.setViewName("/user/myProfile");
           }
         }
         else {
@@ -313,27 +313,27 @@ public class UserController {
   }
 
 //  마이페이지(비밀번호 변경)
-  @GetMapping("changePasswordProfile/{userId}")
-  public ModelAndView changePw(@RequestParam("changePw") String changePw, @RequestParam("userPw") String userPw, @RequestParam("changePwChk") String changePwChk, HttpServletRequest req) throws Exception {
+  @PostMapping("changePasswordProfile/{userId}")
+  public ModelAndView changePw(@RequestParam("userPw") String userPw, @RequestParam("changePw") String changePw, @PathVariable("userId") String userId, @RequestParam("changePwChk") String changePwChk, HttpServletRequest req) throws Exception {
     ModelAndView mv = new ModelAndView();
 
     HttpSession session = req.getSession();
 
-    UserEntity userEntity = userService.findUserIdForProfile(session.getId());
+    UserEntity userEntity = userService.findUserIdForProfile((String) session.getAttribute("userId"));
 
     if (session.getAttribute("userId") != null) {
       if (userEntity.getDeletedYn() == 'N') {
         if(session.getAttribute("userId").equals(userEntity.getUserId())) {
           if (changePw.equals(changePwChk)) {
-            userService.updateUserPw((String)session.getAttribute("userId"), userPw);
+            userService.updateUserPw((String)session.getAttribute("userId"), changePw);
             mv.setViewName("redirect:/profile/" + userEntity.getUserId());
           }
           else {
-            mv.setViewName("redirect:/changePasswordProfile?error=pwChk");
+            mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=pwChk");
           }
         }
         else {
-          mv.setViewName("redirect:/changePasswordProfile?error=notYourProfile");
+          mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=notYourProfile");
         }
       }
       else {
