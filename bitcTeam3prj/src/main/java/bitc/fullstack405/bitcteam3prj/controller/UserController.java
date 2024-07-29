@@ -40,6 +40,8 @@ public class UserController {
     if (userId != null && userPw != null && result == 1) {
 
       UserEntity user = userService.findUserIdForProfile(userId);
+      var deleted = user.getDeletedYn();
+
 
       HttpSession session = req.getSession();
 

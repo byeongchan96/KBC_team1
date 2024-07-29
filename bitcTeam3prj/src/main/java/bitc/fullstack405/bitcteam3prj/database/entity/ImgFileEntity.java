@@ -26,14 +26,4 @@ public class ImgFileEntity {
   @Column(nullable = false)
   private String savedPath; // 저장경로
 
-
-  @OneToOne
-  @JoinColumn(name = "user_id")
-  @ToString.Exclude
-  private UserEntity user;
-
-  @OneToOne
-  @JoinColumn(name="movie_id")
-  @ToString.Exclude
-  private MovieEntity movie;
 }
