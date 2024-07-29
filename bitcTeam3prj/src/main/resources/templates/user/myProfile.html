@@ -137,7 +137,7 @@
                                     <th>작성자</th>
                                     <th>등록일</th>
                                     <th>조회수</th>
-                                    <th>관리</th>
+                                    <th th:if="${me} == true">관리</th>
                                 </tr>
                                 </thead>
                                 <tbody id="post-table-body">
@@ -216,7 +216,7 @@
                                 <th>댓글내용</th>
                                 <th>게시물 제목</th>
                                 <th>작성일</th>
-                                <th>관리</th>
+                                <th th:if="${me} == true">관리</th>
                             </tr>
                             </thead>
                             <tbody>
