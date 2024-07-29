@@ -45,15 +45,15 @@
 
           $("#create-frm").on("submit", function (e) {
               const userIdList = $(".user-id-list");
-              var chk = true;
+              var chk = false;
 
               for (let i = 0; i < userIdList.length; i++) {
-                  chk = true;
+                  chk = false;
 
-                  if(userIdList[i] == sessionUserId) {
-                      chk = false;
+                  if($(userIdList[i]).val() === sessionUserId) {
+                      chk = true;
+                      break;
                   }
-
               }
                   if(chk) {
                       alert('중복 입력이 불가합니다.');
