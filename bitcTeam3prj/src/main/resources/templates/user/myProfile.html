@@ -80,6 +80,7 @@
     </script>
 </head>
 <body>
+<header th:replace="~{/layout/header::header}"></header>
 <!-- Main Content -->
 <main class="container mt-5">
     <input type="hidden" th:value="${session.userId}" id="sessionUserId">
@@ -344,7 +345,6 @@
 </div>
 
 <!-- Footer -->
-<footer th:replace="~{/layout/footer::footer}"></footer>
 
 <script>
     $(document).ready(function() {
@@ -361,5 +361,6 @@
         });
     });
 </script>
+<footer th:replace="~{/layout/footer::footer}"></footer>
 </body>
 </html>

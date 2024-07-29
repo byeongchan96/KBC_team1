@@ -1,6 +1,5 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
-import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.service.ImageService;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
@@ -11,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -174,7 +172,7 @@ public class UserController {
 //  비밀번호 찾기 뷰
   @GetMapping("/findPassword")
   public String findPasswordView() throws Exception {
-    return "user/findPasswordTest";
+    return "/login/findUserPw";
   }
 
 //  비밀번호 찾기 프로세스 및 변경 뷰
@@ -188,7 +186,7 @@ public class UserController {
 
     if (Objects.equals(entity.getUserId(), userId) && Objects.equals(entity.getEmail(), email)) {
       if (entity.getDeletedYn() == 'N') {
-        mv.setViewName("redirect:/changePasswordTest");
+        mv.setViewName("redirect:/changePassword");
       }
       else {
         mv.setViewName("redirect:/findPassword?error=signOutUser");
@@ -201,11 +199,11 @@ public class UserController {
   }
 
 //  비밀번호 변경 뷰
-  @PostMapping("/changePassword")
+  @GetMapping("/changePassword")
   public ModelAndView changePasswordView(@RequestParam("userId") String userId) {
     ModelAndView mv = new ModelAndView();
 
-    mv.setViewName("user/changePasswordTest");
+    mv.setViewName("login/changeUserPw");
     mv.addObject("userId", userId);
 
     return mv;
@@ -238,7 +236,7 @@ public class UserController {
 //  id 찾기 뷰
   @GetMapping("/findId")
   public String findIdView() throws Exception {
-    return "/user/findIdTest";
+    return "/login/findUserId";
   }
 
 //  id 찾기 프로세스
@@ -253,7 +251,7 @@ public class UserController {
     if (userEntity.getDeletedYn() == 'N') {
       if (userEntity != null && email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
         mv.addObject("userId", userEntity.getUserId());
-        mv.setViewName("user/foundIdTest");
+        mv.setViewName("/login/foundUserId");
       }
       else {
         mv.setViewName("redirect:/findId?error=notFoundUser");
