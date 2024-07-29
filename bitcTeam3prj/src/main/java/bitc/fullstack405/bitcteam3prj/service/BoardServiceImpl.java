@@ -6,6 +6,8 @@ import bitc.fullstack405.bitcteam3prj.database.repository.BoardCommentRepository
 import bitc.fullstack405.bitcteam3prj.database.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +28,11 @@ public class BoardServiceImpl implements BoardService {
         List<BoardEntity> boardList =  boardRepository.findAll();
 
         return boardList;
+    }
+
+    @Override
+    public Page<BoardEntity> selectBoardList(Pageable pageable) throws Exception{
+        return boardRepository.findAll(pageable);
     }
 
     @Override

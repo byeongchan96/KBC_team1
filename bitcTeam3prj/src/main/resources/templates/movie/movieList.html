@@ -129,7 +129,7 @@
             <td th:text="${movieBoard.movie.movieCate}">공지</td> <!-- 카테고리 데이터 -->
             <td><a href="#" th:href="@{|/movie/movieinfo/${movieBoard.id}|}" th:text="${movieBoard.movie.movieName}"> 게시물 제목</a></td>
             <td th:text="${movieBoard.movie.director.name}">유재석</td>
-            <td th:href="${movieBoard.movie?.openDt}">2024-07-26</td>
+            <td th:href="${movieBoard.movie?.openDt}">----</td>
             <td th:href="${movieBoard.viewCnt}"></td>
         </tr>
 
@@ -149,9 +149,10 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li th:each="barNum : ${barList}" class="page-item" th:class="${movieBoardList.number == barNum} ? 'active'">
+                    <a class="page-link" th:href="@{/movie/(page=${barNum})}" th:text="${barNum} + 1">1</a>
+                </li>
+
                 <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>

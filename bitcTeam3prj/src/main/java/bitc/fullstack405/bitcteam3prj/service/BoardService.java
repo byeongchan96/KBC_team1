@@ -2,6 +2,8 @@ package bitc.fullstack405.bitcteam3prj.service;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardCommentEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,8 @@ public interface BoardService {
 
 
     List<BoardEntity> selectBoardList() throws Exception;
+
+    Page<BoardEntity> selectBoardList(Pageable pageable) throws Exception;
 
     BoardEntity selectBoardDetail(Long boardId) throws Exception;
 

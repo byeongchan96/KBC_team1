@@ -3,6 +3,8 @@ package bitc.fullstack405.bitcteam3prj.service;
 import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardEntity;
 import bitc.fullstack405.bitcteam3prj.database.repository.MovieBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,11 @@ public class MovieBoardServiceImpl implements MovieBoardService {
     @Override
     public List<MovieBoardEntity> selectMovieBoardList() throws Exception {
         return movieBoardRepository.findAll();
+    }
+
+    @Override
+    public Page<MovieBoardEntity> selectMovieBoardList(Pageable pageable) throws Exception {
+        return movieBoardRepository.findAll(pageable);
     }
 
     @Override

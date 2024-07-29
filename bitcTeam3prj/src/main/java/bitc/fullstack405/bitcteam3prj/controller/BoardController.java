@@ -3,6 +3,9 @@ package bitc.fullstack405.bitcteam3prj.controller;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,10 +22,15 @@ public class BoardController {
 
 //    게시글 전체 목록
     @GetMapping({"/", ""})
-    public ModelAndView selectBoardList() throws Exception {
+    public ModelAndView selectBoardList(
+            @PageableDefault(size=10, sort="createdAt") Pageable pageable
+    ) throws Exception {
         ModelAndView mv = new ModelAndView("/board/boardList");
 
-        List<BoardEntity> boardList = boardService.selectBoardList();
+//        List<BoardEntity> boardList = boardService.selectBoardList();
+
+        Page<BoardEntity> boardList = boardService.selectBoardList(pageable);
+
         mv.addObject("boardList", boardList);
 
         return mv;

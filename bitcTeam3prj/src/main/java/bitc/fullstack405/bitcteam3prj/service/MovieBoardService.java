@@ -1,11 +1,15 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface MovieBoardService {
     List<MovieBoardEntity> selectMovieBoardList() throws Exception;
+
+    Page<MovieBoardEntity> selectMovieBoardList(Pageable pageable) throws Exception;
 
     MovieBoardEntity selectMovieBoardDetail(Long movieBoardId) throws Exception;
 
