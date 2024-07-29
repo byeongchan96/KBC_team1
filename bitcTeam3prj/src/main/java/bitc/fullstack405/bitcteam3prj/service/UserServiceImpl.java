@@ -81,4 +81,9 @@ public class UserServiceImpl implements UserService{
   public UserEntity findByUserIdCheckSignOut(String userId) throws Exception {
     return userRepository.findByUserId(userId);
   }
+
+  @Override
+  public void deleteProfileImg(String userId) throws Exception {
+    userRepository.deletingUserProfileImg(userId);
+  }
 }

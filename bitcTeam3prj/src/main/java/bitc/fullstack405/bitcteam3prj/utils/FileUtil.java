@@ -75,7 +75,6 @@ public class FileUtil {
         imgFileEntity.setOriName(uploadFile.getOriginalFilename());
         imgFileEntity.setSavedPath(path + "/" + newFileName);
         imgFileEntity.setSavedName(userEntity.getUserId() + imgFileEntity.getOriName());
-        imgFileEntity.setUser(userEntity);
 
         fileList.add(imgFileEntity);
 

@@ -20,7 +20,7 @@ public class LoginCheck implements HandlerInterceptor {
       return false;
     }
     else {
-      session.setMaxInactiveInterval(60);
+      session.setMaxInactiveInterval(60 * 60 * 1);
     }
     return true;
   }
