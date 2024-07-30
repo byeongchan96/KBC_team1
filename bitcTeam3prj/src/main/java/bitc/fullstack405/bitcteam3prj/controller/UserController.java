@@ -27,15 +27,30 @@ public class UserController {
 
 //  테스트용 메인페이지
   @GetMapping({"/home", "/main"})
-  public ModelAndView home() {
+  public ModelAndView home(@RequestParam(required = false, value = "error") String error) {
     ModelAndView mv = new ModelAndView("/main/mainHome");
+    if (error != null) {
+      mv.addObject("error", error);
+    }
     return mv;
   }
 
   //  로그인 화면 뷰
   @GetMapping ("/login")
-  public ModelAndView  login(HttpServletRequest req) throws Exception{
+  public ModelAndView  login(HttpServletRequest req, @RequestParam(required = false, value = "error") String error) throws Exception{
     ModelAndView mv = new ModelAndView();
+
+    HttpSession session = req.getSession();
+
+    if (session.getAttribute("userId") != null) {
+      error = "logined";
+    }
+
+    if (!Objects.isNull(error)) {
+      mv.addObject("error", error);
+    }
+
+
 
     boolean cookieCheck = false;
 
@@ -91,25 +106,25 @@ public class UserController {
   }
 
 
-//  로그인 성공 뷰
-  @GetMapping("/loginSuccess")
-  public ModelAndView loginSuccess(HttpServletRequest req) throws Exception{
-
-    Object userId = req.getSession().getAttribute("userId");
-    Object userPw = req.getSession().getAttribute("userPw");
-    ModelAndView mv = new ModelAndView();
-    mv.addObject("userId", userId);
-    mv.addObject("userPw", userPw);
-
-    if (req.getSession().getAttribute("userId") == null) {
-      mv.setViewName("redirect:/login");
-    }
-    else {
-      mv.setViewName("/user/logInSuccessTest");
-    }
-
-    return mv;
-  }
+////  로그인 성공 뷰 (기능작동 테스트용, 필요없어짐)
+//  @GetMapping("/loginSuccess")
+//  public ModelAndView loginSuccess(HttpServletRequest req) throws Exception{
+//
+//    Object userId = req.getSession().getAttribute("userId");
+//    Object userPw = req.getSession().getAttribute("userPw");
+//    ModelAndView mv = new ModelAndView();
+//    mv.addObject("userId", userId);
+//    mv.addObject("userPw", userPw);
+//
+//    if (req.getSession().getAttribute("userId") == null) {
+//      mv.setViewName("redirect:/login");
+//    }
+//    else {
+//      mv.setViewName("/user/logInSuccessTest");
+//    }
+//
+//    return mv;
+//  }
 
 
 //  로그아웃 프로세스
@@ -129,8 +144,16 @@ public class UserController {
 
 //  회원가입 뷰 페이지
   @GetMapping("/signIn")
-  public String signIn() throws Exception {
-    return "/login/signIn";
+  public ModelAndView signIn(@RequestParam(required = false, value = "error") String error) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    mv.setViewName("/login/signIn");
+
+    if (error != null) {
+      mv.addObject("error", error);
+    }
+
+    return mv;
   }
 
 //  화원가입 프로세스
@@ -142,7 +165,6 @@ public class UserController {
     UserEntity entity = userService.findByUserIdCheckSignOut(userId);
 
     if (Objects.equals(userPwChk, userEntity.getUserPw())) {
-//      if (entity.getDeletedYn() == 'N') {
         if (userService.userIdCheck(userId) == 0) {
           if (userService.userEmailCheck(email) == 0) {
             userService.insertUser(userEntity);
@@ -157,51 +179,69 @@ public class UserController {
         }
       }
       else {
-        mv.setViewName("redirect:/signIn?signOutUser");
+        mv.setViewName("redirect:/signIn?error=pwChk");
       }
-//    }
-//    else {
-//      mv.setViewName("redirect:/signIn?error=pwChk");
-//    }
-
-
-
     return mv;
   }
 
 //  비밀번호 찾기 뷰
   @GetMapping("/findPassword")
-  public String findPasswordView() throws Exception {
-    return "/login/findUserPw";
+  public ModelAndView findPasswordView(@RequestParam(required = false, value = "error") String error) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    if (error != null) {
+      mv.addObject("error", error);
+    }
+
+    mv.setViewName("/login/findUserPw");
+
+    return mv;
   }
 
-//  비밀번호 찾기 프로세스 및 변경 뷰
+//  비밀번호 찾기 프로세스 및 변경 뷰페이지 이동
   @PostMapping("/findPassword")
   public ModelAndView findPassword(@RequestParam("userId") String userId, @RequestParam("email") String email) throws Exception {
     ModelAndView mv = new ModelAndView();
 
     UserEntity entity = userService.findPassword(userId, email);
-    mv.addObject("userId", entity.getUserId());
-    mv.addObject("email", entity.getEmail());
-
-    if (Objects.equals(entity.getUserId(), userId) && Objects.equals(entity.getEmail(), email)) {
-      if (entity.getDeletedYn() == 'N') {
-        mv.setViewName("redirect:/changePassword");
+    try {
+      if (entity.getUserId() != null) {
+        if (Objects.equals(entity.getUserId(), userId) && Objects.equals(entity.getEmail(), email)) {
+          if (entity.getDeletedYn() == 'N') {
+            mv.addObject("userId", entity.getUserId());
+            mv.addObject("email", entity.getEmail());
+            mv.setViewName("redirect:/changePassword");
+          }
+          else {
+            mv.setViewName("redirect:/findPassword?error=signOutUser");
+          }
+        }
+        else {
+          mv.setViewName("redirect:/findPassword?error=notFoundUser");
+        }
       }
       else {
-        mv.setViewName("redirect:/findPassword?error=signOutUser");
+        mv.setViewName("redirect:/findPassword?error=notFoundUser");
       }
     }
-    else {
+    catch (NullPointerException e) {
       mv.setViewName("redirect:/findPassword?error=notFoundUser");
     }
+    catch (Exception e) {
+      mv.setViewName("redirect:/findPassword?error=error");
+    }
+
     return mv;
   }
 
 //  비밀번호 변경 뷰
   @GetMapping("/changePassword")
-  public ModelAndView changePasswordView(@RequestParam("userId") String userId) {
+  public ModelAndView changePasswordView(@RequestParam("userId") String userId, @RequestParam(required = false, value = "error") String error) {
     ModelAndView mv = new ModelAndView();
+
+    if (error != null) {
+      mv.addObject("error", error);
+    }
 
     mv.setViewName("login/changeUserPw");
     mv.addObject("userId", userId);
@@ -226,39 +266,51 @@ public class UserController {
       }
     }
     else {
-      mv.setViewName("redirect:/changePassword?signOutUser");
+      mv.setViewName("redirect:/changePassword?error=signOutUser");
     }
-
 
     return mv;
   }
 
 //  id 찾기 뷰
   @GetMapping("/findId")
-  public String findIdView() throws Exception {
-    return "/login/findUserId";
+  public ModelAndView findIdView(@RequestParam(required = false, value = "error") String error) throws Exception {
+
+    ModelAndView mv = new ModelAndView();
+
+    if (error != null) {
+      mv.addObject("error", error);
+    }
+
+    mv.setViewName("/login/findUserId");
+
+    return mv;
   }
 
 //  id 찾기 프로세스
   @ResponseBody
   @PostMapping("/findId")
-  public ModelAndView findId(@RequestParam("email") String email, @RequestParam("userPw") String userPw) throws Exception {
+  public ModelAndView findId(@RequestParam("email") String email, @RequestParam("userPw") String userPw, @RequestParam(required = false, value = "error") String error) throws Exception {
     ModelAndView mv = new ModelAndView();
+
+    if (error != null) {
+      mv.addObject("error", error);
+    }
 
     UserEntity userEntity = userService.findUserId(email, userPw);
 
 
-    if (userEntity.getDeletedYn() == 'N') {
-      if (userEntity != null && email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
+    if (userEntity != null && email.equals(userEntity.getEmail()) && userPw.equals(userEntity.getUserPw())) {
+      if (userEntity.getDeletedYn() == 'N') {
         mv.addObject("userId", userEntity.getUserId());
         mv.setViewName("/login/foundUserId");
       }
       else {
-        mv.setViewName("redirect:/findId?error=notFoundUser");
+        mv.setViewName("redirect:/findId?error=signOutUser");
       }
     }
     else {
-      mv.setViewName("redirect:/findId?error=signOutUser");
+        mv.setViewName("redirect:/findId?error=notFoundUser");
     }
 
     return mv;
@@ -266,8 +318,12 @@ public class UserController {
 
 //  마이페이지(프로필)
   @GetMapping("profile/{userId}")
-  public ModelAndView userProfile(HttpServletRequest req, @PathVariable("userId") String userId) throws Exception {
+  public ModelAndView userProfile(HttpServletRequest req, @PathVariable("userId") String userId, @RequestParam(required = false, value = "error") String error) throws Exception {
     ModelAndView mv = new ModelAndView();
+
+    if (error != null) {
+      mv.addObject("error", error);
+    }
 
     HttpSession session = req.getSession();
 
@@ -323,17 +379,22 @@ public class UserController {
 
     if (session.getAttribute("userId") != null) {
       if (userEntity.getDeletedYn() == 'N') {
-        if(session.getAttribute("userId").equals(userEntity.getUserId())) {
-          if (changePw.equals(changePwChk)) {
-            userService.updateUserPw((String)session.getAttribute("userId"), changePw);
-            mv.setViewName("redirect:/profile/" + userEntity.getUserId());
+        if (userPw == userEntity.getUserPw()) {
+          if(session.getAttribute("userId").equals(userEntity.getUserId())) {
+            if (changePw.equals(changePwChk)) {
+              userService.updateUserPw((String)session.getAttribute("userId"), changePw);
+              mv.setViewName("redirect:/profile/" + userEntity.getUserId());
+            }
+            else {
+              mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=pwChk");
+            }
           }
           else {
-            mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=pwChk");
+            mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=notYourProfile");
           }
         }
         else {
-          mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=notYourProfile");
+          mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=pwNotMatch");
         }
       }
       else {

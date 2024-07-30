@@ -62,6 +62,25 @@
 
     <script>
         $(document).ready(function () {
+            const error = $("#error").val();
+
+            if (error == "pwChk") {
+                alert("패스워드를 확인해 주세요.");
+                history.replaceState({}, null, location.pathname);
+            }
+            else if (error == "notYourProfile") {
+                alert("로그인 정보가 맞지 않습니다.");
+                history.replaceState({}, null, location.pathname);
+            }
+            else if (error == "signOutUser") {
+                alert("탈퇴한 회원입니다.");
+                history.replaceState({}, null, location.pathname);
+            }
+            else if (error == "pwNotMatch") {
+                alert("현재 패스워드가 일치하지 않습니다.");
+                history.replaceState({}, null, location.pathname);
+            }
+
            $("#frm").on("submit", function () {
                const confirmed = confirm("정말로 탈퇴하시겠습니까?\n탈퇴한 아이디/이메일은 재가입할 수 없습니다.");
 
@@ -83,6 +102,7 @@
 <header th:replace="~{/layout/header::header}"></header>
 <!-- Main Content -->
 <main class="container mt-5">
+    <input type="hidden" th:value="${error}" id="error">
     <input type="hidden" th:value="${session.userId}" id="sessionUserId">
     <div class="row">
         <!-- Profile Sidebar -->

@@ -7,16 +7,20 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/jquery-3.7.1.js"></script>
     <script src="/js/bootstrap.bundle.js"></script>
-    <style>
-        .container {
-            max-width: 600px;
-        }
-        .card {
-            margin-top: 20px;
-        }
-    </style>
+
     <script>
         $(document).ready(function () {
+            const error = $("#error").val();
+
+            if (error == "pwChk") {
+                alert("비밀번호를 확인해 주세요.");
+                history.replaceState({}, null, location.pathname);
+            }
+            if (error == "signOutUser") {
+                alert("탈퇴한 회원입니다.");
+                window.location.replace("login");
+            }
+
             $("#frm").on("submit", function () {
                 if ($("#user-pw").val() == $("#user-pw-chk").val()) {
                     $("#method").val("PUT");
@@ -26,7 +30,7 @@
                     frm.submit();
                 }
                 else {
-                    alert("비밀번호가 다릅니다.");
+                    alert("비밀번호를 확인해 주세요.");
                 }
             });
         });
@@ -36,8 +40,9 @@
 <!---->
 <header th:replace="~{/layout/header::header}"></header>
 <!---->
-<main class="container">
-    <h1 class="text-center">비밀번호 변경</h1>
+<main class="container" style="max-width: 600px;">
+    <input type="hidden" th:value="${error}" id="error">
+    <h1 class="text-center" style="margin-top: 20px;">비밀번호 변경</h1>
     <section>
         <!-- 비밀번호 변경 폼 -->
         <div class="card">

@@ -20,6 +20,23 @@
         }
     </style>
 
+    <script>
+        $(document).ready(function () {
+            const error = $("#error").val();
+            if (error == "loginFailed") {
+                alert("로그인에 실패하였습니다.");
+                window.location.replace("login");
+            }
+            else if(error == "alrdyOutUser") {
+                alert("회원탈퇴한 유저입니다.");
+                window.location.replace("login");
+            }
+            else if(error == "logined") {
+                window.location.replace("home")
+            }
+        });
+    </script>
+
 </head>
 <body>
 <!-- header -->
@@ -30,6 +47,7 @@
     <div class="login-page">
         <h2 class="text-center mb-4">로그인</h2>
         <form method="post">
+            <input type="hidden" th:value="${error}" id="error">
             <div class="mb-3">
                 <label for="user-id" class="form-label">ID</label>
                 <input type="text" class="form-control" id="user-id" name="userId" placeholder="ID 입력하세요" th:value="${userId}">

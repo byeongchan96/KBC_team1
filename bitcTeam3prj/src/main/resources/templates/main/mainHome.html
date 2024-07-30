@@ -58,6 +58,18 @@
             font-size: 0.75em;
         }
     </style>
+
+    <script>
+        $(document).ready(function () {
+            const error = $("#error").val();
+            if (error == "notFoundUser") {
+                alert("회원을 찾을 수 없습니다.");
+                window.location.replace("home");
+            }
+        });
+    </script>
+
+
 </head>
 
 <body>
@@ -115,6 +127,7 @@
 <header th:replace="~{/layout/header::header}"></header>
 <!-- Carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <input type="hidden" th:value="${error}" id="error">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="First slide">

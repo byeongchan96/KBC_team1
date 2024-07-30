@@ -16,12 +16,32 @@
             padding: 2rem; /* Add padding inside the card */
         }
     </style>
+
+    <script>
+        $(document).ready(function () {
+            const error = $("#error").val();
+            if (error == "existEmail") {
+                alert("이미 존재 혹은 탈퇴한 회원의 Email 입니다.");
+                window.location.replace("signIn");
+            }
+            else if(error == "existId") {
+                alert("이미 존재 혹은 탈퇴한 회원의 ID 입니다.");
+                window.location.replace("signIn");
+            }
+            else if(error == "pwChk") {
+                alert("패스워드를 체크해 주세요.");
+                window.location.replace("signIn")
+            }
+        });
+    </script>
 </head>
 <body>
 <!-- header -->
 <header th:replace="~{/layout/header::header}"></header>
 <!-- header END -->
 <!-- Main Content -->
+<main>
+    <input type="hidden" th:value="${error}" id="error">
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -38,14 +58,14 @@
 
                         <!-- User ID Input -->
                         <div class="mb-3">
-                            <label for="user-id" class="form-label">사용자 ID</label>
+                            <label for="user-id" class="form-label">사용자 ID<span class="text-body-secondary">(필수사항)</span></label>
                             <input type="text" class="form-control" id="user-id" name="userId" placeholder="사용자 ID" required>
                             <div class="invalid-feedback">사용자 ID를 입력합니다.</div>
                         </div>
 
                         <!-- Password Input -->
                         <div class="mb-3">
-                            <label for="user-pw" class="form-label">비밀번호</label>
+                            <label for="user-pw" class="form-label">비밀번호<span class="text-body-secondary">(필수사항)</span></label>
                             <input type="password" class="form-control" id="user-pw" name="userPw" placeholder="비밀번호" required>
                             <div class="invalid-feedback">비밀번호를 입력합니다.</div>
                         </div>
@@ -59,17 +79,17 @@
 
                         <!-- Preferred Movies Input -->
                         <div class="mb-3">
-                            <label for="inputDefault" class="form-label">선호 영화 및 장르(선택사항)</label>
+                            <label for="inputDefault" class="form-label">선호 영화 및 장르<span class="text-body-secondary">(선택사항)</span></label>
                             <input type="text" class="form-control" placeholder="영화 및 장르" name="movieCate" id="inputDefault">
                         </div>
 
                         <!-- Gender Selection -->
                         <div class="mb-3">
-                            <h3>성별</h3>
+                            <h6>성별<span class="text-body-secondary">(필수사항)</span></h6>
                             <!-- Male Radio Button -->
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="radio1" name="gender" value="M">
-                                <label class="form-check-label" for="radio1">남자</label>
+                                <input type="radio" class="form-check-input" id="radio1" name="gender" value="M" checked>
+                                <label class="form-check-label" for="radio1" >남자</label>
                             </div>
                             <!-- Female Radio Button -->
                             <div class="form-check">
@@ -86,6 +106,7 @@
         </div>
     </div>
 </div>
+</main>
 <!-- Main Content END -->
 <!-- Footer -->
 <footer th:replace="~{/layout/footer::footer}"></footer>
