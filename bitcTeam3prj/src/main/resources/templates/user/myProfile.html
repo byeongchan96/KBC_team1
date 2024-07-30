@@ -100,7 +100,7 @@
                 const confirmed = confirm("프로필 이미지를 삭제하겠습니까?");
 
                 if (confirmed) {
-                    $("#method2").val("POST")
+                    $("#method2").val("POST");
 
                     const frm2 = $("#frm2")[0];
                     frm2.action = "/deleteProfileImg";
@@ -108,6 +108,43 @@
                 }
                 else {
                     location.reload();
+                }
+            });
+
+            // $("#customFile").on("click", function () {
+            //
+            //     var formData = new FormData();
+            //     var inputFile = $("input[name='uploadFile']");
+            //     var files = inputFile[0].files;
+            //     console.log(files);
+            //
+            //     for(var i =0;i<files.length;i++){
+            //         formData.append("uploadFile", files[i]);
+            //     }
+            //
+            //     $.ajax({
+            //         url: '/uploadProfileImg',
+            //         processData: false,
+            //         contentType: false,
+            //         data: formData,
+            //         type: 'PUT',
+            //         success: function (result) {
+            //             alert("변경되었습니다.");
+            //         }
+            //     });
+            // });
+
+
+            // $("#frm3").on("submit", function () {
+            $("#customFile").on("change", function () {
+                const confirmed = confirm("프로필 이미지를 변경하시겠습니까?");
+
+                if (confirmed) {
+                    $("#method3").val("PUT");
+
+                    const frm3 = $("#frm3")[0];
+                    frm3.action = "/uploadProfileImg";
+                    frm3.submit();
                 }
             });
         });
@@ -130,10 +167,13 @@
                         <img src="/image/DefaultProfileImage.jpg" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;" th:src="${profileImage}">
                     </div>
                 </div>
-                <form action="deleteProfileImg" id="frm2" method="post">
-                    <input type="hidden" id="method2" name="_method">
-                    <input type="file" id="customFile" name="file" hidden>
+                <form action="/uploadProfileImg" id="frm3" method="post" class="d-inline justify-content-center" enctype="multipart/form-data">
+                    <input type="hidden" id="method3" name="_method">
+                    <input type="file" id="customFile" name="uploadFile" accept=".jpg" hidden>
                     <label class="btn btn-success-soft" for="customFile" th:if="${me} == true">업로드</label>
+                </form>
+                <form action="/deleteProfileImg" id="frm2" method="post" class="d-inline justify-content-center">
+                    <input type="hidden" id="method2" name="_method">
                     <button type="submit" class="btn btn-danger-soft" th:if="${me} == true">제거</button>
                 </form>
             </div>

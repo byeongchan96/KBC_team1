@@ -2,12 +2,16 @@ package bitc.fullstack405.bitcteam3prj.utils;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Part;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,72 +21,35 @@ import java.util.List;
 @Component
 public class FileUtil {
 
-  public List<ImgFileEntity> parseUserFileInfo(long id, MultipartHttpServletRequest multipart) throws Exception{
+  public void uploadFile(HttpServletRequest req) throws ServletException, IOException {
 
-    if (ObjectUtils.isEmpty(multipart)) {
-      return null;
+    Part part = req.getPart("uploadFile");
+    String partHeader = part.getHeader("content-disposition");
+    String[] phArr = partHeader.split("filename=");
+    String oriFileName = phArr[1].trim().replace(".jpg", "").replace("\"", "");
+
+
+    File rootPath = new File("src/main/resources/static/image");
+    String savePath = rootPath.getAbsolutePath() +  "/"  + oriFileName + ".jpg";
+
+    File f = new File(savePath);
+    if(f.exists()){
+      System.out.println("Exists File : " + oriFileName);
+      return;
     }
 
-    List<ImgFileEntity> fileList = new ArrayList<>();
-
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    ZonedDateTime current = ZonedDateTime.now();
-
-    String path = "/image/" + current.format(format);
-
-    File file = new File(path);
-
-    if (file.exists() == false) {
-      file.mkdirs();
+    if (!oriFileName.isEmpty()) {
+      part.write(savePath);
     }
+  }
 
-    Iterator<String> iterator = multipart.getFileNames();
+  public static void deleteFile(String fileName, String saveDir) {
 
-    String newFileName;
-    String originalFileExt;
-    String contentType;
+    File file = new File(saveDir + File.separator + fileName + ".jpg");
 
-    while (iterator.hasNext()) {
-      String name = iterator.next();
-      List<MultipartFile> multipartFileList = multipart.getFiles(name);
-
-      for (MultipartFile uploadFile : multipartFileList) {
-        contentType = uploadFile.getContentType();
-
-        if (ObjectUtils.isEmpty(contentType)) {
-          break;
-        }
-        else {
-          if (contentType.contains("image/jpeg")) {
-            originalFileExt = ".jpg";
-          }
-          else if (contentType.contains("image/png")) {
-            originalFileExt = ".png";
-          }
-          else if (contentType.contains("image/gif")) {
-            originalFileExt = ".gif";
-          }
-          else {
-            break;
-          }
-        }
-
-        newFileName = System.nanoTime() + originalFileExt;
-
-        UserEntity userEntity = new UserEntity();
-        ImgFileEntity imgFileEntity = new ImgFileEntity();
-
-        imgFileEntity.setOriName(uploadFile.getOriginalFilename());
-        imgFileEntity.setSavedPath(path + "/" + newFileName);
-        imgFileEntity.setSavedName(userEntity.getUserId() + imgFileEntity.getOriName());
-
-        fileList.add(imgFileEntity);
-
-        file = new File(path + "/" + newFileName);
-        uploadFile.transferTo(file);
-      }
+    if (file.exists()) {
+      file.delete();
     }
-
-    return fileList;
   }
 }
+

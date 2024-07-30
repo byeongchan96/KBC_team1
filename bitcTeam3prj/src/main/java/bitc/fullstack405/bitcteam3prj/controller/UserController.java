@@ -2,15 +2,19 @@ package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.database.repository.ImgFileRepository;
+import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
 import bitc.fullstack405.bitcteam3prj.service.ImageService;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
 import bitc.fullstack405.bitcteam3prj.utils.CookieUtil;
+import bitc.fullstack405.bitcteam3prj.utils.FileUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,7 +30,14 @@ public class UserController {
   @Autowired
   private ImageService imageService;
 
-//  테스트용 메인페이지
+  @Autowired
+  private FileUtil fileUtil;
+  @Autowired
+  private ImgFileRepository imgFileRepository;
+  @Autowired
+  private UserRepository userRepository;
+
+  //  테스트용 메인페이지
   @GetMapping({"/home", "/main"})
   public ModelAndView home(@RequestParam(required = false, value = "error") String error) {
     ModelAndView mv = new ModelAndView("/main/mainHome");
@@ -328,19 +339,26 @@ public class UserController {
 
     HttpSession session = req.getSession();
 
+    String findImg = userId + ".jpg";
+
     UserEntity userEntity = userService.findUserIdForProfile(userId);
 
-    ImgFileEntity imgFileEntity = imageService.findBySavedName(userEntity.getProfileImageName());
 
     if(session.getAttribute("userId") != null) {
       mv.addObject("user", userEntity);
 
-      if (userEntity != null ) {
+      if (userEntity != null) {
 
         if (userEntity.getDeletedYn() == 'N') {
 
-          if (userEntity.getProfileImageName() != null) {
-            mv.addObject("profileImage", "/image/" + imgFileEntity.getSavedName());
+          if (userEntity.getProfileImageName() != null && userEntity.getProfileImageName() != "") {
+            ImgFileEntity imgFileEntity = imageService.findBySavedName(userEntity.getProfileImageName());
+            if (imgFileEntity.getSavedName() != null) {
+              mv.addObject("profileImage", "/image/" + findImg);
+            }
+            else {
+              mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
+            }
           }
           else {
             mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
@@ -461,19 +479,22 @@ public class UserController {
     return mv;
   }
 
-//  //  프로필 이미지 업로드(프사수정)
-//  @PutMapping("/uploadProfileImg")
-//  public ModelAndView uploadProfileImg(@RequestParam("userIdx") long userIdx, MultipartHttpServletRequest multipart) throws Exception {
-//
-//    ModelAndView mv = new ModelAndView();
-//
-//    userService.insertUserProfileImg(userIdx, multipart);
-//
-//    mv.setViewName("redirect:/profile/{userId}");
-//
-//    return mv;
-//
-//  }
+  //  프로필 이미지 업로드(프사수정)
+  @PutMapping("/uploadProfileImg")
+  public ModelAndView uploadProfileImg(HttpServletRequest req) throws Exception {
+
+    ModelAndView mv = new ModelAndView();
+
+    HttpSession session = req.getSession();
+
+    fileUtil.uploadFile(req);
+
+    String userId = (String)session.getAttribute("userId");
+
+    mv.setViewName("redirect:/profile/" + userId);
+
+    return mv;
+  }
 
   //  프로필 이미지 삭제
   @PostMapping("/deleteProfileImg")
