@@ -4,6 +4,7 @@ package bitc.fullstack405.bitcteam3prj.controller;
 import bitc.fullstack405.bitcteam3prj.database.entity.*;
 import bitc.fullstack405.bitcteam3prj.database.repository.MovieRatingRepository;
 import bitc.fullstack405.bitcteam3prj.service.*;
+import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,8 @@ public class MovieBoardController {
     private MovieRatingRepository movieRatingRepository;
   @Autowired
   private UserService userService;
+  @Autowired
+  private MovieLikeService movieLikeService;
 
 
     @GetMapping({"/", ""})
@@ -43,11 +46,16 @@ public class MovieBoardController {
 
     @GetMapping("/movieinfo/{movieBoardId}")
     public ModelAndView getMovieBoardDetail(
-            @PathVariable("movieBoardId") long id) throws Exception {
+            @PathVariable("movieBoardId") long id,
+            HttpSession session)  throws Exception {
 
         ModelAndView mv = new ModelAndView();
 
         MovieBoardEntity entity = movieBoardService.findByMovieId(id);
+        entity.setViewCnt(entity.getViewCnt() + 1);
+
+        movieBoardService.update(entity);
+
         var ratingList = ratingService.findAllByMovieBoard(entity);
 
         float avg = 0.0f;
@@ -62,8 +70,22 @@ public class MovieBoardController {
             mv.addObject("avg", avg);
         }
 
+        boolean isLike = false;
+
+        String userId = (String)session.getAttribute("userId");
+
+        if(userId != null) {
+          UserEntity user = userService.findByUserId((String) session.getAttribute("userId"));
+          int likeCnt = movieLikeService.getMovieLikeCnt(user.getId(), entity.getMovie().getId());
+          if(likeCnt > 0) {isLike = true;}
+        }
+
+
+
+
         mv.addObject("movie", entity);
         mv.addObject("ratingList", ratingList);
+        mv.addObject("isLike", isLike);
 
         MovieEntity movieEntity = movieService.selectMovieById(id);
 
@@ -119,6 +141,7 @@ public class MovieBoardController {
 
         return "redirect:/movie/movieinfo/" + movieBoardId;
     }
+
 
 
 }
