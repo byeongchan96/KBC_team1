@@ -69,14 +69,14 @@
 <main class="container mt-5">
     <!-- 검색 폼 -->
     <div class="search-form">
-        <form id="search-form">
+        <form action="/movie" method="get">
             <table class="table table-borderless mb-0">
                 <tbody>
                 <tr>
                     <!-- 카테고리 선택 -->
                     <td>
                         <label for="categorySelect" class="form-label">카테고리</label>
-                        <select class="form-select" id="categorySelect" name="category">
+                        <select class="form-select" id="categorySelect" name="searchCate">
                             <option value="">모든 카테고리</option>
                             <option value="notice">공지</option>
                             <option value="spoiler">스포일러</option>
@@ -85,18 +85,18 @@
                         </select>
                     </td>
                     <!-- 날짜 범위 선택 -->
-                    <td>
-                        <label for="dateFrom" class="form-label">날짜 범위 (시작)</label>
-                        <input type="date" class="form-control" id="dateFrom" name="dateFrom">
-                    </td>
-                    <td>
-                        <label for="dateTo" class="form-label">날짜 범위 (끝)</label>
-                        <input type="date" class="form-control" id="dateTo" name="dateTo">
-                    </td>
+<!--                    <td>-->
+<!--                        <label for="dateFrom" class="form-label">날짜 범위 (시작)</label>-->
+<!--                        <input type="date" class="form-control" id="dateFrom" name="dateFrom">-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <label for="dateTo" class="form-label">날짜 범위 (끝)</label>-->
+<!--                        <input type="date" class="form-control" id="dateTo" name="dateTo">-->
+<!--                    </td>-->
                     <!-- 제목 검색 -->
                     <td>
                         <label for="titleSearch" class="form-label">제목</label>
-                        <input type="text" class="form-control" id="titleSearch" name="title" placeholder="제목 검색">
+                        <input type="text" class="form-control" id="titleSearch" name="searchTitle" placeholder="제목 검색">
                     </td>
                 </tr>
                 <tr>
@@ -145,7 +145,7 @@
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a class="page-link" th:href="${movieBoardList.first} ? '#' : @{/movie/(page=${movieBoardList.number - 1})} " aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -154,7 +154,7 @@
                 </li>
 
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                    <a class="page-link" th:href="${movieBoardList.last} ? '#' : @{/movie/(page=${movieBoardList.number + 1})} "  aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

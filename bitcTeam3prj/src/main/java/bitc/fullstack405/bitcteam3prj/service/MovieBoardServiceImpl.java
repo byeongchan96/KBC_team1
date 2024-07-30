@@ -54,5 +54,20 @@ public class MovieBoardServiceImpl implements MovieBoardService {
 
     }
 
+    @Override
+    public Page<MovieBoardEntity> selectMovieBoardListByCate(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public Page<MovieBoardEntity> selectMovieBoardListByTitle(Pageable pageable, String searchTitle) {
+        return movieBoardRepository.findAllByMovie_MovieNameContains(pageable, searchTitle);
+    }
+
+    @Override
+    public Page<MovieBoardEntity> selectMovieBoardListByCateAndTitle(Pageable pageable) {
+        return null;
+    }
+
 
 }

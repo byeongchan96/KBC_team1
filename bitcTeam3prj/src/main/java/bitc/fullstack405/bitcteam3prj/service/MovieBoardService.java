@@ -18,4 +18,10 @@ public interface MovieBoardService {
     void insertMovieBoardList(List<MovieBoardEntity> movieBoardList) throws Exception;
 
     MovieBoardEntity findByMovieId(long movieId) throws Exception;
+
+    Page<MovieBoardEntity> selectMovieBoardListByCate(Pageable pageable);
+
+    Page<MovieBoardEntity> selectMovieBoardListByTitle(Pageable pageable, String searchTitle);
+
+    Page<MovieBoardEntity> selectMovieBoardListByCateAndTitle(Pageable pageable);
 }

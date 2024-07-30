@@ -8,6 +8,7 @@ import bitc.fullstack405.bitcteam3prj.service.MovieService;
 import bitc.fullstack405.bitcteam3prj.service.PaginationService;
 import bitc.fullstack405.bitcteam3prj.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -36,11 +37,32 @@ public class MovieBoardController {
 
     @GetMapping({"/", ""})
     public ModelAndView getMovieBoardList(
-            @PageableDefault(page=0, size=10, sort = "id") Pageable pageable
+            @PageableDefault(page=0, size=10, sort = "id") Pageable pageable,
+            @RequestParam(required = false) String searchCate,
+            @RequestParam(required = false) String searchTitle
     ) throws Exception {
         ModelAndView mv = new ModelAndView("/movie/movieList");
 
-        var movieBoardList = movieBoardService.selectMovieBoardList(pageable);
+        Page<MovieBoardEntity> movieBoardList;
+
+        boolean searchCateChk = searchCate == null || searchCate.isEmpty();
+        boolean searchTitleChk = searchTitle == null || searchTitle.isEmpty();
+        
+        if(searchCateChk && searchTitleChk){
+            movieBoardList = movieBoardService.selectMovieBoardList(pageable);
+        }
+        else if (searchTitleChk && !searchCateChk){
+            movieBoardList = movieBoardService.selectMovieBoardListByCate(pageable);
+        }
+        else if(!searchTitleChk && searchCateChk){
+            movieBoardList = movieBoardService.selectMovieBoardListByTitle(pageable, searchTitle);
+        }
+        else{
+            movieBoardList = movieBoardService.selectMovieBoardListByCateAndTitle(pageable);
+        }
+
+//        var movieBoardList = movieBoardService.selectMovieBoardList(pageable);
+
         mv.addObject("movieBoardList", movieBoardList);
         mv.addObject(
                 "barList",
