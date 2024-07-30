@@ -1,7 +1,10 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
+import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.catalina.User;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface UserService {
 
@@ -27,4 +30,8 @@ public interface UserService {
   void deleteUser(String userId) throws Exception;
 
   UserEntity findByUserIdCheckSignOut(String userId) throws Exception;
+
+  void deleteProfileImg(String userId) throws Exception;
+
+  void insertUserProfileImg(String userId, ImgFileEntity imgFileEntity) throws Exception;
 }

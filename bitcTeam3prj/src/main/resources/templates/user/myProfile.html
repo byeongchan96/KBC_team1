@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사용하기</title>
+    <title>프로필</title>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/jquery-3.7.1.js"></script>
     <script src="/js/bootstrap.bundle.js"></script>
@@ -59,10 +59,103 @@
             border-radius: 5px;
         }
     </style>
+
+    <script>
+        $(document).ready(function () {
+            const error = $("#error").val();
+
+            if (error == "pwChk") {
+                alert("비밀번호를 확인해 주세요.");
+                history.replaceState({}, null, location.pathname);
+            }
+            else if (error == "notYourProfile") {
+                alert("로그인 정보가 맞지 않습니다.");
+                history.replaceState({}, null, location.pathname);
+            }
+            else if (error == "signOutUser") {
+                alert("탈퇴한 회원입니다.");
+                history.replaceState({}, null, location.pathname);
+            }
+            else if (error == "pwNotMatch") {
+                alert("현재 비밀번호가 일치하지 않습니다.");
+                history.replaceState({}, null, location.pathname);
+            }
+
+           $("#frm").on("submit", function () {
+               const confirmed = confirm("정말로 탈퇴하시겠습니까?\n탈퇴한 아이디/이메일은 재가입할 수 없습니다.");
+
+               if (confirmed) {
+                   $("#method").val("DELETE");
+
+                   const frm = $("#frm")[0];
+                   frm.action = "/signOut";
+                   frm.submit();
+               }
+               else if(!confirmed) {
+                   location.reload();
+               }
+           });
+
+            $("#frm2").on("submit", function () {
+                const confirmed = confirm("프로필 이미지를 삭제하겠습니까?");
+
+                if (confirmed) {
+                    $("#method2").val("POST");
+
+                    const frm2 = $("#frm2")[0];
+                    frm2.action = "/deleteProfileImg";
+                    frm2.submit();
+                }
+                else {
+                    location.reload();
+                }
+            });
+
+            // $("#customFile").on("click", function () {
+            //
+            //     var formData = new FormData();
+            //     var inputFile = $("input[name='uploadFile']");
+            //     var files = inputFile[0].files;
+            //     console.log(files);
+            //
+            //     for(var i =0;i<files.length;i++){
+            //         formData.append("uploadFile", files[i]);
+            //     }
+            //
+            //     $.ajax({
+            //         url: '/uploadProfileImg',
+            //         processData: false,
+            //         contentType: false,
+            //         data: formData,
+            //         type: 'PUT',
+            //         success: function (result) {
+            //             alert("변경되었습니다.");
+            //         }
+            //     });
+            // });
+
+
+            // $("#frm3").on("submit", function () {
+            $("#customFile").on("change", function () {
+                const confirmed = confirm("프로필 이미지를 변경하시겠습니까?");
+
+                if (confirmed) {
+                    $("#method3").val("PUT");
+
+                    const frm3 = $("#frm3")[0];
+                    frm3.action = "/uploadProfileImg";
+                    frm3.submit();
+                }
+            });
+        });
+    </script>
 </head>
 <body>
+<header th:replace="~{/layout/header::header}"></header>
 <!-- Main Content -->
 <main class="container mt-5">
+    <input type="hidden" th:value="${error}" id="error">
+    <input type="hidden" th:value="${session.userId}" id="sessionUserId">
     <div class="row">
         <!-- Profile Sidebar -->
         <div class="col-md-4">
@@ -70,16 +163,24 @@
             <div class="profile-upload-section">
                 <h4 class="mb-4">프로필 사진</h4>
                 <div class="mb-3 text-center">
-                    <div class="profile-picture" style="background-image: url('/images/default-profile.png');"></div>
+                    <div class="profile-picture" >
+                        <img src="/image/DefaultProfileImage.jpg" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;" th:src="${profileImage}">
+                    </div>
                 </div>
-                <input type="file" id="customFile" name="file" hidden>
-                <label class="btn btn-success-soft" for="customFile">업로드</label>
-                <button type="button" class="btn btn-danger-soft mt-2">제거</button>
+                <form action="/uploadProfileImg" id="frm3" method="post" class="d-inline justify-content-center" enctype="multipart/form-data">
+                    <input type="hidden" id="method3" name="_method">
+                    <input type="file" id="customFile" name="uploadFile" accept=".jpg" hidden>
+                    <label class="btn btn-success-soft" for="customFile" th:if="${me} == true">업로드</label>
+                </form>
+                <form action="/deleteProfileImg" id="frm2" method="post" class="d-inline justify-content-center">
+                    <input type="hidden" id="method2" name="_method">
+                    <button type="submit" class="btn btn-danger-soft" th:if="${me} == true">제거</button>
+                </form>
             </div>
             <div class="list-group mt-4" id="list-tab" role="tablist">
                 <p class="text-center text-body">목록</p>
-                <a class="list-group-item list-group-item-action active" id="list-posts-list" data-bs-toggle="list" href="#list-posts" aria-controls="posts">내 게시물</a>
-                <a class="list-group-item list-group-item-action" id="list-comments-list" data-bs-toggle="list" href="#list-comments" aria-controls="comments">내 댓글</a>
+                <a class="list-group-item list-group-item-action active" id="list-posts-list" data-bs-toggle="list" href="#list-posts" aria-controls="posts">작성 게시글</a>
+                <a class="list-group-item list-group-item-action" id="list-comments-list" data-bs-toggle="list" href="#list-comments" aria-controls="comments">작성 댓글</a>
             </div>
         </div>
 
@@ -92,12 +193,15 @@
                         <h3>프로필 정보</h3>
                         <form>
                             <div class="mb-3">
-                                <h5 class="card-title">아이디: 유재석</h5>
-                                <p class="card-text">이메일: honggildong@example.com</p>
+                                <h5 class="card-title">
+                                    아이디: <span th:text="${user.userId}"></span>
+                                    <span style="font-size: 15px;" class="text-secondary" th:if="${user.deletedYn} == 'Y'" th:text="${signOutUserMsg}"></span>
+                                </h5>
+                                <p class="card-text">이메일: <span th:text="${user.getEmail()}"></span></p>
                             </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profile-info-modal">수정</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#password-change-modal">비밀번호 변경</button>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#account-deletion-modal">회원탈퇴</button>
+<!--                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profile-info-modal" th:if="${me} == true">수정</button>-->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#password-change-modal" th:if="${me} == true">비밀번호 변경</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#account-deletion-modal" th:if="${me} == true">회원탈퇴</button>
                         </form>
                     </div>
                 </div>
@@ -105,7 +209,7 @@
                 <!-- Posts Table -->
                 <div class="tab-pane fade" id="list-posts" role="tabpanel" aria-labelledby="list-posts-list">
                     <div class="profile-header">
-                        <h3>내 게시물</h3>
+                        <h3>작성 게시글</h3>
                         <div class="table-container mt-4">
                             <table class="table table-hover table-sm">
                                 <thead>
@@ -117,7 +221,7 @@
                                     <th>작성자</th>
                                     <th>등록일</th>
                                     <th>조회수</th>
-                                    <th>관리</th>
+                                    <th th:if="${me} == true">관리</th>
                                 </tr>
                                 </thead>
                                 <tbody id="post-table-body">
@@ -131,8 +235,8 @@
                                     <td>2024-07-25</td>
                                     <td>123</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm">수정</a>
-                                        <a href="#" class="btn btn-danger btn-sm">삭제</a>
+                                        <a href="#" class="btn btn-warning btn-sm" th:if="${me} == true">수정</a>
+                                        <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
                                     </td>
                                 </tr>
                                 <tr data-category="spoiler">
@@ -144,8 +248,8 @@
                                     <td>2024-07-24</td>
                                     <td>456</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm">수정</a>
-                                        <a href="#" class="btn btn-danger btn-sm">삭제</a>
+                                        <a href="#" class="btn btn-warning btn-sm" th:if="${me} == true">수정</a>
+                                        <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
                                     </td>
                                 </tr>
                                 <tr data-category="movie">
@@ -157,8 +261,8 @@
                                     <td>2024-07-23</td>
                                     <td>789</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm">수정</a>
-                                        <a href="#" class="btn btn-danger btn-sm">삭제</a>
+                                        <a href="#" class="btn btn-warning btn-sm" th:if="${me} == true">수정</a>
+                                        <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -185,7 +289,7 @@
                 </div>
                 <!-- Comments Tab --><div class="tab-pane fade" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
                 <div class="profile-header">
-                    <h3>내 댓글</h3>
+                    <h3>작성 댓글</h3>
                     <div class="table-container">
                         <table class="table table-hover table-sm">
                             <thead>
@@ -196,7 +300,7 @@
                                 <th>댓글내용</th>
                                 <th>게시물 제목</th>
                                 <th>작성일</th>
-                                <th>관리</th>
+                                <th th:if="${me} == true">관리</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -208,7 +312,7 @@
                                 <td><a href="#" class="post-detail-link" data-post-id="1">게시물 제목</a></td>
                                 <td>2024-07-25</td>
                                 <td>
-                                    <a href="#" class="btn btn-danger btn-sm">삭제</a>
+                                    <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
                                 </td>
                             </tr>
                             <!-- Add more rows as needed -->
@@ -243,29 +347,29 @@
 
 <!-- Modals -->
 <!-- Profile Information Modal -->
-<div class="modal fade" id="profile-info-modal" tabindex="-1" aria-labelledby="profileInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="profileInfoModalLabel">프로필 정보 수정</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="modal-username" class="form-label">아이디</label>
-                        <input type="text" class="form-control" id="modal-username" value="유재석" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="modal-email" class="form-label">이메일</label>
-                        <input type="email" class="form-control" id="modal-email" value="honggildong@example.com" required>
-                    </div>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">저장</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="profile-info-modal" tabindex="-1" aria-labelledby="profileInfoModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog modal-lg">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="profileInfoModalLabel">프로필 정보 수정</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="modal-username" class="form-label">아이디</label>-->
+<!--                        <input type="text" class="form-control" id="modal-username" value="유재석" required th:text="${user.getUserId()}">-->
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="modal-email" class="form-label">이메일</label>-->
+<!--                        <input type="email" class="form-control" id="modal-email" value="honggildong@example.com" required th:value="${user.getEmail()}">-->
+<!--                    </div>-->
+<!--                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">저장</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!-- Password Change Modal -->
 <div class="modal fade" id="password-change-modal" tabindex="-1" aria-labelledby="passwordChangeModalLabel" aria-hidden="true">
@@ -276,18 +380,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="/changePasswordProfile/{userId}" method="post">
                     <div class="mb-3">
                         <label for="current-password" class="form-label">현재 비밀번호</label>
-                        <input type="password" class="form-control" id="current-password" placeholder="현재 비밀번호" required>
+                        <input type="password" class="form-control" id="current-password" name="userPw" placeholder="현재 비밀번호" required>
                     </div>
                     <div class="mb-3">
                         <label for="new-password" class="form-label">새 비밀번호</label>
-                        <input type="password" class="form-control" id="new-password" placeholder="새 비밀번호" required>
+                        <input type="password" class="form-control" id="new-password" name="changePw" placeholder="새 비밀번호" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirm-password" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="confirm-password" placeholder="비밀번호 확인" required>
+                        <input type="password" class="form-control" id="confirm-password" name="changePwChk" placeholder="비밀번호 확인" required>
                         <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
                     </div>
                     <button type="submit" class="btn btn-primary">저장</button>
@@ -306,10 +410,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="signOut" method="post" id="frm">
+                    <input type="hidden" id="method" name="_method">
                     <div class="mb-3">
                         <label for="delete-password" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="delete-password" placeholder="비밀번호를 입력하세요" required>
+                        <input type="password" class="form-control" id="delete-password" name="userPw" placeholder="비밀번호를 입력하세요" required>
                         <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
                     </div>
                     <button type="submit" class="btn btn-danger">탈퇴</button>
@@ -320,7 +425,6 @@
 </div>
 
 <!-- Footer -->
-<footer th:replace="~{/layout/footer::footer}"></footer>
 
 <script>
     $(document).ready(function() {
@@ -337,5 +441,6 @@
         });
     });
 </script>
+<footer th:replace="~{/layout/footer::footer}"></footer>
 </body>
 </html>

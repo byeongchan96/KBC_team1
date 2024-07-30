@@ -1,13 +1,17 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
+import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.database.repository.ImgFileRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
-import org.apache.catalina.User;
+import bitc.fullstack405.bitcteam3prj.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -19,6 +23,9 @@ public class UserServiceImpl implements UserService{
   public UserEntity findByUserId(String userId) throws Exception {
     return  userRepository.findByUserId(userId);
   }
+  @Autowired
+  private ImgFileRepository imgFileRepository;
+
 
   //  로그인 시도 유저 존재 확인
   @Override
@@ -85,5 +92,25 @@ public class UserServiceImpl implements UserService{
   @Override
   public UserEntity findByUserIdCheckSignOut(String userId) throws Exception {
     return userRepository.findByUserId(userId);
+  }
+
+  @Override
+  public void deleteProfileImg(String userId) throws Exception {
+    userRepository.deletingUserProfileImg(userId);
+    String fileName = userId + ".jpg";
+    String path = "";
+    fileUtil.deleteFile(fileName, path);
+  }
+
+  @Override
+  public void insertUserProfileImg(String userId, ImgFileEntity imgFileEntity) throws Exception {
+
+    imgFileRepository.deleteBySavedName(userId);
+    userRepository.deletingUserProfileImg(userId);
+    String fileName = userId + ".jpg";
+    String path = "";
+    fileUtil.deleteFile(fileName, path);
+    imgFileRepository.save(imgFileEntity);
+
   }
 }
