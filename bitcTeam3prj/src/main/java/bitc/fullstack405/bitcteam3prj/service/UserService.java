@@ -25,5 +25,5 @@ public interface UserService {
 
   UserEntity findByUserIdCheckSignOut(String userId) throws Exception;
 
-//  void deleteProfileImg(String userId) throws Exception;
+  void deleteProfileImg(String userId) throws Exception;
 }

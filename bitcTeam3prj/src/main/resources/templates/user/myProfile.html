@@ -95,6 +95,21 @@
                    location.reload();
                }
            });
+
+            $("#frm2").on("submit", function () {
+                const confirmed = confirm("프로필 이미지를 삭제하겠습니까?");
+
+                if (confirmed) {
+                    $("#method2").val("POST")
+
+                    const frm2 = $("#frm2")[0];
+                    frm2.action = "/deleteProfileImg";
+                    frm2.submit();
+                }
+                else {
+                    location.reload();
+                }
+            });
         });
     </script>
 </head>
@@ -111,11 +126,16 @@
             <div class="profile-upload-section">
                 <h4 class="mb-4">프로필 사진</h4>
                 <div class="mb-3 text-center">
-                    <div class="profile-picture" style="background-image: url('/images/default-profile.png');"></div>
+                    <div class="profile-picture" >
+                        <img src="/image/DefaultProfileImage.jpg" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;" th:src="${profileImage}">
+                    </div>
                 </div>
-                <input type="file" id="customFile" name="file" hidden>
-                <label class="btn btn-success-soft" for="customFile" th:if="${me} == true">업로드</label>
-                <button type="button" class="btn btn-danger-soft mt-2" th:if="${me} == true">제거</button>
+                <form action="deleteProfileImg" id="frm2" method="post">
+                    <input type="hidden" id="method2" name="_method">
+                    <input type="file" id="customFile" name="file" hidden>
+                    <label class="btn btn-success-soft" for="customFile" th:if="${me} == true">업로드</label>
+                    <button type="submit" class="btn btn-danger-soft" th:if="${me} == true">제거</button>
+                </form>
             </div>
             <div class="list-group mt-4" id="list-tab" role="tablist">
                 <p class="text-center text-body">목록</p>

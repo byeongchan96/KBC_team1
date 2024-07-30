@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 
 public interface ImageService {
 
-  ImgFileEntity findById(long id) throws Exception;
+  ImgFileEntity findBySavedName(String imgName) throws Exception;
 }

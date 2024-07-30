@@ -13,7 +13,7 @@ public class ImageServiceImpl implements ImageService{
 
 
   @Override
-  public ImgFileEntity findById(long id) throws Exception {
-    return imgFileRepository.findById(id);
+  public ImgFileEntity findBySavedName(String imgName) throws Exception {
+    return imgFileRepository.findBySavedName(imgName);
   }
 }

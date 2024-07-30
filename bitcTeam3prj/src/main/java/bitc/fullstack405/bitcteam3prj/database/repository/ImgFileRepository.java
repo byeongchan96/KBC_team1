@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImgFileRepository extends JpaRepository<ImgFileEntity, Long> {
 
-  ImgFileEntity findById(long id) throws Exception; // id를 통해 이미지 파일 찾기
+  ImgFileEntity findBySavedName(String savedName) throws Exception; // 저장된 이미지 파일 이름을 통해 이미지 찾기기
 
 }

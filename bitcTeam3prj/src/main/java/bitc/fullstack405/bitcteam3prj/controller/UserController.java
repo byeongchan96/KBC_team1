@@ -1,5 +1,6 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.entity.ImgFileEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.service.ImageService;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
@@ -329,19 +330,21 @@ public class UserController {
 
     UserEntity userEntity = userService.findUserIdForProfile(userId);
 
-//    ImgFileEntity imgFileEntity = imageService.findById();
+    ImgFileEntity imgFileEntity = imageService.findBySavedName(userEntity.getProfileImageName());
 
     if(session.getAttribute("userId") != null) {
       mv.addObject("user", userEntity);
+
       if (userEntity != null ) {
+
         if (userEntity.getDeletedYn() == 'N') {
 
-//          if (userEntity.getProfileImg() != null) {
-//            mv.addObject("profileImg", userEntity.getProfileImg());
-//          }
-//          else {
-//            mv.addObject("profileImg", "noneProfileImgPath");
-//          }
+          if (userEntity.getProfileImageName() != null) {
+            mv.addObject("profileImage", "/image/" + imgFileEntity.getSavedName());
+          }
+          else {
+            mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
+          }
 
           if (session.getAttribute("userId").equals(userId)) { // 자신의 프로필인지 타인의 프로필인지 확인
             mv.addObject("me", true);
@@ -355,6 +358,7 @@ public class UserController {
         else if (userEntity.getDeletedYn() == 'Y') {
           mv.addObject("me", false);
           mv.addObject("signOutUserMsg", "(탈퇴한 회원)");
+          mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
           mv.setViewName("/user/myProfile");
         }
       }
@@ -471,14 +475,22 @@ public class UserController {
 //
 //  }
 
-//  //  프로필 이미지 삭제
-//  @DeleteMapping("/deleteProfileUpload")
-//  public String deleteProfileUpload(@RequestParam("userId") String userId) throws Exception{
-//
-//    userService.deleteProfileImg(userId);
-//
-//    return "redirect:user/mypage/{userId}";
-//
-//  }
+  //  프로필 이미지 삭제
+  @PostMapping("/deleteProfileImg")
+  public ModelAndView deleteProfileImg(HttpServletRequest req) throws Exception{
+
+    HttpSession session = req.getSession();
+
+    ModelAndView mv = new ModelAndView();
+
+    userService.deleteProfileImg((String)session.getAttribute("userId"));
+
+    mv.addObject("userId", session.getAttribute("userId"));
+
+    mv.setViewName("redirect:/profile/" + session.getAttribute("userId"));
+
+    return mv;
+
+  }
 
 }
