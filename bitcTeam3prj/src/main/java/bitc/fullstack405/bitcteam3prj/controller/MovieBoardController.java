@@ -51,10 +51,10 @@ public class MovieBoardController {
         if(searchCateChk && searchTitleChk){
             movieBoardList = movieBoardService.selectMovieBoardList(pageable);
         }
-        else if (searchTitleChk && !searchCateChk){
+        else if (searchTitleChk){
             movieBoardList = movieBoardService.selectMovieBoardListByCate(pageable);
         }
-        else if(!searchTitleChk && searchCateChk){
+        else if(searchCateChk){
             movieBoardList = movieBoardService.selectMovieBoardListByTitle(pageable, searchTitle);
         }
         else{
@@ -62,6 +62,7 @@ public class MovieBoardController {
         }
 
 //        var movieBoardList = movieBoardService.selectMovieBoardList(pageable);
+
 
         mv.addObject("movieBoardList", movieBoardList);
         mv.addObject(

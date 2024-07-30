@@ -18,12 +18,7 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-//  테스트용 메인페이지
-  @GetMapping({"/home", "/main"})
-  public ModelAndView home() {
-    ModelAndView mv = new ModelAndView("/main/mainHome");
-    return mv;
-  }
+
 
   //  로그인 화면 뷰
   @GetMapping ("/login")
