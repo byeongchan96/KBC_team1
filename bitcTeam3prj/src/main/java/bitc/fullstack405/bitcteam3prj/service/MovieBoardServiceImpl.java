@@ -58,10 +58,7 @@ public class MovieBoardServiceImpl implements MovieBoardService {
 
     }
 
-    @Override
-    public void update(MovieBoardEntity movieBoard) throws Exception {
-        movieBoardRepository.save(movieBoard);
-    }
+
 
     @Override
     public Page<MovieBoardEntity> selectMovieBoardListByCate(Pageable pageable) {

@@ -3,10 +3,8 @@ package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.*;
 import bitc.fullstack405.bitcteam3prj.database.repository.MovieRatingRepository;
-import bitc.fullstack405.bitcteam3prj.service.MovieBoardService;
-import bitc.fullstack405.bitcteam3prj.service.MovieService;
-import bitc.fullstack405.bitcteam3prj.service.PaginationService;
-import bitc.fullstack405.bitcteam3prj.service.RatingService;
+import bitc.fullstack405.bitcteam3prj.service.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +30,13 @@ public class MovieBoardController {
     private RatingService ratingService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PaginationService paginationService;
+
+    @Autowired
+    private MovieLikeService movieLikeService;
 
 
     @GetMapping({"/", ""})
@@ -61,7 +65,6 @@ public class MovieBoardController {
             movieBoardList = movieBoardService.selectMovieBoardListByCateAndTitle(pageable);
         }
 
-//        var movieBoardList = movieBoardService.selectMovieBoardList(pageable);
 
 
         mv.addObject("movieBoardList", movieBoardList);
@@ -77,11 +80,16 @@ public class MovieBoardController {
 
     @GetMapping("/movieinfo/{movieBoardId}")
     public ModelAndView getMovieBoardDetail(
-            @PathVariable("movieBoardId") long id) throws Exception {
+            @PathVariable("movieBoardId") long id,
+            HttpSession session)  throws Exception {
 
         ModelAndView mv = new ModelAndView();
 
         MovieBoardEntity entity = movieBoardService.findByMovieId(id);
+        entity.setViewCnt(entity.getViewCnt() + 1);
+
+        movieBoardService.insertMovieBoard(entity);
+
         var ratingList = ratingService.findAllByMovieBoard(entity);
 
         float avg = 0.0f;
@@ -96,8 +104,22 @@ public class MovieBoardController {
             mv.addObject("avg", avg);
         }
 
+        boolean isLike = false;
+
+        String userId = (String)session.getAttribute("userId");
+
+        if(userId != null) {
+            UserEntity user = userService.findByUserId((String) session.getAttribute("userId"));
+            int likeCnt = movieLikeService.getMovieLikeCnt(user.getId(), entity.getMovie().getId());
+            if(likeCnt > 0) {isLike = true;}
+        }
+
+
+
+
         mv.addObject("movie", entity);
         mv.addObject("ratingList", ratingList);
+        mv.addObject("isLike", isLike);
 
         MovieEntity movieEntity = movieService.selectMovieById(id);
 
@@ -105,40 +127,53 @@ public class MovieBoardController {
         return mv;
     }
 
-
-    @PostMapping("/{movieBoardId}/rating")
-    public String writeMovieRating(@PathVariable("movieBoardId") long movieBoardId, MovieBoardRatingEntity ratingEntity) throws Exception {
-
-        ratingEntity.setMovieBoard(movieBoardService.selectMovieBoardDetail(movieBoardId));
-//        ratingEntity.setMovieRating(movieRating);
-//        ratingEntity.setContent(content);
-
-        ratingService.insertRating(ratingEntity);
-        ;
-
-        return "redirect:/movie/movieinfo/{movieBoardId}";
+    @GetMapping("/{movieBoardId}/rating")
+    public String writeMovieRating() throws Exception {
+        return "/movie/movieinfo/{movieBoardId}";
     }
 
-//    @PostMapping("/{movieBoardId}/rating")
-//    public String writeRating(@PathVariable("movieBoardId") long movieBoardId, @RequestParam("movieRating") int movieRating, @RequestParam("content") String content) throws Exception {
-//
-//        MovieBoardRatingEntity entity = new MovieBoardRatingEntity();
-//
-//        entity.setMovieBoard((MovieBoardEntity)movieBoardId);
-//
-//        ratingService.insert();
-//
-//    }
-
-
-    @ResponseBody
-    @DeleteMapping("/{movieBoardId}/rating/{ratingId}")
-    public Object deleteMovieRating(
+    @PostMapping("/{movieBoardId}/rating/{userId}")
+    public String writeMovieRating(
+            @PathVariable("userId") String userId,
             @PathVariable("movieBoardId") long movieBoardId,
-            @PathVariable("ratingId") long ratingId) throws Exception {
+            MovieBoardRatingEntity ratingEntity) throws Exception {
+
+        var user = userService.findByUserId(userId);
+        ratingEntity.setMovieBoard(movieBoardService.selectMovieBoardDetail(movieBoardId));
+        ratingEntity.setUser(user);
+
+        ratingService.insertRating(ratingEntity);
+
+        return "redirect:/movie/movieinfo/" + movieBoardId;
+    }
 
 
-        return null;
+    @PostMapping("/movieinfo/update/{movieBoardRatingId}")
+    public String updateMovieRating(
+            @PathVariable("movieBoardRatingId") long movieBoardRatingId,
+            MovieBoardRatingEntity ratingEntity,
+            long movieBoardId, String userId) throws Exception {
+
+        ratingEntity.setId(movieBoardRatingId);
+
+        MovieBoardEntity movieBoardEntity = movieBoardService.selectMovieBoardDetail(movieBoardId);
+        UserEntity userEntity = userService.findByUserId(userId);
+        ratingEntity.setMovieBoard(movieBoardEntity);
+        ratingEntity.setUser(userEntity);
+
+        ratingService.updateRating(ratingEntity);
+
+        return "redirect:/movie/movieinfo/" + movieBoardId;
+    }
+
+    @PostMapping("/movieinfo/delete/{movieBoardRatingId}")
+    public String deleteMovieRating(
+            @PathVariable("movieBoardRatingId") long movieBoardRatingId,
+            long movieBoardId) throws Exception {
+
+        ratingService.deleteById(movieBoardRatingId);
+
+        return "redirect:/movie/movieinfo/" + movieBoardId;
     }
 
 }
