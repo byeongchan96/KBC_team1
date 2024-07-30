@@ -23,12 +23,19 @@ public class RatingServiceImpl implements RatingService {
   @Override
   public List<MovieBoardRatingEntity> findAllByMovieBoard(MovieBoardEntity movieBoard) throws Exception {
     return movieRatingRepo.findAllByMovieBoard(movieBoard);
+
   }
 
   @Override
-  public void deleteByUser() throws Exception {
-
+  public void deleteById(long movieBoardRatingId) throws Exception {
+    movieRatingRepo.deleteById(movieBoardRatingId);
   }
+
+  @Override
+  public void updateRating(MovieBoardRatingEntity ratingEntity) throws Exception {
+    movieRatingRepo.save(ratingEntity);
+  }
+
 
   @Override
   public void queryAvgRating() throws Exception {
@@ -43,5 +50,10 @@ public class RatingServiceImpl implements RatingService {
   @Override
   public void insertRating(MovieBoardRatingEntity ratingEntity) {
     movieRatingRepo.save(ratingEntity);
+  }
+
+  @Override
+  public MovieBoardRatingEntity findIdForRating(long movieBoardRatingId) throws Exception {
+    return movieRatingRepo.findById(movieBoardRatingId);
   }
 }

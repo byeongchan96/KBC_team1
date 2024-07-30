@@ -3,6 +3,7 @@ package bitc.fullstack405.bitcteam3prj.database.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 @Data
 @Entity
@@ -30,5 +31,6 @@ public class MovieBoardRatingEntity extends BaseEntity{
 
     @Column(name = "movie_rating")
     private int movieRating;
+
 
 }

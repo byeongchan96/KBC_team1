@@ -18,5 +18,4 @@ public class ImgFileEntity {
   private long id; // 이미지 파일 id, pk
 
   private String imageName;
-
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.yaml.snakeyaml.events.Event;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,6 +29,10 @@ public class MovieEntity {
   @ToString.Exclude
   private DirectorEntity director; // 감독id, director 테이블과 외래키
 
+  private String posterImg; // 영화포스터, movie_article 테이블과 외래키
+
+
+
   @Column(nullable = false)
   private String movieName; // 영화이름
 
@@ -45,4 +50,9 @@ public class MovieEntity {
   private String company; // 제작사
 
   private String grade; // 상영 등급
+
+
+  @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+  @ToString.Exclude
+  private List<MovieLikeEntity> movieLikeList;
 }

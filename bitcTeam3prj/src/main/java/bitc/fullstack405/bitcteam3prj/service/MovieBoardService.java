@@ -24,4 +24,6 @@ public interface MovieBoardService {
     Page<MovieBoardEntity> selectMovieBoardListByTitle(Pageable pageable, String searchTitle);
 
     Page<MovieBoardEntity> selectMovieBoardListByCateAndTitle(Pageable pageable);
+    
+
 }
