@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/movie/movieInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/bitcTeam3prj/src/main/resources/templates/movie/movieInfo.html" afterDir="false" />
-    </list>
+    <list default="true" id="5e9ec172-d034-4a23-b027-09f2f2818f55" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,7 +142,7 @@
       <workItem from="1721951443568" duration="14115000" />
       <workItem from="1722060866280" duration="3819000" />
       <workItem from="1722067306112" duration="1995000" />
-      <workItem from="1722213870209" duration="36512000" />
+      <workItem from="1722213870209" duration="36560000" />
     </task>
     <servers />
   </component>

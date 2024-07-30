@@ -17,12 +17,32 @@
       .btn-trans { background: transparent; border: none; }
       .btn-round { border-radius: 50%; }
       .panel-body { margin: 20px 0; }
+
+
   </style>
   <script th:inline="javascript">
     const sessionUserId = [[${session.userId}]];
+    const pageId = [[${pageId}]];
   </script>
   <script>
       $(document).ready(function () {
+          // const localStorageKey = 'btnLikeState';
+          // const userIdKey = 'userId';
+          // const pageKey = 'pageId';
+          //
+          // const savedUserId = localStorage.getItem(userIdKey);
+          // const savedPageId = localStorage.getItem(pageKey);
+          // const savedState = localStorage.getItem(localStorageKey + sessionUserId + '_' + pageId);
+          //
+          // if (sessionUserId !== savedUserId || pageId !== savedPageId) {
+          //     localStorage.setItem(userIdKey, sessionUserId);
+          //     localStorage.setItem(pageKey, pageId);
+          //     localStorage.setItem(localStorageKey + sessionUserId + '_' + pageId, savedState || '');
+          // } else if (savedState === 'on') {
+          //     $('#Bookmark').addClass('on');
+          // }
+
+
           $(".btn-delete").on("click", function () {
               var btn = $(this);
               var frm = btn.parents("form");
@@ -60,6 +80,12 @@
                       e.preventDefault();
                   }
           });
+
+          $("#Bookmark").on("click", ()=>{
+              $("#add-like-frm")[0].submit();
+          });
+
+
       });
   </script>
 
@@ -85,6 +111,9 @@
                 <a href="#">영화제목</a>
               </h4>
               <p th:text="${movie.movie.movieName}">장화 홍련</p>
+
+
+
               <table class="table table-bordered">
                 <tbody>
                 <tr>
@@ -115,6 +144,17 @@
       </section>
     </div>
   </div>
+  <!--           북마크 추가   -->
+  <form id="add-like-frm" method="post" th:action="@{|/user/boardMovieBookmark/${session.userId}/${movie.movie.id}|}">
+    <input type="hidden" id="user-id" name="userId" th:value="${session.userId}">
+    <input type="hidden" id="movie-id" name="movieId" th:value="${movie.movie.id}">
+    <div class="d-flex justify-content-end mx-auto">
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="checkbox" class="btn-check btn-outline-warning text-white px-6 py-4 rounded-full" th:checked="${isLike} ? true" name="bookMark" id="Bookmark" >
+        <label class="btn btn-outline-warning" for="Bookmark">북마크 추가</label>
+      </div>
+    </div>
+  </form>
   <nav>
     <div class="nav nav-tabs mt-5" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="true">줄거리</a>
