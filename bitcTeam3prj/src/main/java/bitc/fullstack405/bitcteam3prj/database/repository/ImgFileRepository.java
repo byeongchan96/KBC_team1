@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ImgFileRepository extends JpaRepository<ImgFileEntity, Long> {
 
-  ImgFileEntity findBySavedName(String savedName) throws Exception; // 저장된 이미지 파일 이름을 통해 이미지 찾기
-
-  void deleteBySavedName(String fileName) throws Exception;
+//  ImgFileEntity findBySavedName(String savedName) throws Exception; // 저장된 이미지 파일 이름을 통해 이미지 찾기
+//
+//  void deleteBySavedName(String fileName) throws Exception;
 
 }

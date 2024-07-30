@@ -14,6 +14,7 @@ public class ImageServiceImpl implements ImageService{
 
   @Override
   public ImgFileEntity findBySavedName(String imgName) throws Exception {
-    return imgFileRepository.findBySavedName(imgName);
+//    return imgFileRepository.findBySavedName(imgName);
+    return null;
   }
 }

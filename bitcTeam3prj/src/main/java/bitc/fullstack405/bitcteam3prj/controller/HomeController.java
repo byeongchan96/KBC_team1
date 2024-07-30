@@ -27,7 +27,7 @@ public class HomeController {
     private BoardService boardService;
 
 
-    @GetMapping({"", "/", "Home"})
+    @GetMapping({"", "/", "/home", "/Home"})
     private ModelAndView mainHome() throws Exception{
         ModelAndView mv = new ModelAndView("/main/mainHome");
 

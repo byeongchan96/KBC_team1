@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping({"", "/", "movcom"})
 public class UserController {
 
   @Autowired
@@ -354,13 +353,13 @@ public class UserController {
         if (userEntity.getDeletedYn() == 'N') {
 
           if (userEntity.getProfileImageName() != null && userEntity.getProfileImageName() != "") {
-            ImgFileEntity imgFileEntity = imageService.findBySavedName(userEntity.getProfileImageName());
-            if (imgFileEntity.getSavedName() != null) {
-              mv.addObject("profileImage", "/image/" + findImg);
-            }
-            else {
-              mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
-            }
+//            ImgFileEntity imgFileEntity = imageService.findBySavedName(userEntity.getProfileImageName());
+//            if (imgFileEntity.getSavedName() != null) {
+//              mv.addObject("profileImage", "/image/" + findImg);
+//            }
+//            else {
+//              mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
+//            }
           }
           else {
             mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
@@ -465,7 +464,7 @@ public class UserController {
         if (userEntity.getDeletedYn() == 'N') {
           userService.deleteUser(userId);
           session.invalidate();
-          mv.setViewName("redirect:/home");
+          mv.setViewName("redirect:/");
         }
         else {
           mv.setViewName("redirect:/login?error=alrdyOutUser");
@@ -489,7 +488,7 @@ public class UserController {
 
     HttpSession session = req.getSession();
 
-    fileUtil.uploadFile(req);
+//    fileUtil.uploadFile(req);
 
     String userId = (String)session.getAttribute("userId");
 

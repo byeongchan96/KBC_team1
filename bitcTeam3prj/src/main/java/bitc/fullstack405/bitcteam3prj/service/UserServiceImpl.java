@@ -99,17 +99,17 @@ public class UserServiceImpl implements UserService{
     userRepository.deletingUserProfileImg(userId);
     String fileName = userId + ".jpg";
     String path = "";
-    fileUtil.deleteFile(fileName, path);
+//    fileUtil.deleteFile(fileName, path);
   }
 
   @Override
   public void insertUserProfileImg(String userId, ImgFileEntity imgFileEntity) throws Exception {
 
-    imgFileRepository.deleteBySavedName(userId);
+//    imgFileRepository.deleteBySavedName(userId);
     userRepository.deletingUserProfileImg(userId);
     String fileName = userId + ".jpg";
     String path = "";
-    fileUtil.deleteFile(fileName, path);
+//    fileUtil.deleteFile(fileName, path);
     imgFileRepository.save(imgFileEntity);
 
   }
