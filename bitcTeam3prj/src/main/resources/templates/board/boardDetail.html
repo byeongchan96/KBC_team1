@@ -1,24 +1,105 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <!-- 메타 데이터 및 스타일 시트 -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판 상세보기</title>
-    <link href="/css/bootstrap.css" rel="stylesheet"> <!-- 부트스트랩 CSS 링크 -->
-    <script src="/js/jquery-3.7.1.js"></script> <!-- jQuery 스크립트 링크 -->
-    <script src="/js/bootstrap.bundle.js"></script> <!-- 부트스트랩 JavaScript 링크 -->
+    <meta charset=" UTF-8">
+    <meta name="viewport" content="Width=device-Width,initial-scale=1.0">
+    <title>사용하기</title>
+
+
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <script src="/js/jquery-3.7.1.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#btn-like").on('click', function(e) {
+                var onoff = $("#btn-like").data('onoff');
+                if(onoff===0){
+                    $(e.target).addClass("btn-danger");
+                    $(e.target).removeClass("text-danger");
+                    $(e.target).addClass("text-white");
+                    $("#btn-like").data('onoff', 1);
+
+                    if($("#btn-dislike").data('onoff') === 1){
+                        $("#btn-dislike").removeClass("btn-primary");
+                        $("#btn-dislike").addClass("text-primary");
+                        $("#btn-dislike").removeClass("text-white");
+                        $("#btn-dislike").data('onoff', 0);
+                    }
+                }
+                else{
+                    $(e.target).removeClass("btn-danger");
+                    $(e.target).addClass("text-danger");
+                    $(e.target).removeClass("text-white");
+                    $("#btn-like").data('onoff', 0);
+                }
+            });})
+
+        $(document).ready(function(){
+            $("#btn-dislike").on('click', function(e) {
+                var onoff = $("#btn-dislike").data('onoff');
+                if(onoff===0){
+                    $(e.target).addClass("btn-primary");
+                    $(e.target).removeClass("text-primary");
+                    $(e.target).addClass("text-white");
+                    $("#btn-dislike").data('onoff', 1);
+                }
+                else{
+                    $(e.target).removeClass("btn-primary");
+                    $(e.target).addClass("text-primary");
+                    $(e.target).removeClass("text-white");
+                    $("#btn-dislike").data('onoff', 0);
+                }
+            });})
+    </script>
 </head>
 <body>
-<!-- 헤더 영역 -->
-<header th:replace="~{/layout/header::header}">
-
-</header>
+<!-- Header -->
+<header th:fragment="header" class="p-3 bg-dark text-white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">게시판</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">공지사항</a>
+                            <a class="dropdown-item" href="#">영화리뷰게시판</a>
+                            <a class="dropdown-item" href="#">자유게시판</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">영화 정보</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">국내영화</a>
+                            <a class="dropdown-item" href="#">해외영화</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">문의사항</a>
+                    </li>
+                </ul>
+                <form class="d-flex ms-auto">
+                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <button class="btn btn-warning" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav></header>
+<!-- 페이지 내용 -->
 
 <!-- 메인 콘텐츠 영역 -->
 <main class="container mt-5">
-    <section>
-        <div class="row">
+    <div class="row">
+        <section>
             <div class="col-md-8 mx-auto">
                 <!-- 게시물 정보 테이블 -->
                 <table class="table mb-4">
@@ -27,26 +108,36 @@
                         <th colspan="2" class="bg-dark text-white text-center">게시물 제목</th>
                     </tr>
                     <tr>
-                        <th class="bg-light" th:text=" ${board.user.userId}">작성자: 유재석</th>
-                        <th class="bg-light" th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}">작성일: 2024-07-26</th>
+                        <th class="bg-light">작성자: 유재석</th>
+                        <th class="bg-light">작성일: 2024-07-26</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td colspan="2" class="text-muted" th:text="${board.title}">게시물 제목: 충격! 유재석 거지 되다</td>
+                        <td colspan="2" class="text-muted">게시물 제목: 충격! 유재석 거지 되다</td>
                     </tr>
                     </tbody>
                 </table>
 
                 <!-- 게시물 내용 -->
                 <div class="mb-4">
-                    <p th:text="${board.content}">게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다.</p>
+                    <p>게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다.</p>
+                </div>
+
+                <!--------좋아요 하트 토글 버튼----->
+                <div class="text-center">
+                    <button type="button" id="btn-like"  data-onoff="0" class="btn btn-outline-danger text-danger px-4 py-2 rounded-full flex items-center justify-center">
+                        좋아요
+                    </button>
+                    <button type="button" id="btn-dislike" data-onoff="0" class="btn btn-outline-primary text-primary px-4 py-2 rounded-full flex items-center justify-center">
+                        싫어요
+                    </button>
                 </div>
 
                 <!-- 수정 및 삭제 버튼들 -->
                 <div class="d-flex gap-2 mb-4">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal">수정</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-post-modal">삭제</button>
+                    <button type="button"  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-post-modal">삭제</button>
                 </div>
 
                 <!-- 댓글 작성 폼 -->
@@ -92,8 +183,8 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </main>
 
 <!-- 게시물 수정 모달 -->
@@ -139,9 +230,9 @@
         </div>
     </div>
 </div>
-
 <!-- 푸터 영역 (Thymeleaf 사용 시 외부 파일로 대체 가능) -->
 <footer th:replace="~{/layout/footer::footer}"></footer>
 
 </body>
 </html>
+

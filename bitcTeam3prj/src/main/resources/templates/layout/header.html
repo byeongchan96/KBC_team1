@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용하기</title>
+    <script src="/js/jquery-3.7.1.js"></script>
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+<header class="p-3 bg-dark text-white">
+    <div class="container d-flex align-items-center justify-content-between">
+
+        <!-- Left Side: Logo and Navigation Links -->
+        <div class="d-flex align-items-center">
+            <!-- Logo -->
+            <a href="/" class="d-flex align-items-center text-white text-decoration-none me-3">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Home <span class="visually-hidden">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">게시판</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">공지사항</a>
+                                    <a class="dropdown-item" href="#">영화리뷰게시판</a>
+                                    <a class="dropdown-item" href="#">자유게시판</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">영화 정보</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">국내영화</a>
+                                    <a class="dropdown-item" href="#">해외영화</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">문의사항</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Centered Content (Empty) -->
+        <div class="flex-grow-1"></div>
+
+        <!-- Right Side: Form and Buttons -->
+        <div class="d-flex align-items-center">
+            <form class="d-flex me-3">
+                <input type="search" class="form-control form-control-dark" placeholder="검색..." aria-label="Search">
+            </form>
+            <div th:if="${session.userId} == null">
+                <a href="/login" class="btn btn-outline-light btn-sm me-3">로그인</a>
+                <a href="/signIn" class="btn btn-warning btn-sm me-3">회원가입</a>
+            </div>
+            <div th:unless="${session.userId} == null">
+                <a href="/logout" class="btn btn-danger btn-sm me-3">로그아웃</a>
+                <a href="#" class="btn btn-outline-light" type="button" th:href="@{|/profile/${session.userId}|}">마이페이지</a>
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+</html>
