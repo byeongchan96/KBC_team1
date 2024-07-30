@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.yaml.snakeyaml.events.Event;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -47,4 +48,9 @@ public class MovieEntity {
   private String company; // 제작사
 
   private String grade; // 상영 등급
+
+
+  @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+  @ToString.Exclude
+  private List<MovieLikeEntity> movieLikeList;
 }

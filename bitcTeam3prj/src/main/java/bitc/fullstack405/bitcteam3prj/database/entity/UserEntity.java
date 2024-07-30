@@ -57,6 +57,10 @@ public class UserEntity {
 
   @ToString.Exclude
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  List<MovieLikeEntity> movieLikeList;
+
+  @ToString.Exclude
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   List<MovieBoardRatingEntity> movieRatingList;
 
   @Column(nullable = false)
