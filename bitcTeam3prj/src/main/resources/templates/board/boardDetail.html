@@ -31,13 +31,13 @@
                 frm.submit();
             });
 
-            $("#btn-reply").on("click", function () {
-                $("#method").val("POST");
-
-                const frm = $("#frm")[0];
-                frm.action = "/board/" + $("#board-id").val();
-                frm.submit();
-            });
+            // $("#btn-reply").on("click", function () {
+            //     $("#method").val("POST");
+            //
+            //     const frm = $("#frm")[0];
+            //     frm.action = "/board/" + $("#board-id").val();
+            //     frm.submit();
+            // });
         });
     </script>
 </head>
@@ -62,7 +62,7 @@
                         <th colspan="2" class="bg-dark text-white text-center">게시물 제목</th>
                     </tr>
                     <tr>
-                        <th class="bg-light" th:text=" ${board.user.userId}">작성자: 유재석</th>
+<!--                        <th class="bg-light" th:text=" ${board.user.userId}">작성자: 유재석</th>-->
                         <th class="bg-light" th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}">작성일: 2024-07-26</th>
                     </tr>
                     </thead>
@@ -111,7 +111,7 @@
                         </thead>
                         <tbody>
                         <tr th:if="${#lists.size(board.commentList)} > 0" th:each="comment : ${board.commentList}">
-                            <td th:text="${comment.user.userId}">홍길동</td>
+                            <td th:text="${comment.user?.userId}">홍길동</td>
                             <td th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${comment.contents}">댓글 내용이 여기에 들어갑니다.</td>
                         </tr>

@@ -2,6 +2,8 @@ package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.service.BoardService;
+import bitc.fullstack405.bitcteam3prj.service.UserBoardService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +20,14 @@ public class UserBoardController {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private UserBoardService userBoardService;
+
     //    유저가 작성한 게시글 리스트
     @GetMapping("/{userId}")
     public ModelAndView userBoardList(@PathVariable("userId") Long userId) throws Exception {
         ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.userBoardList(userId);
+        List<BoardEntity> boardList = userBoardService.userBoardList(userId);
         mv.addObject("boardList" , boardList);
 
         return mv;
@@ -32,7 +37,7 @@ public class UserBoardController {
     @GetMapping("/boardLike/{userId}")
     public ModelAndView userLikeBoardList(@PathVariable("userId") Long userId) throws Exception {
         ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.userLikeBoardList(userId);
+        List<BoardEntity> boardList = userBoardService.userLikeBoardList(userId);
         mv.addObject("boardList" , boardList);
 
         return mv;
@@ -42,7 +47,7 @@ public class UserBoardController {
     @GetMapping("/boardMovieBookmark/{userId}")
     public ModelAndView movieBookmarkBoardList(@PathVariable("userId") Long userId) throws Exception {
         ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.movieBookmarkList(userId);
+        List<BoardEntity> boardList = userBoardService.movieBookmarkList(userId);
         mv.addObject("boardList" , boardList);
 
         return mv;

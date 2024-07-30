@@ -2,6 +2,7 @@ package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.service.BoardCommentService;
 import bitc.fullstack405.bitcteam3prj.service.BoardService;
 import bitc.fullstack405.bitcteam3prj.service.UserService;
 import bitc.fullstack405.bitcteam3prj.service.UserServiceImpl;
