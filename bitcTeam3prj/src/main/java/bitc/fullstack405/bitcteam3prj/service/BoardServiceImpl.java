@@ -1,7 +1,11 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.database.repository.BoardLikeRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.BoardRepository;
+import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +17,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private BoardLikeRepository boardLikeRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-//    게시판 전체 목록
+    //    게시판 전체 목록
     @Override
     public List<BoardEntity> selectBoardList() throws Exception {
         List<BoardEntity> boardList =  boardRepository.findAll();
@@ -73,4 +81,42 @@ public class BoardServiceImpl implements BoardService {
         List<BoardEntity> boardList = boardRepository.findAllByCategory(cate);
         return boardList;
     }
+
+    @Override
+    public List<BoardEntity> findAllByUserId(Long userId) throws Exception {
+        return boardRepository.findAllByUser_Id(userId);
+    }
+
+    @Override
+    public List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception {
+        return List.of();
+    }
+
+    @Override
+    public List<BoardLikeEntity> findAllByUserBoardLikeList(List<BoardLikeEntity> boardLikeList) {
+        return List.of();
+    }
+
+
+//    @Override
+//    public List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception {
+//        UserEntity user = userRepository.findById(userId);
+//
+//        BoardLikeEntity like = new BoardLikeEntity();
+//        like.setLikeYn(like.getLikeYn());
+//        boardLikeRepository.save(like);
+//
+//        return null;
+//    }
+//
+//    @Override
+//    public List<UserEntity> findById(Long userId) {
+//        BoardLikeEntity like = boardLikeRepository.findById(userId);
+//
+//        boardLikeRepository.deletedByLikeYn(userId);
+//    }
+//
+//    public void setBoardLikeRepository(Long boardId) {
+//        return boardLikeRepository.countByLikeYn(BoardLikeEntity);
+//    }
 }

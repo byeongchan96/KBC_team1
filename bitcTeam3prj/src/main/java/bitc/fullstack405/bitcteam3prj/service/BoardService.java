@@ -1,6 +1,8 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,4 +27,9 @@ public interface BoardService {
 
     List<BoardEntity> searchCateListBoard(Long boardId, String cate)throws Exception;
 
+    List<BoardEntity> findAllByUserId(Long userId) throws Exception;
+
+    List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception;
+
+    List<BoardLikeEntity> findAllByUserBoardLikeList(List<BoardLikeEntity> boardLikeList);
 }

@@ -86,4 +86,10 @@ public class UserServiceImpl implements UserService{
   public UserEntity findByUserIdCheckSignOut(String userId) throws Exception {
     return userRepository.findByUserId(userId);
   }
+
+  @Override
+  public UserEntity findAllByUserBoardLikeList(String userId) throws Exception {
+    return null;
+  }
+
 }

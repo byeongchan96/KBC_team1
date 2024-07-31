@@ -1,15 +1,10 @@
 package bitc.fullstack405.bitcteam3prj.database.repository;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
-import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardEntity;
-import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardRatingEntity;
-import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
-import org.hibernate.query.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.awt.print.Pageable;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,33 +12,11 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
     BoardEntity findById(long id);
     Optional<BoardEntity> findAllByTitle(String title);
-    Optional<BoardEntity> findByVisitCnt(long VisitCnt);
-    Optional<BoardEntity> findByContent(String Content);
     List<BoardEntity> findAllByCategory(String Category);
-    Optional<BoardEntity> findAllByWarning(String Warning);
 
-    BoardEntity queryByTitle(String title);
+    List<BoardEntity> findAllByUser_Id(long id);
 
-    boolean existsByCategory(String Category);
-
-    int countByTitle(String title);
-    int countByCategory(String Category);
-    int countByContent(String Content);
-
-    void deleteByTitle(String title);
-    void deleteByVisitCnt(int visitCnt);
-    void deleteByContent(String content);
-    void deleteByCategory(String category);
-    void deleteByWarning(String warning);
-
-    List<BoardEntity> findFirst5ByTitle(String title);
-    List<BoardEntity> findTop5ByVisitCnt(int visitCnt);
-
-    BoardEntity findByTitleIs(String title);
-    BoardEntity findByCategoryIs(String Category);
-
-    List<BoardEntity> findByTitleLike(String title);
-    List<BoardEntity> findByCategoryLike(String Category);
+//    List<UserEntity> findAllByUser_BoardLikeList(String MovieCate);
 
 //    @Query("SELECT b FROM BoardEntity AS b WHERE b.title LIKE '%?1%'")
 //    List<BoardEntity> findAllBySearch(String search);

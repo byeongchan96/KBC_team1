@@ -5,6 +5,8 @@ import bitc.fullstack405.bitcteam3prj.database.repository.BoardCommentRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BoardCommentServiceImpl implements BoardCommentService {
 
@@ -29,5 +31,10 @@ public class BoardCommentServiceImpl implements BoardCommentService {
     @Override
     public void boardCommentDelete(Long boardId) throws Exception {
         boardCommentRepository.deleteById(boardId);
+    }
+
+    @Override
+    public List<BoardCommentEntity> findAllByUserId(long id) throws Exception {
+        return boardCommentRepository.findAllByUser_Id(id);
     }
 }

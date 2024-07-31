@@ -26,4 +26,6 @@ public interface UserService {
   void deleteUser(String userId) throws Exception;
 
   UserEntity findByUserIdCheckSignOut(String userId) throws Exception;
+
+  UserEntity findAllByUserBoardLikeList(String userId) throws Exception;
 }

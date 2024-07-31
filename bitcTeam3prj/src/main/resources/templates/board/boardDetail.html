@@ -22,6 +22,13 @@
                 frm.action = "/board/" + $("#board-id").val();
                 frm.submit();
             });
+            $("#btn-delete2").on("click", function () {
+                $("#method").val("DELETE");
+
+                const frm = $("#frm")[0];
+                frm.action = "/board/" + $("#board-id").val();
+                frm.submit();
+            });
 
             $("#btn-update").on("click", function () {
                 $("#method").val("PUT");
@@ -31,13 +38,46 @@
                 frm.submit();
             });
 
-            // $("#btn-reply").on("click", function () {
-            //     $("#method").val("POST");
-            //
-            //     const frm = $("#frm")[0];
-            //     frm.action = "/board/" + $("#board-id").val();
-            //     frm.submit();
-            // });
+            $(document).ready(function(){
+                $("#btn-like").on('click', function(e) {
+                    var onoff = $("#btn-like").data('onoff');
+                    if(onoff===0){
+                        $(e.target).addClass("btn-danger");
+                        $(e.target).removeClass("text-danger");
+                        $(e.target).addClass("text-white");
+                        $("#btn-like").data('onoff', 1);
+
+                        if($("#btn-dislike").data('onoff') === 1){
+                            $("#btn-dislike").removeClass("btn-primary");
+                            $("#btn-dislike").addClass("text-primary");
+                            $("#btn-dislike").removeClass("text-white");
+                            $("#btn-dislike").data('onoff', 0);
+                        }
+                    }
+                    else{
+                        $(e.target).removeClass("btn-danger");
+                        $(e.target).addClass("text-danger");
+                        $(e.target).removeClass("text-white");
+                        $("#btn-like").data('onoff', 0);
+                    }
+                });
+            $(document).ready(function(){
+                $("#btn-dislike").on('click', function(e) {
+                    var onoff = $("#btn-dislike").data('onoff');
+                    if(onoff===0){
+                        $(e.target).addClass("btn-primary");
+                        $(e.target).removeClass("text-primary");
+                        $(e.target).addClass("text-white");
+                        $("#btn-dislike").data('onoff', 1);
+                    }
+                    else{
+                        $(e.target).removeClass("btn-primary");
+                        $(e.target).addClass("text-primary");
+                        $(e.target).removeClass("text-white");
+                        $("#btn-dislike").data('onoff', 0);
+                    }
+                });
+            });
         });
     </script>
 </head>
@@ -78,19 +118,32 @@
                     <p th:text="${board.content}">게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다. 게시물 내용이 여기에 들어갑니다.</p>
                 </div>
 
+                <!--------좋아요 하트 토글 버튼----->
+                <div class="text-center">
+                    <form th:action="@{|/user/${board.id}|}" th:method="post">
+                        <input type="hidden" name="boardLike" th:value="${board.id}">
+                    <button type="button" id="btn-like"  data-onoff="0" class="btn btn-outline-danger text-danger px-4 py-2 rounded-full flex items-center justify-center">
+                        좋아요
+                    </button>
+                    <button type="button" id="btn-dislike" data-onoff="0" class="btn btn-outline-primary text-primary px-4 py-2 rounded-full flex items-center justify-center">
+                        싫어요
+                    </button>
+                    </form>
+                </div>
+
                 <!-- 수정 및 삭제 버튼들 -->
                 <div class="d-flex gap-2 mb-4">
+
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal">수정</button>
                     <!--                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-post-modal">삭제</button>-->
                     <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
                 </div>
-        </form>
                 <!-- 댓글 작성 폼 -->
                 <div class="mb-4">
                     <h3>댓글 작성</h3>
                     <form action="/comment/write" method="post">
                         <input type="hidden" name="userId" th:value="${session.userId}">
-                         <input type="hidden" name="boardId" th:value="${board.id}">
+                        <input type="hidden" name="boardId" th:value="${board.id}">
                         <div class="mb-3">
                             <textarea id="comment-text" class="form-control" name="contents" rows="3" required></textarea>
                         </div>
@@ -122,6 +175,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </section>
 </main>
 
@@ -151,24 +205,27 @@
     </div>
 </div>
 
-<!--&lt;!&ndash; 게시물 삭제 모달 &ndash;&gt;-->
-<!--<div class="modal fade" id="delete-post-modal" tabindex="-1" aria-labelledby="deletePostModalLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="deletePostModalLabel">게시물 삭제</h5>-->
-<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p>이 게시물을 삭제하시겠습니까?</p>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>-->
-<!--                <button type="button" class="btn btn-danger">삭제</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<!-- 게시물 삭제 모달 -->
+<div class="modal fade" id="delete-post-modal" tabindex="-1" aria-labelledby="deletePostModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{|/board/${board.id}|}" th:method="delete">
+                <input type="hidden" name="boardId" th:value="${board.id}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePostModalLabel">게시물 삭제</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>0
+            <div class="modal-body">
+                <p>이 게시물을 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" id="btn-delete2" class="btn btn-danger">삭제</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- 푸터 영역 (Thymeleaf 사용 시 외부 파일로 대체 가능) -->
 <footer th:replace="~{/layout/footer::footer}"></footer>
