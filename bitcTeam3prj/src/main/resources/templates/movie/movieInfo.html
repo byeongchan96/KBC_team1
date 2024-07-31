@@ -22,7 +22,7 @@
   </style>
   <script th:inline="javascript">
     const sessionUserId = [[${session.userId}]];
-    const pageId = [[${pageId}]];
+    // const pageId = [[${pageId}]];
   </script>
   <script>
       $(document).ready(function () {
@@ -81,8 +81,14 @@
                   }
           });
 
-          $("#Bookmark").on("click", ()=>{
-              $("#add-like-frm")[0].submit();
+          $("#Bookmark").on("click", (e)=>{
+
+              if (sessionUserId) {
+                  $("#add-like-frm")[0].submit();
+              } else {
+                  alert('로그인 후 이용해주세요');
+                  e.preventDefault();
+              }
           });
 
 
