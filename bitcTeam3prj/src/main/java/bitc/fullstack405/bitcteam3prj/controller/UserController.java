@@ -453,12 +453,9 @@ public class UserController {
   public ModelAndView deleteProfileImg(HttpServletRequest req) throws Exception{
 
     HttpSession session = req.getSession();
-
     ModelAndView mv = new ModelAndView();
 
     userService.deleteProfileImg((String)session.getAttribute("userId"));
-
-    mv.addObject("userId", session.getAttribute("userId"));
 
     mv.setViewName("redirect:/profile/" + session.getAttribute("userId"));
 

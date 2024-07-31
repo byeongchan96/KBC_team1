@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService{
     UserEntity user = this.findByUserId(userId);
     String profileImageName = user.getProfileImageName();
 
+    fileUtil.deleteFile(profileImageName);
     user.setProfileImageName("");
     imgFileRepository.deleteByImageName(profileImageName);
     userRepository.save(user);
