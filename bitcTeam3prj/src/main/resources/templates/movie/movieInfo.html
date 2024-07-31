@@ -101,8 +101,10 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-md-6 mx-auto">
-              <img src="https://www.bootdey.com/image/550x380/FFB6C1/000000"
-                   th:src="@{${movie.movie?.posterImageName}}"
+              <img
+                   th:src="${#strings.isEmpty(movie.movie.posterImageName)} ?
+                   'https://www.bootdey.com/image/550x380/FFB6C1/000000' :
+                    @{|/image/${movie.movie.posterImageName}.jpg|}"
                    alt="Product image"
                    class="img-fluid">
             </div>
