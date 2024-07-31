@@ -11,6 +11,7 @@ import bitc.fullstack405.bitcteam3prj.utils.FileUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,26 +26,8 @@ public class UserController {
 
   @Autowired
   private UserService userService;
-
-  // @Autowired
-  // private ImageService imageService;
-
-  // @Autowired
-  // private FileUtil fileUtil;
-  // @Autowired
-  // private ImgFileRepository imgFileRepository;
-  // @Autowired
-  // private UserRepository userRepository;
-
-  // //  테스트용 메인페이지
-  // @GetMapping({"/home", "/main"})
-  // public ModelAndView home(@RequestParam(required = false, value = "error") String error) {
-  //   ModelAndView mv = new ModelAndView("/main/mainHome");
-  //   if (error != null) {
-  //     mv.addObject("error", error);
-  //   }
-  //   return mv;
-  // }
+    @Autowired
+    private FileUtil fileUtil;
 
   //  로그인 화면 뷰
   @GetMapping ("/login")
@@ -60,7 +43,6 @@ public class UserController {
     if (!Objects.isNull(error)) {
       mv.addObject("error", error);
     }
-
 
 
     boolean cookieCheck = false;
@@ -118,26 +100,6 @@ public class UserController {
     return mv;
   }
 
-
-////  로그인 성공 뷰 (기능작동 테스트용, 필요없어짐)
-//  @GetMapping("/loginSuccess")
-//  public ModelAndView loginSuccess(HttpServletRequest req) throws Exception{
-//
-//    Object userId = req.getSession().getAttribute("userId");
-//    Object userPw = req.getSession().getAttribute("userPw");
-//    ModelAndView mv = new ModelAndView();
-//    mv.addObject("userId", userId);
-//    mv.addObject("userPw", userPw);
-//
-//    if (req.getSession().getAttribute("userId") == null) {
-//      mv.setViewName("redirect:/login");
-//    }
-//    else {
-//      mv.setViewName("/user/logInSuccessTest");
-//    }
-//
-//    return mv;
-//  }
 
 
 //  로그아웃 프로세스
@@ -351,20 +313,7 @@ public class UserController {
       if (userEntity != null) {
 
         if (userEntity.getDeletedYn() == 'N') {
-
-          if (userEntity.getProfileImageName() != null && userEntity.getProfileImageName() != "") {
-//            ImgFileEntity imgFileEntity = imageService.findBySavedName(userEntity.getProfileImageName());
-//            if (imgFileEntity.getSavedName() != null) {
-//              mv.addObject("profileImage", "/image/" + findImg);
-//            }
-//            else {
-//              mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
-//            }
-          }
-          else {
-            mv.addObject("profileImage", "/image/DefaultProfileImage.jpg");
-          }
-
+          mv.addObject("userInfo", userEntity);
           if (session.getAttribute("userId").equals(userId)) { // 자신의 프로필인지 타인의 프로필인지 확인
             mv.addObject("me", true);
             mv.setViewName("/user/myProfile");
@@ -443,6 +392,7 @@ public class UserController {
     ModelAndView mv = new ModelAndView();
     HttpSession session = req.getSession();
 
+
     mv.setViewName("redirect:/profile/" + session.getAttribute("userId"));
 
     return mv;
@@ -488,11 +438,9 @@ public class UserController {
 
     HttpSession session = req.getSession();
 
-//    fileUtil.uploadFile(req);
-
     String userId = (String)session.getAttribute("userId");
 
-    userService.insertUserProfileImg(req, userId, resp);
+    userService.insertUserProfileImg(userId, req, resp);
 
 
     mv.setViewName("redirect:/profile/" + userId);

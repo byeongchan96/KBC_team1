@@ -9,11 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.util.Collection;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -28,6 +23,8 @@ public class UserServiceImpl implements UserService{
   @Autowired
   private ImgFileRepository imgFileRepository;
 
+  @Autowired
+  private FileUtil fileUtil;
 
   //  로그인 시도 유저 존재 확인
   @Override
@@ -98,22 +95,31 @@ public class UserServiceImpl implements UserService{
 
   @Override
   public void deleteProfileImg(String userId) throws Exception {
-    userRepository.deletingUserProfileImg(userId);
-    String fileName = userId + ".jpg";
-    String path = "";
-    fileUtil.deleteFile(fileName);
+    UserEntity user = this.findByUserId(userId);
+    String profileImageName = user.getProfileImageName();
+
+    user.setProfileImageName("");
+    imgFileRepository.deleteByImageName(profileImageName);
+    userRepository.save(user);
   }
 
   @Override
-  public void insertUserProfileImg(HttpServletRequest req, String userId, HttpServletResponse resp) throws Exception {
+  public void insertUserProfileImg(String userId, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-//    imgFileRepository.deleteBySavedName(userId);
-    userRepository.deletingUserProfileImg(userId);
-    fileUtil.deleteFile(userId);
-    ImgFileEntity imgFileEntity = fileUtil.uploadFile(req, resp, userId);
-    if (imgFileEntity != null) {
-      imgFileRepository.save(imgFileEntity);
-      userRepository.insertUserProfile(userId, userId);
+    UserEntity user = this.findByUserId(userId);
+    String profileImgName = user.getProfileImageName();
+    if(profileImgName == null || profileImgName.isBlank()){
+      profileImgName = "profile_" + user.getId();
+      ImgFileEntity imgFile = new ImgFileEntity();
+      imgFile.setImageName(profileImgName);
+      user.setProfileImageName(profileImgName);
+      imgFileRepository.save(imgFile);
+      userRepository.save(user);
     }
+    else{
+      fileUtil.deleteFile(profileImgName);
+    }
+
+    fileUtil.uploadFile(req, profileImgName);
   }
 }

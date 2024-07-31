@@ -7,43 +7,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.*;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
 
 @Component
 public class FileUtil {
 
-  public ImgFileEntity uploadFile(HttpServletRequest req, HttpServletResponse resp, String userId) throws ServletException, IOException {
+  public ImgFileEntity uploadFile(HttpServletRequest req, String imgFileName) throws ServletException, IOException {
 
     Part part = req.getPart("uploadFile");
-    String partHeader = part.getHeader("content-disposition");
-    String[] phArr = partHeader.split("filename=");
-    String oriFileName = phArr[1].trim().replace(".jpg", "").replace("\"", "");
 
+    String savePath = getSaveFilePath();
+    String savedFileName = imgFileName +".jpg";
 
-    File rootPath = new File("C:fullstack405/spring/Team3Temp/bitcTeam3prj/src/main/resources/static/image");
-    String savePath = rootPath.getAbsolutePath() +  "/"  + oriFileName + ".jpg";
-
-    String savedFileName = oriFileName + ".jpg";
 
     File f = new File(savePath);
 
-    if (!oriFileName.isEmpty()) {
-      part.write(savedFileName);
+    if (!imgFileName.isEmpty()) {
+      part.write(savePath + File.separator + savedFileName );
 
 
       ImgFileEntity imgFileEntity = new ImgFileEntity();
-      imgFileEntity.setOriName(oriFileName);
-      imgFileEntity.setSavedName(userId);
-      imgFileEntity.setSavedPath(savePath);
       return imgFileEntity;
     }
     else {
@@ -51,16 +36,24 @@ public class FileUtil {
     }
   }
 
-  public static void deleteFile(String fileName) {
+  public void deleteFile(String fileName) {
 
-    File rootPath = new File("src/main/resources/static/image");
-    String savePath = rootPath.getAbsolutePath() +  "/"  + fileName;
-
-    File file = new File(savePath + File.separator + fileName + ".jpg");
+    File file = new File(getSaveFilePath() + File.separator + fileName + ".jpg");
 
     if (file.exists()) {
       file.delete();
     }
   }
+
+  public String getSaveFilePath(){
+    File rootPath = new File("");
+    String savePath = rootPath.getAbsolutePath();
+    int subStdIdx = savePath.lastIndexOf('\\');
+    savePath = savePath.substring(0, subStdIdx) + "\\Images\\";
+
+    return savePath;
+  }
+
 }
+
 

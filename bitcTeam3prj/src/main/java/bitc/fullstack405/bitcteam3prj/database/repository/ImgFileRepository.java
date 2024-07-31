@@ -11,13 +11,16 @@ import java.util.List;
 
 public interface ImgFileRepository extends JpaRepository<ImgFileEntity, Long> {
 
-  ImgFileEntity findBySavedName(String savedName) throws Exception; // 저장된 이미지 파일 이름을 통해 이미지 찾기
+    @Transactional
+    void deleteByImageName(String imgName) throws Exception;
 
-  @Transactional
-  @Modifying
-  @Query(
-      "DELETE FROM ImgFileEntity AS i WHERE i.savedName = ?1"
-  )
-  void deleteBySavedName(String userId) throws Exception;
+//  ImgFileEntity findBySavedName(String savedName) throws Exception; // 저장된 이미지 파일 이름을 통해 이미지 찾기
+
+//  @Transactional
+//  @Modifying
+//  @Query(
+//      "DELETE FROM ImgFileEntity AS i WHERE i.savedName = ?1"
+//  )
+//  void deleteBySavedName(String userId) throws Exception;
 
 }
