@@ -481,15 +481,16 @@ public class UserController {
 
   //  프로필 이미지 업로드(프사수정)
   @PutMapping("/uploadProfileImg")
-  public ModelAndView uploadProfileImg(HttpServletRequest req) throws Exception {
+  public ModelAndView uploadProfileImg(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
     ModelAndView mv = new ModelAndView();
 
     HttpSession session = req.getSession();
 
-    fileUtil.uploadFile(req);
-
     String userId = (String)session.getAttribute("userId");
+
+    userService.insertUserProfileImg(req, userId, resp);
+
 
     mv.setViewName("redirect:/profile/" + userId);
 

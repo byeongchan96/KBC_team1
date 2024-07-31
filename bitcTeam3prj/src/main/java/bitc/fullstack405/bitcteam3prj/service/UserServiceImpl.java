@@ -5,6 +5,8 @@ import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import bitc.fullstack405.bitcteam3prj.database.repository.ImgFileRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
 import bitc.fullstack405.bitcteam3prj.utils.FileUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -96,18 +98,19 @@ public class UserServiceImpl implements UserService{
     userRepository.deletingUserProfileImg(userId);
     String fileName = userId + ".jpg";
     String path = "";
-    fileUtil.deleteFile(fileName, path);
+    fileUtil.deleteFile(fileName);
   }
 
   @Override
-  public void insertUserProfileImg(String userId, ImgFileEntity imgFileEntity) throws Exception {
+  public void insertUserProfileImg(HttpServletRequest req, String userId, HttpServletResponse resp) throws Exception {
 
     imgFileRepository.deleteBySavedName(userId);
     userRepository.deletingUserProfileImg(userId);
-    String fileName = userId + ".jpg";
-    String path = "";
-    fileUtil.deleteFile(fileName, path);
-    imgFileRepository.save(imgFileEntity);
-
+    fileUtil.deleteFile(userId);
+    ImgFileEntity imgFileEntity = fileUtil.uploadFile(req, resp, userId);
+    if (imgFileEntity != null) {
+      imgFileRepository.save(imgFileEntity);
+      userRepository.insertUserProfile(userId, userId);
+    }
   }
 }
