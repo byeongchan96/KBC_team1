@@ -368,7 +368,7 @@
                                     <!-- Example posts -->
                                     <tr th:if="${#lists.size(movieList)} > 0" th:each="movieBoard : ${movieList}">
                                         <td th:text="${movieBoard.movie.movieCate}">공지사항</td>
-                                        <td><a href="#" th:href="@{|/movie/movieinfo/${movieBoard.id}|}" th:text="${movieBoard.movie.movieName}">공지사항 제목</a></td>
+                                        <td><a href="#" th:href="@{|/movie/movieinfo/${movieBoard.movie.id}|}" th:text="${movieBoard.movie.movieName}">공지사항 제목</a></td>
                                         <td th:text="${movieBoard.movie.director.name}">유재석</td>
                                         <td th:text="${movieBoard.movie.company}">123</td>
                                         <td th:if="${#strings.equals(session.userId, userInfo.userId)}">
