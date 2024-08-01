@@ -18,7 +18,7 @@
                 history.back();
             });
 
-            $("#btn-delete").on("click", function () {
+            $("#btn-board-delete").on("click", function () {
                 $("#method").val("DELETE");
 
                 const frm = $("#frm")[0];
@@ -111,7 +111,7 @@
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-post-modal">수정</button>
                     <!--                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-post-modal">삭제</button>-->
-                    <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
+                    <button type="button" class="btn btn-danger" id="btn-board-delete">삭제</button>
                 </div>
                 <!-- 댓글 작성 폼 -->
                 <div th:if="!${#strings.isEmpty(session.userId)}" class="mb-4">

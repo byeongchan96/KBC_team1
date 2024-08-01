@@ -11,14 +11,9 @@
 
     <script>
         $(document).ready(function () {
-
-
-
-            $("#btn-delete1").on("click", function () {
-                $("#method").val("DELETE");
-
+             $(".btn-board-delete").on("click", function () {
                 const frm = $("#frm")[0];
-                frm.action = "/user/" + $("#user-id").val();
+                frm.action = "/board/" + $(this).data("boardId");
                 frm.submit();
                 history.back();
             });
@@ -171,6 +166,7 @@
 <main class="container mt-5">
     <input type="hidden" th:value="${error}" id="error">
     <input type="hidden" th:value="${session.userId}" id="sessionUserId">
+    <input type="hidden" th:value="${userInfo.id}" id="user-id">
     <div class="row">
         <!-- Profile Sidebar -->
         <div class="col-md-4">
@@ -227,7 +223,7 @@
                 <div class="tab-pane fade active show" id="list-posts"  role="tabpanel" aria-labelledby="list-posts-list">
                     <div class="profile-header">
                         <h3>내 게시물</h3>
-                        <form action="/user/myProfile" method="post" >
+                        <form th:method="delete" >
                             <input type="hidden" name="myContent1" th:value="${session.userId}">
 <!--                            <input type="hidden" name="userId" th:value="${user.id}">-->
                         <div class="table-container mt-4">
@@ -252,8 +248,8 @@
                                     <td th:text="${board.user.userId}">유재석</td>
                                     <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-07-25</td>
                                     <td th:text="${board.visitCnt}">123</td>
-                                    <td th:if="${#strings.equals(session.userId, userInfo.userId)}">
-                                        <a href="#" id="btn-delete1" class="btn btn-danger btn-sm">삭제</a>
+                                    <td th:if="${#strings.equals(session.userId, userInfo.userId)}" th:attrappend="data-boardIf=${board.id}">
+                                    <button type="button" class="btn btn-danger btn-sm btn-board-delete">삭제</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -267,7 +263,7 @@
                 <div class="tab-pane fade" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
                 <div class="profile-header">
                     <h3>내 댓글</h3>
-                    <form action="/user/myProfile" method="post">
+                    <form  method="post">
                     <div class="table-container">
                         <table class="table table-hover table-sm">
                             <thead>

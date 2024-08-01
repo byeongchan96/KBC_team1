@@ -45,7 +45,11 @@ public class BoardEntity extends BaseEntity{
     private UserEntity user;
 
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<BoardCommentEntity> commentList;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    List<BoardLikeEntity> boardLikeList;
 }
