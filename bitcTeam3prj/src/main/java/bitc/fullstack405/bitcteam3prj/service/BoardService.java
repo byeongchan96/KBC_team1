@@ -36,4 +36,6 @@ public interface BoardService {
     List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception;
 
     List<BoardLikeEntity> findAllByUserBoardLikeList(List<BoardLikeEntity> boardLikeList);
+
+    Page<BoardEntity> selectBoardListBySearchValue(Pageable pageable, String searchValue) throws Exception;
 }

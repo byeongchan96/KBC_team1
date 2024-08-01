@@ -1,19 +1,20 @@
 package bitc.fullstack405.bitcteam3prj.database.repository;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
-import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface BoardLikeRepository extends JpaRepository<BoardLikeEntity, Long> {
+    int countByUser_IdAndBoard_Id(long userId, long boardId);
+    int countByBoard_Id(long boardId);
 
-//    List<BoardLikeEntity> findByBoardIdAndUserId(long boardId, long userId);
 
-//    List<BoardLikeEntity> findAllByUserBoardLikeList(Long userId);
+    BoardLikeEntity findByUser_IdAndBoard_Id(long userId, long boardId);
+    Page<BoardLikeEntity> findAllByUser_Id(Pageable pageable, long userId);
+    List<BoardLikeEntity> findAllByUser_Id(long userId);
+    List<BoardLikeEntity> findAllByBoard_Id(long boardId);
 
-    @Query("SELECT COUNT(b) FROM BoardLikeEntity b WHERE b.likeYn is null and b.user = :user")
-    int countByLikeYn(@Param("user") UserEntity user);
 }

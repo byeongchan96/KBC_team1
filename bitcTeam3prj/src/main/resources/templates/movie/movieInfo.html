@@ -218,9 +218,12 @@
                           <div class="input-group">
                             <span class="input-group-text">평점</span>
                             <!--                                        <input type="" class="form-control" th:value="${item.movieRating}">-->
-                            <select class="form-control" name="movieRating">
+
+                            <select th:if="${#strings.equals(session.userId, item.user.userId)}" class="form-control" name="movieRating">
                               <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.movieRating}">평점 선택</option>
                             </select>
+
+                            <input th:unless="${#strings.equals(session.userId, item.user.userId)}" type="text" class="form-control" th:value="${item.movieRating}" readonly>
                           </div>
                         </div>
                       </div>
@@ -228,7 +231,8 @@
                         <div class="input-group">
                           <div class="input-group">
                             <span class="input-group-text">한줄평</span>
-                            <textarea class="form-control" th:text="${item.content}" name="content" placeholder="comment"></textarea>
+                            <textarea class="form-control" th:text="${item.content}" name="content" placeholder="comment"
+                                      th:readonly="${!#strings.equals(session.userId, item.user.userId)}" ></textarea>
                           </div>
                         </div>
                         <div th:if="${session?.userId} == ${item.user?.userId}" class="col-sm d-flex justify-content-end mt-2">

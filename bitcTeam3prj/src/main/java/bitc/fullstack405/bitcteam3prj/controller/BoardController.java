@@ -1,11 +1,10 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
-import bitc.fullstack405.bitcteam3prj.service.BoardCommentService;
-import bitc.fullstack405.bitcteam3prj.service.BoardService;
-import bitc.fullstack405.bitcteam3prj.service.UserService;
-import bitc.fullstack405.bitcteam3prj.service.UserServiceImpl;
+import bitc.fullstack405.bitcteam3prj.service.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,19 +25,36 @@ public class BoardController {
     private BoardService boardService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PaginationService paginationService;
+
+    @Autowired
+    private BoardLikeService boardLikeService;
 
     //    게시글 전체 목록
     @GetMapping({"/", ""})
     public ModelAndView selectBoardList(
-            @PageableDefault(size=10, sort="createdAt") Pageable pageable
+            @PageableDefault(size=10, sort="createdAt") Pageable pageable,
+            @RequestParam(required = false) String searchValue,
+            @RequestParam(required = false) String searchCate
     ) throws Exception {
         ModelAndView mv = new ModelAndView("/board/boardList");
 
-//        List<BoardEntity> boardList = boardService.selectBoardList();
+        Page<BoardEntity> boardList = null;
 
-        Page<BoardEntity> boardList = boardService.selectBoardList(pageable);
+        if(searchValue == null || searchValue.isEmpty()) {
+            boardList = boardService.selectBoardList(pageable);
+        }
+        else{
+            boardList = boardService.selectBoardListBySearchValue(pageable, searchValue);
+        }
 
         mv.addObject("boardList", boardList);
+        mv.addObject("barList",
+                paginationService.getPaginationBarNumbers(
+                pageable.getPageNumber(),
+                boardList.getTotalPages()
+        ));
 
         return mv;
     }
@@ -54,11 +71,46 @@ public class BoardController {
 
 //    게시글 상세보기
     @GetMapping("/{boardId}")
-    public ModelAndView selectBoardDetail(@PathVariable("boardId") Long boardId) throws Exception {
+    public ModelAndView selectBoardDetail(
+            HttpSession session,
+            @PathVariable("boardId") Long boardId) throws Exception {
         ModelAndView mv = new ModelAndView("board/boardDetail");
         BoardEntity board = boardService.selectBoardDetail(boardId);
         board.setVisitCnt(board.getVisitCnt() + 1);
         boardService.updateBoard(board);
+
+        BoardLikeEntity boardLike = null;
+        String userId =(String)session.getAttribute("userId");
+        if(!(userId == null  || userId.isEmpty())) {
+            boardLike = boardLikeService.findByUserIdAndBoardId(
+                    userService.findByUserId((String) session.getAttribute("userId")).getId(),
+                    boardId
+            );
+        }
+
+        String userLike = "";
+        if(boardLike != null){
+            userLike = boardLike.getLikeYn();
+        }
+
+        var boardLikeList = boardLikeService.findAllByBoardId(boardId);
+        List<BoardLikeEntity> dislikeList =  new ArrayList<>();
+        List<BoardLikeEntity> likeList = new ArrayList<>();
+        if(boardLikeList != null) {
+            for (var like : boardLikeList) {
+                if (like.getLikeYn().equals("N")) {
+                    dislikeList.add(like);
+                }else{
+                    likeList.add(like);
+                }
+            }
+        }
+
+
+
+        mv.addObject("userLike", userLike);
+        mv.addObject("disLikeCnt", dislikeList.size());
+        mv.addObject("likeCnt", likeList.size());
         mv.addObject("board" , board);
         return mv;
     }

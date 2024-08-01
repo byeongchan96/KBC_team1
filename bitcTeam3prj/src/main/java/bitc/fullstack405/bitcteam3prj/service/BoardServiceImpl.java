@@ -7,7 +7,6 @@ import bitc.fullstack405.bitcteam3prj.database.repository.BoardLikeRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.BoardRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -105,26 +104,10 @@ public class BoardServiceImpl implements BoardService {
         return List.of();
     }
 
+    @Override
+    public Page<BoardEntity> selectBoardListBySearchValue(Pageable pageable, String searchValue) throws Exception {
+        return boardRepository.findAllByTitleContains(pageable, searchValue);
+    }
 
-//    @Override
-//    public List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception {
-//        UserEntity user = userRepository.findById(userId);
-//
-//        BoardLikeEntity like = new BoardLikeEntity();
-//        like.setLikeYn(like.getLikeYn());
-//        boardLikeRepository.save(like);
-//
-//        return null;
-//    }
-//
-//    @Override
-//    public List<UserEntity> findById(Long userId) {
-//        BoardLikeEntity like = boardLikeRepository.findById(userId);
-//
-//        boardLikeRepository.deletedByLikeYn(userId);
-//    }
-//
-//    public void setBoardLikeRepository(Long boardId) {
-//        return boardLikeRepository.countByLikeYn(BoardLikeEntity);
-//    }
+
 }

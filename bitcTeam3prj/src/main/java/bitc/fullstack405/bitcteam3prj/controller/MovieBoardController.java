@@ -115,8 +115,6 @@ public class MovieBoardController {
         }
 
 
-
-
         mv.addObject("movie", entity);
         mv.addObject("ratingList", ratingList);
         mv.addObject("isLike", isLike);
