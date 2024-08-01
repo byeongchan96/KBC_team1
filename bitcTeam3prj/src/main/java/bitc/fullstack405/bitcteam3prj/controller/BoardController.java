@@ -108,6 +108,7 @@ public class BoardController {
 
 
 
+        mv.addObject("userId", userId);
         mv.addObject("userLike", userLike);
         mv.addObject("disLikeCnt", dislikeList.size());
         mv.addObject("likeCnt", likeList.size());

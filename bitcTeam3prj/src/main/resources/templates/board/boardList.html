@@ -123,7 +123,7 @@
             <td th:text="${board.id}">1</td>
             <td th:text="${board.category}">공지</td> <!-- 카테고리 데이터 -->
             <td><a href="#" th:href="@{|/board/${board.id}|}" th:text="${board.title}">게시물 제목</a></td>
-            <td th:text="${board.user?.userId}">유재석</td>
+            <td><a href="#" class="text-secondary text-decoration-none" th:href="@{|/profile/${board.user?.userId}|}" th:text="${board.user?.userId}">유재석</a></td>
             <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}" >2024-07-26</td>
             <td th:text="${board.visitCnt}">12</td>
         </tr>
