@@ -5,6 +5,13 @@ import bitc.fullstack405.bitcteam3prj.database.repository.MovieLikeRepository;
 import bitc.fullstack405.bitcteam3prj.service.*;
 
 
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardCommentEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.service.BoardCommentService;
+import bitc.fullstack405.bitcteam3prj.service.BoardService;
+import bitc.fullstack405.bitcteam3prj.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +26,9 @@ import java.util.List;
 public class UserBoardController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private BoardService boardService;
 
     @Autowired
@@ -27,28 +37,41 @@ public class UserBoardController {
     @Autowired
     private MovieLikeService movieLikeService;
 
-    @Autowired
-    private UserService userService;
-  @Autowired
-  private MovieLikeRepository movieLikeRepository;
 
 
-    //    유저가 작성한 게시글 리스트
-    @GetMapping("/{userId}")
-    public ModelAndView userBoardList(@PathVariable("userId") Long userId) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.userBoardList(userId);
-        mv.addObject("boardList" , boardList);
+    private BoardCommentService boardCommentService;
+
+    //    유저가 작성한 게시글, 댓글 리스트
+    @GetMapping("/myProfile")
+    public ModelAndView userBoardList(HttpSession session) throws Exception {
+        ModelAndView mv = new ModelAndView("/user/myProfile");
+
+        UserEntity user = userService.findByUserId((String)session.getAttribute("userId"));
+
+        List<BoardEntity> boardList = boardService.findAllByUserId(user.getId());
+
+        List<BoardCommentEntity> commentList = boardCommentService.findAllByUserId(user.getId());
+
+        mv.addObject("boardList", boardList);
+        mv.addObject("commentList", commentList);
+
 
         return mv;
     }
 
     //    유저가 비/추천한 게시글 리스트
-    @GetMapping("/boardLike/{userId}")
-    public ModelAndView userLikeBoardList(@PathVariable("userId") Long userId) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/");
-        List<BoardEntity> boardList = boardService.userLikeBoardList(userId);
-        mv.addObject("boardList" , boardList);
+    @GetMapping("/myProfile/{userId}")
+    public ModelAndView userLikeBoardList(HttpSession session) throws Exception {
+        ModelAndView mv = new ModelAndView("/user/myProfile");
+
+        UserEntity user = userService.findAllByUserBoardLikeList((String)session.getAttribute("userId"));
+
+        List<BoardEntity> boardList = boardService.findAllByUserId(user.getId());
+
+        List<BoardLikeEntity> boardLike = boardService.findAllByUserBoardLikeList(user.getBoardLikeList());
+
+        mv.addObject("boardList", boardList);
+        mv.addObject("boardLike", boardLike);
 
         return mv;
     }

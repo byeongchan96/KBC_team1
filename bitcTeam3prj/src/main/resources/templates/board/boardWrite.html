@@ -13,6 +13,7 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <script src="/js/bootstrap.bundle.js"></script>
 
+
     <style>
         /* Additional styles */
         .header-logo svg {
@@ -54,42 +55,38 @@
                         <h4 class="mb-0">글 쓰기</h4>
                     </div>
                     <div class="card-body">
-                        <form id="frm" method="post">
-                            <!-- 이름 입력 필드 -->
-                            <div class="mb-3" id="name-group">
-                                <label for="wr_name" class="form-label">이름 <strong>필수</strong></label>
-                                <input type="text" name="wr_name" id="wr_name" required class="form-control" placeholder="이름">
-                            </div>
+                        <form id="frm" action="/board/write" method="post">
+                                <input type="hidden" name="userId" id="wr_name" th:value="${session.userId}">
 
-                            <!-- 이메일 입력 필드 -->
-                            <div class="mb-3" id="email-group">
-                                <label for="wr_email" class="form-label">이메일</label>
-                                <input type="text" name="wr_email" id="wr_email" class="form-control" placeholder="이메일">
+                            <!-- 제목 입력 필드 -->
+                            <div class="mb-3">
+                                <label for="wr_subject" class="form-label">제목 <strong>필수</strong></label>
+                                <input type="text" name="title" id="wr_subject" required class="form-control" maxlength="255" placeholder="제목">
                             </div>
 
                             <!-- 옵션 선택 필드 -->
-                            <div class="mb-3" id="option-group">
-                                <label class="form-label">옵션</label>
-                                <div id="options" class="options-group">
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="notice" name="notice" value="1">
-                                        <label for="notice" class="form-check-label">공지</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="spoiler" name="spoiler" value="1">
-                                        <label for="spoiler" class="form-check-label">스포일러</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input type="checkbox" class="form-check-input" id="adult" name="adult" value="1">
-                                        <label for="adult" class="form-check-label">성인</label>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="mb-3" id="option-group">-->
+<!--                                <label class="form-label">옵션</label>-->
+<!--                                <div id="options" class="options-group">-->
+<!--                                    <div class="form-check form-check-inline">-->
+<!--                                        <input type="checkbox" class="form-check-input" id="notice" name="notice" value="1">-->
+<!--                                        <label for="notice" class="form-check-label">공지</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-check form-check-inline">-->
+<!--                                        <input type="checkbox" class="form-check-input" id="spoiler" name="spoiler" value="1">-->
+<!--                                        <label for="spoiler" class="form-check-label">스포일러</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-check form-check-inline">-->
+<!--                                        <input type="checkbox" class="form-check-input" id="adult" name="adult" value="1">-->
+<!--                                        <label for="adult" class="form-check-label">성인</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <!-- 분류 선택 필드 -->
                             <div class="mb-3" id="category-group">
                                 <label for="ca_name" class="form-label">영화 및 장르<strong>필수</strong></label>
-                                <select class="form-select" name="ca_name" id="ca_name" required>
+                                <select class="form-select" name="category" id="ca_name" required>
                                     <option value="">분류를 선택하세요</option>
                                     <option value="category1">공포</option>
                                     <option value="category2">코믹</option>
@@ -99,16 +96,12 @@
                                 </select>
                             </div>
 
-                            <!-- 제목 입력 필드 -->
-                            <div class="mb-3">
-                                <label for="wr_subject" class="form-label">제목 <strong>필수</strong></label>
-                                <input type="text" name="wr_subject" id="wr_subject" required class="form-control" maxlength="255" placeholder="제목">
-                            </div>
+
 
                             <!-- 내용 입력 필드 -->
                             <div class="mb-3">
                                 <label for="wr_content" class="form-label">내용 <strong>필수</strong></label>
-                                <textarea name="wr_content" id="wr_content" required class="form-control" rows="10"></textarea>
+                                <textarea name="content" id="wr_content" required class="form-control" rows="10"></textarea>
                             </div>
 
                             <!-- 제출 및 추가 버튼들 -->
@@ -121,9 +114,9 @@
                             <div class="d-flex gap-2 mx-auto p-4">
                                 <input type="hidden" id="board-idx" name="boardIdx">
                                 <input type="hidden" id="method">
-                                <button type="button" class="btn btn-secondary me-2" id="btn-List">목록</button>
-                                <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>
-                                <button type="button" class="btn btn-warning" id="btn-update">수정</button>
+<!--                                <button type="button" class="btn btn-secondary me-2" id="btn-List">목록</button>-->
+<!--                                <button type="button" class="btn btn-danger me-2" id="btn-delete">삭제</button>-->
+<!--                                <button type="button" class="btn btn-warning" id="btn-update">수정</button>-->
                             </div>
                         </form>
                     </div>

@@ -9,6 +9,44 @@
     <script src="/js/bootstrap.bundle.js"></script>
     <script src="/js/layout.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $("#btn-delete1").on("click", function () {
+                $("#method").val("DELETE");
+
+                const frm = $("#frm")[0];
+                frm.action = "/user/" + $("#user-id").val();
+                frm.submit();
+                history.back();
+            });
+            $("#btn-update").on("click", function () {
+                $("#method").val("PUT");
+
+                const frm = $("#frm")[0];
+                frm.action = "/board/" + $("#user-id").val();
+                frm.submit();
+                history.back();
+            });
+            $("#btn-delete2").on("click", function () {
+                $("#method").val("DELETE");
+
+                const frm = $("#frm")[0];
+                frm.action = "/user/" + $("#user-id").val();
+                frm.submit();
+                history.back();
+            });
+            $("#btn-update2").on("click", function () {
+                $("#method").val("PUT");
+
+                const frm = $("#frm")[0];
+                frm.action = "/board/" + $("#user-id").val();
+                frm.submit();
+                history.back();
+            });
+        });
+
+
+    </script>
     <style>
         .profile-header {
             background-color: #f8f9fa;
@@ -158,11 +196,12 @@
             </div>
             <div class="list-group mt-4" id="list-tab" role="tablist">
                 <p class="text-center text-body">목록</p>
-                <a class="list-group-item list-group-item-action active" id="list-posts-list" data-bs-toggle="list" href="#list-posts" aria-controls="posts">작성 게시글</a>
-                <a class="list-group-item list-group-item-action" id="list-comments-list" data-bs-toggle="list" href="#list-comments" aria-controls="comments">작성 댓글</a>
+
+                <a class="list-group-item list-group-item-action active" id="list-posts-list" data-bs-toggle="list" href="#list-posts" aria-controls="posts">내 게시물</a>
+                <a class="list-group-item list-group-item-action" id="list-comments-list" data-bs-toggle="list" href="#list-comments" aria-controls="comments">내 댓글</a>
+                <a class="list-group-item list-group-item-action" id="list-post-like-list" data-bs-toggle="list" href="#list-post-like" aria-controls="likes">좋아요</a>
             </div>
         </div>
-
         <!-- Profile Content -->
         <div class="col-md-8">
             <div class="tab-content" id="nav-tabContent">
@@ -170,7 +209,7 @@
                 <div class="tab-pane fade show active" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                     <div class="profile-header">
                         <h3>프로필 정보</h3>
-                        <form>
+                        <form action="#" method="post">
                             <div class="mb-3">
                                 <h5 class="card-title">
                                     아이디: <span th:text="${user.userId}"></span>
@@ -188,7 +227,10 @@
                 <!-- Posts Table -->
                 <div class="tab-pane fade" id="list-posts" role="tabpanel" aria-labelledby="list-posts-list">
                     <div class="profile-header">
-                        <h3>작성 게시글</h3>
+                        <h3>내 게시물</h3>
+                        <form action="/user/myProfile" method="post" id="frm">
+                            <input type="hidden" name="myContent1" th:value="${session.userId}">
+<!--                            <input type="hidden" name="userId" th:value="${user.id}">-->
                         <div class="table-container mt-4">
                             <table class="table table-hover table-sm">
                                 <thead>
@@ -205,43 +247,17 @@
                                 </thead>
                                 <tbody id="post-table-body">
                                 <!-- Example posts -->
-                                <tr data-category="notice">
+                                <tr th:if="${#lists.size(board.id)} > 0" th:each="board : ${boardList}">
                                     <td><input type="checkbox" name="selectedPosts" value="1"></td>
-                                    <td>공지사항</td>
-                                    <td>1</td>
-                                    <td><a href="#" class="post-detail-link" data-post-id="1">공지사항 제목</a></td>
-                                    <td>유재석</td>
-                                    <td>2024-07-25</td>
-                                    <td>123</td>
+                                    <td th:text="${board.category}">공지사항</td>
+                                    <td th:text="${board.id}">1</td>
+                                    <td><a href="#" th:href="@{|/board/${board.id}|}" th:text="${board.title}">공지사항 제목</a></td>
+                                    <td th:text="${board.user.userId}">유재석</td>
+                                    <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-07-25</td>
+                                    <td th:text="${board.visitCnt}">123</td>
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm" th:if="${me} == true">수정</a>
-                                        <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
-                                    </td>
-                                </tr>
-                                <tr data-category="spoiler">
-                                    <td><input type="checkbox" name="selectedPosts" value="2"></td>
-                                    <td>스포일러</td>
-                                    <td>2</td>
-                                    <td><a href="#" class="post-detail-link" data-post-id="2">스포일러 제목</a></td>
-                                    <td>유재석</td>
-                                    <td>2024-07-24</td>
-                                    <td>456</td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-sm" th:if="${me} == true">수정</a>
-                                        <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
-                                    </td>
-                                </tr>
-                                <tr data-category="movie">
-                                    <td><input type="checkbox" name="selectedPosts" value="3"></td>
-                                    <td>영화</td>
-                                    <td>3</td>
-                                    <td><a href="#" class="post-detail-link" data-post-id="3">영화 제목</a></td>
-                                    <td>유재석</td>
-                                    <td>2024-07-23</td>
-                                    <td>789</td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-sm" th:if="${me} == true">수정</a>
-                                        <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
+                                        <a href="#" id="btn-update" class="btn btn-warning btn-sm">수정</a>
+                                        <a href="#" id="btn-delete1" class="btn btn-danger btn-sm">삭제</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -264,11 +280,15 @@
                                 </ul>
                             </nav>
                         </div>
+                        </form>
                     </div>
                 </div>
-                <!-- Comments Tab --><div class="tab-pane fade" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
+                <!-- Comments Tab -->
+                <div class="tab-pane fade" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
                 <div class="profile-header">
-                    <h3>작성 댓글</h3>
+                    <h3>내 댓글</h3>
+                    <form action="/user/myProfile" method="post">
+                        <input type="hidden" name="myContent2" th:value="${commentList}">
                     <div class="table-container">
                         <table class="table table-hover table-sm">
                             <thead>
@@ -283,15 +303,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:if="${#lists.size(comment.id)} > 0" th:each="comment : ${commentList}">
                                 <td><input type="checkbox" name="selectedComments" value="1"></td>
-                                <td>1</td>
-                                <td>공지사항</td>
-                                <td>첫 번째 댓글 내용</td>
-                                <td><a href="#" class="post-detail-link" data-post-id="1">게시물 제목</a></td>
-                                <td>2024-07-25</td>
+                                <td th:text="${comment.id}">1</td>
+                                <td th:text="${comment.board.category}">공지사항</td>
+                                <td th:text="${comment.contents}">첫 번째 댓글 내용</td>
+                                <td><a href="#" th:href="@{|/board/${comment.id}|}" th:text="${comment.board.title}">게시물 제목</a></td>
+                                <td th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-07-25</td>
                                 <td>
-                                    <a href="#" class="btn btn-danger btn-sm" th:if="${me} == true">삭제</a>
+<!--                                    <a href="#" class="btn btn-danger btn-sm">삭제</a>-->
+                                    <button type="button" class="btn btn-danger" id="btn-delete2">삭제</button>
                                 </td>
                             </tr>
                             <!-- Add more rows as needed -->
@@ -317,7 +338,59 @@
                             </ul>
                         </nav>
                     </div>
+                    </form>
                 </div>
+
+
+                    <div class="tab-pane fade" id="list-post-like" role="tabpanel" aria-labelledby="list-post-like-list">
+                        <div class="profile-header">
+                            <h3>좋아요</h3>
+                            <form action="/user/myProfile/" method="post">
+                                <input type="hidden" name="myContent3" th:value="${session.userId}">
+                                <div class="table-container">
+                                    <table class="table table-hover table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th>Select</th>
+                                            <th>좋아요한 게시글</th>
+                                            <th>싫어요한 게시글</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:if="${#lists.size(boardLike.user.boardLikeList)} > 0" th:each="boardLike : ${boardLike}">
+                                            <td><input type="checkbox" name="selectedComments" value="1"></td>
+                                            <td th:text="boardLike.likeYn">좋아요</td>
+                                            <td th:text="boardLike.likeYn">싫어요</td>
+                                            <td>
+<!--                                                <a href="#" class="btn btn-warning btn-sm">수정</a>-->
+                                                <button type="button" class="btn btn-danger" id="btn-update2">수정</button>
+<!--                                                <a href="#" class="btn btn-danger btn-sm">삭제</a>-->
+                                                <button type="button" class="btn btn-danger" id="btn-delete3">삭제</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
             </div>
             </div>
         </div>

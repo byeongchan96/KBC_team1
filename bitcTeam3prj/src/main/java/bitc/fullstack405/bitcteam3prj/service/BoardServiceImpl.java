@@ -1,9 +1,11 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
-import bitc.fullstack405.bitcteam3prj.database.entity.BoardCommentEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
-import bitc.fullstack405.bitcteam3prj.database.repository.BoardCommentRepository;
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
+import bitc.fullstack405.bitcteam3prj.database.repository.BoardLikeRepository;
 import bitc.fullstack405.bitcteam3prj.database.repository.BoardRepository;
+import bitc.fullstack405.bitcteam3prj.database.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -19,10 +21,11 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardRepository boardRepository;
     @Autowired
-    private BoardCommentRepository boardCommentRepository;
+    private BoardLikeRepository boardLikeRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-
-
+    //    게시판 전체 목록
     @Override
     public List<BoardEntity> selectBoardList() throws Exception {
         List<BoardEntity> boardList =  boardRepository.findAll();
@@ -30,6 +33,7 @@ public class BoardServiceImpl implements BoardService {
         return boardList;
     }
 
+//    게시글 상세보기
     @Override
     public Page<BoardEntity> selectBoardList(Pageable pageable) throws Exception{
         return boardRepository.findAll(pageable);
@@ -37,7 +41,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardEntity selectBoardDetail(Long boardId) throws Exception {
-//        boardService.updateHitCount(BoardId)
 
         Optional<BoardEntity> opt = boardRepository.findById(boardId);
 
@@ -48,69 +51,80 @@ public class BoardServiceImpl implements BoardService {
         return board;
     }
 
+//    게시글 삭제
     @Override
     public void deleteBoardById(long boardId) throws Exception {
         boardRepository.deleteById(boardId);
     }
 
+//    게시글 목록(카테고리)
     @Override
     public List<BoardEntity> selectBoardListByCate(String cate) throws Exception {
         List<BoardEntity> boardList = boardRepository.findAllByCategory(cate);
         return boardList;
     }
 
+//    게시글 등록 처리
     @Override
     public void insertBoard(BoardEntity board) throws Exception {
         boardRepository.save(board);
     }
 
+//    게시글 수정
     @Override
     public void updateBoard(BoardEntity board) throws Exception {
         boardRepository.save(board);
     }
 
+//    게시판 검색
     @Override
     public Optional<BoardEntity> findAllByTitle(String searchString) throws Exception {
         Optional<BoardEntity> boardList = boardRepository.findAllByTitle(searchString);
         return boardList;
     }
 
+//    게시판 카테고리 검색
     @Override
     public List<BoardEntity> searchCateListBoard(Long boardId, String cate) throws Exception {
         List<BoardEntity> boardList = boardRepository.findAllByCategory(cate);
         return boardList;
     }
 
-//    코멘트 작성 , 수정, 삭제
     @Override
-    public void boardCommentWrite(BoardCommentEntity board) throws Exception {
-        boardCommentRepository.save(board);
+    public List<BoardEntity> findAllByUserId(Long userId) throws Exception {
+        return boardRepository.findAllByUser_Id(userId);
     }
 
     @Override
-    public void boardCommentUpdate(BoardCommentEntity board) throws Exception {
-        boardCommentRepository.save(board);
-    }
-
-    @Override
-    public void boardCommentDelete(Long boardId) throws Exception {
-        boardCommentRepository.deleteById(boardId);
-    }
-
-//    유저 게시글 칸
-    @Override
-    public List<BoardEntity> userBoardList(Long userId) throws Exception {
-//        List<BoardEntity> boardList =
+    public List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception {
         return List.of();
     }
 
     @Override
-    public List<BoardEntity> userLikeBoardList(Long userId) throws Exception {
+    public List<BoardLikeEntity> findAllByUserBoardLikeList(List<BoardLikeEntity> boardLikeList) {
         return List.of();
     }
 
-    @Override
-    public List<BoardEntity> movieBookmarkList(Long userId) throws Exception {
-        return List.of();
-    }
+
+//    @Override
+//    public List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception {
+//        UserEntity user = userRepository.findById(userId);
+//
+//        BoardLikeEntity like = new BoardLikeEntity();
+//        like.setLikeYn(like.getLikeYn());
+//        boardLikeRepository.save(like);
+//
+//        return null;
+//    }
+//
+//    @Override
+//    public List<UserEntity> findById(Long userId) {
+//        BoardLikeEntity like = boardLikeRepository.findById(userId);
+//
+//        boardLikeRepository.deletedByLikeYn(userId);
+//    }
+//
+//    public void setBoardLikeRepository(Long boardId) {
+//        return boardLikeRepository.countByLikeYn(BoardLikeEntity);
+//    }
 }

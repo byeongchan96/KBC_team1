@@ -97,7 +97,9 @@
                 <tr>
                     <!-- 검색 버튼 -->
                     <td colspan="4" class="text-center">
-                        <button type="submit" class="btn btn-primary">검색</button>
+                        <a href="#" class="btn btn-primary" type="button" th:href="@{|/board/${boardList}|}">검색
+                        </a>
+<!--                        <button type="submit" class="btn btn-primary">검색</button>-->
                     </td>
                 </tr>
                 </tbody>
@@ -123,8 +125,8 @@
             <td th:text="${board.id}">1</td>
             <td th:text="${board.category}">공지</td> <!-- 카테고리 데이터 -->
             <td><a href="#" th:href="@{|/board/${board.id}|}" th:text="${board.title}">게시물 제목</a></td>
-            <td th:text="${board.user.userId}">유재석</td>
-            <td th:text="${board.createdAt}">2024-07-26</td>
+            <td th:text="${board.user?.userId}">유재석</td>
+            <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}" >2024-07-26</td>
             <td th:text="${board.visitCnt}">12</td>
         </tr>
         </tbody>
