@@ -50,6 +50,11 @@ public class BoardLikeServiceImpl implements BoardLikeService {
     }
 
     @Override
+    public void deleteBoardLikeById(Long boardLikeId) throws Exception {
+        boardLikeRepository.deleteById(boardLikeId);
+    }
+
+    @Override
     public List<BoardLikeEntity> findAllByUserId(long userId) {
         return boardLikeRepository.findAllByUser_Id(userId);
     }

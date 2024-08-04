@@ -12,4 +12,6 @@ public interface MovieLikeService {
   List<MovieLikeEntity> findByUser(UserEntity user) throws Exception;
   void addLike(MovieLikeEntity movieLikeEntity) throws Exception;
   void deleteLike(long userId, long movieId) throws Exception;
+
+    void deleteMovieLikeById(long ratingId) throws Exception;
 }

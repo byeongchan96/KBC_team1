@@ -38,5 +38,10 @@ public class MovieLikeServiceImpl implements MovieLikeService {
     movieLikeRepository.deleteByUser_IdAndMovie_Id(userId, movieId);
   }
 
+  @Override
+  public void deleteMovieLikeById(long ratingId) throws Exception {
+    movieLikeRepository.deleteById(ratingId);
+  }
+
 
 }

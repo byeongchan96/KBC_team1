@@ -18,6 +18,7 @@ public interface BoardLikeService {
 
 
     void deleteBoardLike(BoardLikeEntity boardLike) throws Exception;
+    void deleteBoardLikeById(Long boardLikeId) throws Exception;
 
     List<BoardLikeEntity> findAllByUserId(long userId);
 }

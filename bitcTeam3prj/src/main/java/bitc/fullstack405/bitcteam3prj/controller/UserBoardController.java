@@ -168,5 +168,23 @@ public class UserBoardController {
         Map<String, String> dataMap = new HashMap<>();
         return dataMap;
     }
+
+    @PostMapping("/myprofile/boardlike/{boardLikeId}")
+    @ResponseBody
+    public Object deleteBoardLike(@PathVariable long boardLikeId) throws Exception {
+        boardLikeService.deleteBoardLikeById(boardLikeId);
+
+        Map<String, String> dataMap = new HashMap<>();
+        return dataMap;
+    }
+
+    @PostMapping("/myprofile/movielike/{movieLikeId}")
+    @ResponseBody
+    public Object deleteMovieLike(@PathVariable long movieLikeId) throws Exception {
+        movieLikeService.deleteMovieLikeById(movieLikeId);
+
+        Map<String, String> dataMap = new HashMap<>();
+        return dataMap;
+    }
 }
 
