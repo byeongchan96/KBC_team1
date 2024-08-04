@@ -1,6 +1,6 @@
 $(document).ready(()=>{
     $(".btn-like").on('click', function(e) {
-        var onoff = $(this).data('onoff');
+        var onoff = $(e.target).data('onoff');
         var dataYn = 'N';
 
         var btn2 = $(e.target).siblings(".btn");
@@ -35,7 +35,7 @@ $(document).ready(()=>{
 
 
 
-    function likeBtnColorFunction(color1, color2, btn1, btn2, toggle=false){
+    function likeBtnColorFunction(color1, color2, btn1, btn2){
         var onoff = $(btn1).data('onoff');
         let rtnYN = 'N';
         if(onoff===0){
