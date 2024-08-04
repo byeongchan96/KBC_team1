@@ -1,5 +1,6 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.constant.BoardCategory;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.MovieBoardEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.MovieEntity;
@@ -65,6 +66,25 @@ public class HomeController {
             movieBoardLatestList.add(movieBoardList.get(i));
         }
 
+
+        for(var board : boardList){
+            if(board.getCategory().equals(BoardCategory.CATE_1.getDescription())){
+                if(noticeBoardLatestList.size() >= 3){
+                    continue;
+                }
+                noticeBoardLatestList.add(board);
+            }else if(board.getCategory().equals(BoardCategory.CATE_2.getDescription())){
+                if(reviewBoardLatestList.size() >= 3){
+                    continue;
+                }
+                reviewBoardLatestList.add(board);
+            }else{
+                if(publicBoardLatestList.size() >= 3){
+                    continue;
+                }
+                publicBoardLatestList.add(board);
+            }
+        }
 
 
         mv.addObject("showingMovieList", showingMovieList);
