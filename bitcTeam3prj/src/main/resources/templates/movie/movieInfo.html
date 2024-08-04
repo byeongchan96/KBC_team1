@@ -22,26 +22,9 @@
   </style>
   <script th:inline="javascript">
     const sessionUserId = [[${session.userId}]];
-    const pageId = [[${pageId}]];
   </script>
   <script>
       $(document).ready(function () {
-          // const localStorageKey = 'btnLikeState';
-          // const userIdKey = 'userId';
-          // const pageKey = 'pageId';
-          //
-          // const savedUserId = localStorage.getItem(userIdKey);
-          // const savedPageId = localStorage.getItem(pageKey);
-          // const savedState = localStorage.getItem(localStorageKey + sessionUserId + '_' + pageId);
-          //
-          // if (sessionUserId !== savedUserId || pageId !== savedPageId) {
-          //     localStorage.setItem(userIdKey, sessionUserId);
-          //     localStorage.setItem(pageKey, pageId);
-          //     localStorage.setItem(localStorageKey + sessionUserId + '_' + pageId, savedState || '');
-          // } else if (savedState === 'on') {
-          //     $('#Bookmark').addClass('on');
-          // }
-
 
           $(".btn-delete").on("click", function () {
               var btn = $(this);
@@ -82,7 +65,14 @@
           });
 
           $("#Bookmark").on("click", ()=>{
-              $("#add-like-frm")[0].submit();
+            $("#Bookmark").on("click", (e)=>{
+
+              if (sessionUserId) {
+                $("#add-like-frm")[0].submit();
+              } else {
+                alert('로그인 후 이용해주세요');
+                e.preventDefault();
+              }
           });
 
 

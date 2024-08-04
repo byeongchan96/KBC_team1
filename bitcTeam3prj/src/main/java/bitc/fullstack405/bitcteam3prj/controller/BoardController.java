@@ -1,5 +1,6 @@
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.constant.BoardCategory;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
@@ -13,9 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/board")
@@ -42,13 +41,26 @@ public class BoardController {
 
         Page<BoardEntity> boardList = null;
 
-        if(searchValue == null || searchValue.isEmpty()) {
+        boolean searchCateNullChk = searchCate == null || searchCate.isEmpty() || searchCate.equals("None");
+        boolean searchTitleNullChk = searchValue == null || searchValue.isEmpty();
+
+        if(searchCateNullChk && searchTitleNullChk){
             boardList = boardService.selectBoardList(pageable);
         }
-        else{
+        else if (searchTitleNullChk){
+            boardList = boardService.selectBoardListByCate(pageable, searchCate);
+        }
+        else if(searchCateNullChk){
             boardList = boardService.selectBoardListBySearchValue(pageable, searchValue);
         }
+        else{
+            boardList = boardService.selectBoardListBySearchValueAndSearchCate(pageable, searchValue, searchCate);
+        }
 
+
+
+
+        mv.addObject("boardType", BoardCategory.values());
         mv.addObject("boardList", boardList);
         mv.addObject("barList",
                 paginationService.getPaginationBarNumbers(
@@ -59,15 +71,6 @@ public class BoardController {
         return mv;
     }
 
-////    게시글 목록(카테고리)
-//    @GetMapping("/{boardCate}")
-//    public ModelAndView selectBoardList(@PathVariable("boardCate") String boardCate) throws Exception {
-//        ModelAndView mv = new ModelAndView("/board/boardList");
-//        List<BoardEntity> boardList = boardService.selectBoardListByCate(boardCate);
-//        mv.addObject("boardList" , boardList);
-//
-//        return mv;
-//    }
 
 //    게시글 상세보기
     @GetMapping("/{boardId}")
@@ -116,10 +119,14 @@ public class BoardController {
         return mv;
     }
 
-//    게시글 등록(view)
+    //    게시글 등록(view)
     @GetMapping("/write")
-    public String insertBoard() throws Exception {
-        return "board/boardWrite";
+    public ModelAndView insertBoard() throws Exception {
+        ModelAndView mv = new ModelAndView("board/boardWrite");
+
+        mv.addObject("boardType", BoardCategory.values());
+
+        return mv;
     }
 
 //    게시글 등록 처리
@@ -138,6 +145,9 @@ public class BoardController {
 
         return "redirect:/board/";
     }
+
+
+
 
 //    게시물 삭제
     @DeleteMapping("/{boardId}")
@@ -160,23 +170,18 @@ public class BoardController {
         return "redirect:/board/" + boardId;
     }
 
-//    게시판 검색
-    @GetMapping("/search")
-    public ModelAndView findAllByTitle(String searchString) throws Exception {
-        ModelAndView mv = new ModelAndView("/board/boardList");
-        Optional<BoardEntity> board =  boardService.findAllByTitle(searchString);
-        mv.addObject("board" , board);
 
-        return mv;
+
+    @ResponseBody
+    @PostMapping("/myprofile/{boardId}")
+    public Object deleteBoardAtMyProfile(@PathVariable("boardId") long boardId) throws Exception{
+
+        boardService.deleteBoardById(boardId);
+        Map<String, Long> data = new HashMap<>();
+
+        data.put("boardId", boardId);
+
+        return data;
     }
 
-////    게시판 카테고리 검색
-//    @GetMapping("/search/{movieCate}")
-//    public ModelAndView searchCateListBoard(@PathVariable("movieCate") Long boardId, @PathVariable("movieCate") String cate) throws Exception {
-//        ModelAndView mv = new ModelAndView("/board/boardList");
-//        List<BoardEntity> board = boardService.searchCateListBoard(boardId, cate);
-//        mv.addObject("board" , board);
-//
-//        return mv;
-//    }
 }

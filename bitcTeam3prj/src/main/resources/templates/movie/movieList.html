@@ -79,11 +79,11 @@
                     <td>
                         <label for="categorySelect" class="form-label">카테고리</label>
                         <select class="form-select" id="categorySelect" name="searchCate">
-                            <option value="">모든 카테고리</option>
-                            <option value="notice">공지</option>
-                            <option value="spoiler">스포일러</option>
-                            <option value="adult">성인</option>
-                            <option value="movie">영화</option>
+                            <option value="'None'">모든 카테고리</option>
+                            <option th:each="cate: ${movieCate}"
+                                    th:text="${cate.description}"
+                                    >공지</option>
+
                         </select>
                     </td>
                     <td>

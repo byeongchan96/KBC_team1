@@ -81,11 +81,11 @@
                     <td>
                         <label for="categorySelect" class="form-label">카테고리</label>
                         <select class="form-select" id="categorySelect" name="searchCate">
-                            <option value="">모든 카테고리</option>
-                            <option value="notice">공지</option>
-                            <option value="spoiler">스포일러</option>
-                            <option value="adult">성인</option>
-                            <option value="movie">영화</option>
+                            <option th:value="'None'">선택</option>
+                            <option th:each="type : ${boardType}"
+                                    th:text="${type.description}">
+                                모든 카테고리
+                            </option>
                         </select>
                     </td>
 
@@ -116,7 +116,6 @@
             <th>등록일</th>
             <th>조회수</th>
         </tr>
-        </thead>
         <tbody id="postsTableBody">
         <!-- Example row - replace with dynamic content -->
         <tr th:if="${#lists.size(boardList)} > 0" th:each="board : ${boardList}">

@@ -87,12 +87,10 @@
                             <div class="mb-3" id="category-group">
                                 <label for="ca_name" class="form-label">영화 및 장르<strong>필수</strong></label>
                                 <select class="form-select" name="category" id="ca_name" required>
-                                    <option value="">분류를 선택하세요</option>
-                                    <option value="category1">공포</option>
-                                    <option value="category2">코믹</option>
-                                    <option value="category2">액션</option>
-                                    <option value="category2">로맨스</option>
-                                    <option value="category2">SF판타지</option>
+                                    <option th:each="type : ${boardType}"
+                                            th:text="${type.description}">
+                                        모든 카테고리
+                                    </option>
                                 </select>
                             </div>
 

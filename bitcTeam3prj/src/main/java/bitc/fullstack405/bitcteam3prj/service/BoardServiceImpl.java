@@ -56,14 +56,8 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.deleteById(boardId);
     }
 
-//    게시글 목록(카테고리)
-    @Override
-    public List<BoardEntity> selectBoardListByCate(String cate) throws Exception {
-        List<BoardEntity> boardList = boardRepository.findAllByCategory(cate);
-        return boardList;
-    }
 
-//    게시글 등록 처리
+    //    게시글 등록 처리
     @Override
     public void insertBoard(BoardEntity board) throws Exception {
         boardRepository.save(board);
@@ -75,38 +69,27 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.save(board);
     }
 
-//    게시판 검색
-    @Override
-    public Optional<BoardEntity> findAllByTitle(String searchString) throws Exception {
-        Optional<BoardEntity> boardList = boardRepository.findAllByTitle(searchString);
-        return boardList;
-    }
 
-//    게시판 카테고리 검색
-    @Override
-    public List<BoardEntity> searchCateListBoard(Long boardId, String cate) throws Exception {
-        List<BoardEntity> boardList = boardRepository.findAllByCategory(cate);
-        return boardList;
-    }
 
     @Override
     public List<BoardEntity> findAllByUserId(Long userId) throws Exception {
         return boardRepository.findAllByUser_Id(userId);
     }
 
-    @Override
-    public List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception {
-        return List.of();
-    }
-
-    @Override
-    public List<BoardLikeEntity> findAllByUserBoardLikeList(List<BoardLikeEntity> boardLikeList) {
-        return List.of();
-    }
 
     @Override
     public Page<BoardEntity> selectBoardListBySearchValue(Pageable pageable, String searchValue) throws Exception {
         return boardRepository.findAllByTitleContains(pageable, searchValue);
+    }
+
+    @Override
+    public Page<BoardEntity> selectBoardListBySearchValueAndSearchCate(Pageable pageable, String searchValue, String searchCate) {
+        return boardRepository.findAllByTitleContainsAndCategoryContains(pageable, searchValue, searchCate);
+    }
+
+    @Override
+    public Page<BoardEntity> selectBoardListByCate(Pageable pageable, String searchCate) throws Exception {
+        return boardRepository.findAllByCategoryContains(pageable, searchCate);
     }
 
 

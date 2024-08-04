@@ -21,21 +21,17 @@ public interface BoardService {
 
     void deleteBoardById(long boardId) throws Exception;
 
-    List<BoardEntity> selectBoardListByCate(String cate) throws Exception;
+    Page<BoardEntity> selectBoardListByCate(Pageable pageable, String cate) throws Exception;
 
     void insertBoard(BoardEntity board) throws Exception;
 
     void updateBoard(BoardEntity board) throws Exception;
 
-    Optional<BoardEntity> findAllByTitle(String searchString) throws Exception;
 
-    List<BoardEntity> searchCateListBoard(Long boardId, String cate)throws Exception;
 
     List<BoardEntity> findAllByUserId(Long userId) throws Exception;
 
-    List<UserEntity> findAllByUserBoardLikeList(Long userId) throws Exception;
-
-    List<BoardLikeEntity> findAllByUserBoardLikeList(List<BoardLikeEntity> boardLikeList);
-
     Page<BoardEntity> selectBoardListBySearchValue(Pageable pageable, String searchValue) throws Exception;
+
+    Page<BoardEntity> selectBoardListBySearchValueAndSearchCate(Pageable pageable, String searchValue, String searchCate);
 }
