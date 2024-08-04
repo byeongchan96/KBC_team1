@@ -8,6 +8,13 @@
   <link href="/css/bootstrap.css" rel="stylesheet">
   <script src="/js/bootstrap.bundle.js"></script>
   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+      body {
+          font-family: "Noto Sans KR", sans-serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-style: normal;
+      }
       .about-text h3 { color: #333; }
       .about-text h4 { color: #007bff; }
       .btn-bar a { margin-right: 10px; }
@@ -77,6 +84,10 @@
               }
                   if(chk) {
                       alert('중복 입력이 불가합니다.');
+                      e.preventDefault();
+                  }
+                  if(sessionUserId === null) {
+                      alert('로그인 후 이용해주세요');
                       e.preventDefault();
                   }
           });
