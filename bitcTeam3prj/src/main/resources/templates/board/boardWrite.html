@@ -79,7 +79,7 @@
                                 <label for="ca_name" class="form-label">영화 및 장르<strong>필수</strong></label>
                                 <select class="form-select" name="category" id="ca_name" required>
                                     <option th:each="type : ${boardType}"
-                                            th:text="${type.description}" th:hidden="${#strings.equals(type, '공지') && }">
+                                            th:text="${type.description}">
                                         모든 카테고리
                                     </option>
                                 </select>
