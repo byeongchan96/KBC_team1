@@ -184,7 +184,7 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h2 class="h3 mb-0">공지사항 게시판</h2>
-                    <div class="badge badge-rounded bg-success">4 New</div>
+                    <a href="/board?searchCate=공지&searchValue=" class="btn btn-secondary">게시판 이동</a>
                 </div>
                 <div class="card-body">
                     <ul class="list-group mt-3" th:if="${#lists.size(noticeBoardLatestList) > 0}" th:remove="all-but-first">
@@ -215,9 +215,7 @@
                         <!-- Repeat list items as needed -->
                     </ul>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Remove</button>
+                <div class="card-footer d-flex justify-content-end" style="height: 50px;">
                 </div>
             </div>
         </div>
@@ -271,7 +269,7 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h2 class="h3 mb-0">영화 리뷰 게시판</h2>
-                    <div class="badge badge-rounded bg-success">4 New</div>
+                    <a href="/board?searchCate=리뷰&searchValue=" class="btn btn-secondary">게시판 이동</a>
                 </div>
                 <div class="card-body">
                     <ul class="list-group mt-3" th:if="${#lists.size(reviewBoardLatestList)} > 0" th:remove="all-but-first">
@@ -302,9 +300,7 @@
                         <!-- Repeat list items as needed -->
                     </ul>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Remove</button>
+                <div class="card-footer d-flex justify-content-end" style="height: 50px;">
                 </div>
             </div>
         </div>
@@ -314,7 +310,7 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h2 class="h3 mb-0">자유 게시판</h2>
-                    <div class="badge badge-rounded bg-success">4 New</div>
+                    <a href="/board?searchCate=자유&searchValue=" class="btn btn-secondary">게시판 이동</a>
                 </div>
                 <div class="card-body">
                     <ul class="list-group mt-3" th:if="${#lists.size(publicBoardLatestList)} > 0" th:remove="all-but-first">
@@ -345,9 +341,7 @@
                         <!-- Repeat list items as needed -->
                     </ul>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Remove</button>
+                <div class="card-footer d-flex justify-content-end" style="height: 50px;">
                 </div>
             </div>
         </div>

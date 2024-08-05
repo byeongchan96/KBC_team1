@@ -291,11 +291,10 @@
                                 <td th:text="${comment.id}">1</td>
                                 <td th:text="${comment.board.category}">공지사항</td>
                                 <td th:text="${comment.contents}">첫 번째 댓글 내용</td>
-                                <td><a href="#" th:href="@{|/board/${comment.id}|}" th:text="${comment.board.title}">게시물 제목</a></td>
+                                <td><a href="#" th:href="@{|/board/${comment.board.id}|}" th:text="${comment.board.title}">게시물 제목</a></td>
                                 <td th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-07-25</td>
                                 <td th:if="${#strings.equals(session.userId, userInfo.userId)}">
-<!--                                    <a href="#" class="btn btn-danger btn-sm">삭제</a>-->
-                                    <button type="button" class="btn btn-danger" id="btn-delete2">삭제</button>
+                                    <button type="button" class="btn btn-danger" id="btn-comment-delete" th:attrappend="data-comment-id=${comment.id}">삭제</button>
                                 </td>
                             </tr>
                             <!-- Add more rows as needed -->

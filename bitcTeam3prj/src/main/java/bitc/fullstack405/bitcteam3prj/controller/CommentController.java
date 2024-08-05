@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/comment")
 public class CommentController {
@@ -56,5 +59,16 @@ public class CommentController {
         boardCommentService.boardCommentDelete(boardId);
 
         return "redirect:/board/boardList";
+    }
+
+    @PostMapping("/myprofile/{commentId}")
+    @ResponseBody
+    public Object deleteMyprofileComment(@PathVariable long commentId) throws Exception{
+        boardCommentService.boardCommentDelete(commentId);
+        Map<String, Long> data = new HashMap<>();
+
+        data.put("commentId", commentId);
+
+        return data;
     }
 }
