@@ -201,7 +201,8 @@
                                 <a href="#" th:href="@{|/board/${noticeBoard.id}|}">
                                     <h3 class="h5" th:text="${noticeBoard.title}">Lorem Ipsum Dolor</h3>
                                 </a>
-                                <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                <small th:text="'작성자 : ' + ${noticeBoard.user.userId} + ' / ' ">ddd</small>
+                                <small th:text="${#temporals.format(noticeBoard.createdAt, 'yyyy-MM-dd')}">ddd</small>
                             </div>
                         </li>
                         <li class="list-group-item d-flex align-items-center">
@@ -244,7 +245,8 @@
                                 <a th:href="@{|/movie/movieinfo/${movieBoard.id}|}">
                                     <h3 class="h5" th:text="${movieBoard.movie.movieName}">Lorem Ipsum Dolor</h3>
                                 </a>
-                                <small>.Posted on 5th June 2017 by Aria Smith</small>
+                                <small th:text="'감독 : ' + ${movieBoard.movie.director.name} + ' / ' ">ddd</small>
+                                <small th:text="${#temporals.format(movieBoard.createdAt, 'yyyy-MM-dd')}">ddd</small>
                             </div>
                         </li>
                         <li class="list-group-item d-flex align-items-center">
@@ -286,7 +288,8 @@
                                 <a href="#" th:href="@{|/board/${reviewBoard.id}|}">
                                     <h3 class="h5" th:text="${reviewBoard.title}">Lorem Ipsum Dolor</h3>
                                 </a>
-                                <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                <small th:text="'작성자 : ' + ${reviewBoard.user.userId} + ' / ' ">ddd</small>
+                                <small th:text="${#temporals.format(reviewBoard.createdAt, 'yyyy-MM-dd')}">ddd</small>
                             </div>
                         </li>
                         <li class="list-group-item d-flex align-items-center">
@@ -327,7 +330,8 @@
                                 <a href="#" th:href="@{|board/${publicBoard.id}|}">
                                     <h3 class="h5" th:text="${publicBoard.title}">Lorem Ipsum Dolor</h3>
                                 </a>
-                                <small>Posted on 5th June 2017 by Aria Smith.</small>
+                                <small th:text="'작성자 : ' + ${publicBoard.user.userId} + ' / ' ">ddd</small>
+                                <small th:text="${#temporals.format(publicBoard.createdAt, 'yyyy-MM-dd')}">ddd</small>
                             </div>
                         </li>
                         <li class="list-group-item d-flex align-items-center">
