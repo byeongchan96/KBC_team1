@@ -131,14 +131,19 @@ public class BoardController {
 
 //    게시글 등록 처리
     @PostMapping("/write")
-    public String insertBoard(String userId, String title, String category, String content) throws Exception {
+    public String insertBoard(
+            @RequestParam String userId,
+            @RequestParam String title,
+            @RequestParam String category,
+            @RequestParam String content,
+            @RequestParam String option) throws Exception {
         BoardEntity board = new BoardEntity();
 
         UserEntity user = userService.findByUserId(userId);
         board.setTitle(title);
         board.setCategory(category);
         board.setContent(content);
-        board.setWarning("warning");
+        board.setWarning(option);
         board.setUser(user);
 
         boardService.insertBoard(board);

@@ -110,6 +110,7 @@
         <thead>
         <tr>
             <th>글번호</th>
+            <th></th>
             <th>카테고리</th> <!-- 새로 추가된 카테고리 열 -->
             <th>글제목</th>
             <th>작성자</th>
@@ -120,6 +121,7 @@
         <!-- Example row - replace with dynamic content -->
         <tr th:if="${#lists.size(boardList)} > 0" th:each="board : ${boardList}">
             <td th:text="${board.id}">1</td>
+            <td th:text="${board.warning}">주의</td>
             <td th:text="${board.category}">공지</td> <!-- 카테고리 데이터 -->
             <td><a href="#" th:href="@{|/board/${board.id}|}" th:text="${board.title}">게시물 제목</a></td>
             <td><a href="#" class="text-secondary text-decoration-none" th:href="@{|/profile/${board.user?.userId}|}" th:text="${board.user?.userId}">유재석</a></td>
@@ -155,7 +157,7 @@
 
     <!-- 글쓰기 버튼 -->
     <div class="d-flex justify-content-end">
-        <a href="/board/write" class="btn btn-primary">글쓰기</a>
+        <a href="/board/write" class="btn btn-primary" th:href="${#strings.isEmpty(session.userId)} ? @{/login} : @{/board/write}">글쓰기</a>
     </div>
 
 </main>

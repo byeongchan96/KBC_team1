@@ -13,6 +13,14 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <script src="/js/bootstrap.bundle.js"></script>
 
+    <script>
+        $(document).ready(()=>{
+
+            $('#ca_name').on('change', ()=>{
+
+            });
+        });
+    </script>
 
     <style>
         /* Additional styles */
@@ -64,37 +72,33 @@
                                 <input type="text" name="title" id="wr_subject" required class="form-control" maxlength="255" placeholder="제목">
                             </div>
 
-                            <!-- 옵션 선택 필드 -->
-<!--                            <div class="mb-3" id="option-group">-->
-<!--                                <label class="form-label">옵션</label>-->
-<!--                                <div id="options" class="options-group">-->
-<!--                                    <div class="form-check form-check-inline">-->
-<!--                                        <input type="checkbox" class="form-check-input" id="notice" name="notice" value="1">-->
-<!--                                        <label for="notice" class="form-check-label">공지</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-check form-check-inline">-->
-<!--                                        <input type="checkbox" class="form-check-input" id="spoiler" name="spoiler" value="1">-->
-<!--                                        <label for="spoiler" class="form-check-label">스포일러</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-check form-check-inline">-->
-<!--                                        <input type="checkbox" class="form-check-input" id="adult" name="adult" value="1">-->
-<!--                                        <label for="adult" class="form-check-label">성인</label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
+
 
                             <!-- 분류 선택 필드 -->
                             <div class="mb-3" id="category-group">
                                 <label for="ca_name" class="form-label">영화 및 장르<strong>필수</strong></label>
                                 <select class="form-select" name="category" id="ca_name" required>
                                     <option th:each="type : ${boardType}"
-                                            th:text="${type.description}">
+                                            th:text="${type.description}" th:hidden="${#strings.equals(type, '공지') && }">
                                         모든 카테고리
                                     </option>
                                 </select>
                             </div>
 
-
+                            <!-- 옵션 선택 필드 -->
+                            <div class="mb-3" id="option-group" th:hidden="true">
+                                <label class="form-label">옵션</label>
+                                <div id="options" class="options-group">
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="spoiler" name="option" value="spoiler">
+                                        <label for="spoiler" class="form-check-label">스포일러</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="adult" name="option" value="adult">
+                                        <label for="adult" class="form-check-label">성인</label>
+                                    </div>
+                                </div>
+                            </div>
 
                             <!-- 내용 입력 필드 -->
                             <div class="mb-3">
