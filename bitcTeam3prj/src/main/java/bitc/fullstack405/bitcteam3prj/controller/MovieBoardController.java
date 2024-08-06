@@ -50,7 +50,7 @@ public class MovieBoardController {
 
         Page<MovieBoardEntity> movieBoardList;
 
-        boolean searchCateChk = searchCate == null || searchCate.isEmpty();
+        boolean searchCateChk = searchCate == null || searchCate.isEmpty() || searchCate.equals("None");
         boolean searchTitleChk = searchTitle == null || searchTitle.isEmpty();
         
         if(searchCateChk && searchTitleChk){

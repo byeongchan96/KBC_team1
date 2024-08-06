@@ -108,7 +108,7 @@ public class UserBoardController {
             movieList.add(movie);
         }
 
-//        List<BoardEntity> boardList = boardService.movieBookmarkList(userId);
+
         mv.addObject("movieList", movieList);
         return mv;
     }

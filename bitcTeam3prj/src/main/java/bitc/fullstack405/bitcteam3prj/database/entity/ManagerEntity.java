@@ -23,6 +23,7 @@ public class ManagerEntity {
 
   @OneToOne
   @JoinColumn(name="user_id")
+  @ToString.Exclude
   private UserEntity user; // 매니저 유저id
 
 

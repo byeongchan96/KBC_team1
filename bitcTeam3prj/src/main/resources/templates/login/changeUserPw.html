@@ -22,7 +22,7 @@
             }
 
             $("#frm").on("submit", function () {
-                if ($("#user-pw").val() == $("#user-pw-chk").val()) {
+                if ($("#user-pw").val() === $("#user-pw-chk").val()) {
                     $("#method").val("PUT");
 
                     const frm = $("#frm")[0];

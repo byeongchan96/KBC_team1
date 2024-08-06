@@ -1,6 +1,6 @@
 $(document).ready(()=>{
     $(".btn-like").on('click', function(e) {
-        var onoff = $(e.target).data('onoff');
+        var onoff;
         var dataYn = 'N';
 
         var btn2 = $(e.target).siblings(".btn");

@@ -87,7 +87,7 @@
                     <td>
                         <label for="categorySelect" class="form-label">카테고리</label>
                         <select class="form-select" id="categorySelect" name="searchCate">
-                            <option value="'None'">모든 카테고리</option>
+                            <option value="None">모든 카테고리</option>
                             <option th:each="cate: ${movieCate}"
                                     th:text="${cate.description}"
                                     >공지</option>

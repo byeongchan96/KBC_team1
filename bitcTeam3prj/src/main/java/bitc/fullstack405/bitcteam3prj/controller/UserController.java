@@ -351,11 +351,11 @@ public class UserController {
 
     if (session.getAttribute("userId") != null) {
       if (userEntity.getDeletedYn() == 'N') {
-        if (userPw == userEntity.getUserPw()) {
+        if (userPw.equals(userEntity.getUserPw())) {
           if(session.getAttribute("userId").equals(userEntity.getUserId())) {
             if (changePw.equals(changePwChk)) {
               userService.updateUserPw((String)session.getAttribute("userId"), changePw);
-              mv.setViewName("redirect:/profile/" + userEntity.getUserId());
+              mv.setViewName("redirect:/user/myProfile");
             }
             else {
               mv.setViewName("redirect:/profile/" + userEntity.getUserId() + "?error=pwChk");
@@ -410,7 +410,7 @@ public class UserController {
 
     if (session.getAttribute("userId") != null) {
       UserEntity userEntity = userService.findUserIdForProfile(userId);
-      if (userEntity.getUserPw().equals(userPw)){
+      if (userPw.equals(userEntity.getUserPw())){
         if (userEntity.getDeletedYn() == 'N') {
           userService.deleteUser(userId);
           session.invalidate();
@@ -440,10 +440,11 @@ public class UserController {
 
     String userId = (String)session.getAttribute("userId");
 
+
     userService.insertUserProfileImg(userId, req, resp);
 
 
-    mv.setViewName("redirect:/profile/" + userId);
+    mv.setViewName("redirect:/user/myProfile");
 
     return mv;
   }
@@ -457,10 +458,8 @@ public class UserController {
 
     userService.deleteProfileImg((String)session.getAttribute("userId"));
 
-    mv.setViewName("redirect:/profile/" + session.getAttribute("userId"));
+    mv.setViewName("redirect:/user/myProfile");
 
     return mv;
-
   }
-
 }
