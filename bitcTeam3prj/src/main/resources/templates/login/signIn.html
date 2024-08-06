@@ -55,39 +55,39 @@
             <div class="card form-container">
                 <div class="card-body">
                     <h4 class="mb-3">회원가입</h4>
-                    <form action="signIn" class="needs-validation" novalidate method="post">
+                    <form action="signIn" class="needs-validation" method="post">
                         <!-- Email Input -->
                         <div class="mb-3">
                             <label for="Email1" class="form-label">Email <span class="text-body-secondary">(필수사항)</span></label>
-                            <input type="email" class="form-control" id="Email1" name="email" placeholder="Enter email" required>
-                            <div class="invalid-feedback">이메일 주소를 입력하세요.</div>
+                            <input type="email" class="form-control" id="Email1" name="email" placeholder="Enter email" th:required="true">
+<!--                            <div class="invalid-feedback">이메일 주소를 입력하세요.</div>-->
                         </div>
 
                         <!-- User ID Input -->
                         <div class="mb-3">
                             <label for="user-id" class="form-label">ID<span class="text-body-secondary">(필수사항)</span></label>
-                            <input type="text" class="form-control" id="user-id" name="userId" placeholder="ID" required>
+                            <input type="text" class="form-control" id="user-id" name="userId" placeholder="ID" th:required="true">
                             <div class="invalid-feedback">ID를 입력해 주세요.</div>
                         </div>
 
                         <!-- Password Input -->
                         <div class="mb-3">
                             <label for="user-pw" class="form-label">Password<span class="text-body-secondary">(필수사항)</span></label>
-                            <input type="password" class="form-control" id="user-pw" name="userPw" placeholder="비밀번호" required>
+                            <input type="password" class="form-control" id="user-pw" name="userPw" placeholder="비밀번호" th:required="true">
                             <div class="invalid-feedback">비밀번호를 입력해 주세요.</div>
                         </div>
 
                         <!-- Confirm Password Input -->
                         <div class="mb-3">
                             <label for="userpw-confirm" class="form-label">Password 확인</label>
-                            <input type="password" class="form-control" id="userpw-confirm" name="userPwChk" placeholder="Password 확인" required>
+                            <input type="password" class="form-control" id="userpw-confirm" name="userPwChk" placeholder="Password 확인" th:required="true">
                             <div class="invalid-feedback">비밀번호를 입력해 주세요.</div>
                         </div>
 
                         <!-- Preferred Movies Input -->
                         <div class="mb-3">
                             <label for="inputDefault" class="form-label">선호 영화 및 장르<span class="text-body-secondary">(선택사항)</span></label>
-                            <input type="text" class="form-control" placeholder="영화 및 장르" name="movieCate" id="inputDefault" required>
+                            <input type="text" class="form-control" placeholder="영화 및 장르" name="movieCate" id="inputDefault" th:required="true">
                         </div>
 
                         <!-- Gender Selection -->
