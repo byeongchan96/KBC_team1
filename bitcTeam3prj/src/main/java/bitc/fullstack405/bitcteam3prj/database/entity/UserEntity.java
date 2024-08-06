@@ -68,4 +68,8 @@ public class UserEntity {
 
   @Column(nullable = false)
   private char deletedYn = 'N';
+
+  @OneToOne(mappedBy="user")
+  @ToString.Exclude
+  private ManagerEntity manager;
 }
