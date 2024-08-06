@@ -121,10 +121,14 @@ public class BoardController {
 
     //    게시글 등록(view)
     @GetMapping("/write")
-    public ModelAndView insertBoard() throws Exception {
+    public ModelAndView insertBoard(HttpSession session) throws Exception {
         ModelAndView mv = new ModelAndView("board/boardWrite");
 
+        UserEntity user = userService.findByUserId((String)session.getAttribute("userId"));
+
+        mv.addObject("user", user);
         mv.addObject("boardType", BoardCategory.values());
+
 
         return mv;
     }
