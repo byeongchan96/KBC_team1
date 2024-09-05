@@ -183,59 +183,60 @@
                         </div>
                     </div>
                 </div>
-                <!-- Comments Tab --><div class="tab-pane fade" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
-                <div class="profile-header">
-                    <h3>내 댓글</h3>
-                    <div class="table-container">
-                        <table class="table table-hover table-sm">
-                            <thead>
-                            <tr>
-                                <th>Select</th>
-                                <th>댓글번호</th>
-                                <th>카테고리</th>
-                                <th>댓글내용</th>
-                                <th>게시물 제목</th>
-                                <th>작성일</th>
-                                <th>관리</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><input type="checkbox" name="selectedComments" value="1"></td>
-                                <td>1</td>
-                                <td>공지사항</td>
-                                <td>첫 번째 댓글 내용</td>
-                                <td><a href="#" class="post-detail-link" data-post-id="1">게시물 제목</a></td>
-                                <td>2024-07-25</td>
-                                <td>
-                                    <a href="#" class="btn btn-danger btn-sm">삭제</a>
-                                </td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                        <!-- Pagination -->
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <!-- Add more page items as needed -->
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                <!-- Comments Tab -->
+                <div class="tab-pane fade" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
+                    <div class="profile-header">
+                        <h3>내 댓글</h3>
+                        <div class="table-container">
+                            <table class="table table-hover table-sm">
+                                <thead>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>댓글번호</th>
+                                    <th>카테고리</th>
+                                    <th>댓글내용</th>
+                                    <th>게시물 제목</th>
+                                    <th>작성일</th>
+                                    <th>관리</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="selectedComments" value="1"></td>
+                                    <td>1</td>
+                                    <td>공지사항</td>
+                                    <td>첫 번째 댓글 내용</td>
+                                    <td><a href="#" class="post-detail-link" data-post-id="1">게시물 제목</a></td>
+                                    <td>2024-07-25</td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger btn-sm">삭제</a>
+                                    </td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                            <!-- Pagination -->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <!-- Add more page items as needed -->
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
@@ -278,16 +279,12 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="current-password" class="form-label">현재 비밀번호</label>
-                        <input type="password" class="form-control" id="current-password" placeholder="현재 비밀번호" required>
+                        <label for="userpw" class="form-label">새 비밀번호</label>
+                        <input type="password" class="form-control" id="userpw" name="userPw" placeholder="새 비밀번호" required>
                     </div>
                     <div class="mb-3">
-                        <label for="new-password" class="form-label">새 비밀번호</label>
-                        <input type="password" class="form-control" id="new-password" placeholder="새 비밀번호" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm-password" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="confirm-password" placeholder="비밀번호 확인" required>
+                        <label for="userpw" class="form-label">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="userpw" name="userPW" placeholder="비밀번호 확인" required>
                         <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
                     </div>
                     <button type="submit" class="btn btn-primary">저장</button>
@@ -308,8 +305,8 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="delete-password" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="delete-password" placeholder="비밀번호를 입력하세요" required>
+                        <label for="userpw" class="form-label">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="userpw" name="userPW" placeholder="비밀번호를 입력하세요" required>
                         <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
                     </div>
                     <button type="submit" class="btn btn-danger">탈퇴</button>
