@@ -10,6 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -110,7 +115,8 @@ public class UserServiceImpl implements UserService{
     UserEntity user = this.findByUserId(userId);
     String profileImgName = user.getProfileImageName();
     if(profileImgName == null || profileImgName.isBlank()){
-      profileImgName = "profile_" + user.getId();
+      SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd_HH_mm");
+      profileImgName = "profile_" + user.getId() + "_" +format.format(new Date());
       ImgFileEntity imgFile = new ImgFileEntity();
       imgFile.setImageName(profileImgName);
       user.setProfileImageName(profileImgName);

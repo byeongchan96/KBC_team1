@@ -35,4 +35,5 @@ public interface UserService {
   void deleteProfileImg(String userId) throws Exception;
 
   void insertUserProfileImg(String userId, HttpServletRequest req, HttpServletResponse resp) throws Exception;
+  
 }

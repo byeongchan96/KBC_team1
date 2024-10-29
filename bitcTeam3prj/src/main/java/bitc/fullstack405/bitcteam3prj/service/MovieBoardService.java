@@ -19,11 +19,11 @@ public interface MovieBoardService {
 
     MovieBoardEntity findByMovieId(long movieId) throws Exception;
 
-    Page<MovieBoardEntity> selectMovieBoardListByCate(Pageable pageable);
+    Page<MovieBoardEntity> selectMovieBoardListByCate(Pageable pageable, String searchCate);
 
     Page<MovieBoardEntity> selectMovieBoardListByTitle(Pageable pageable, String searchTitle);
 
-    Page<MovieBoardEntity> selectMovieBoardListByCateAndTitle(Pageable pageable);
+    Page<MovieBoardEntity> selectMovieBoardListByCateAndTitle(Pageable pageable, String searchTitle, String searchCate);
     
 
 }

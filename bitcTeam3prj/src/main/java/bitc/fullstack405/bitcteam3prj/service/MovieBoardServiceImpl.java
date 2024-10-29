@@ -61,8 +61,9 @@ public class MovieBoardServiceImpl implements MovieBoardService {
 
 
     @Override
-    public Page<MovieBoardEntity> selectMovieBoardListByCate(Pageable pageable) {
-        return null;
+    public Page<MovieBoardEntity> selectMovieBoardListByCate(Pageable pageable, String searchCate) {
+
+        return movieBoardRepository.findAllByMovie_MovieCateContains(pageable, searchCate);
     }
 
     @Override
@@ -71,8 +72,9 @@ public class MovieBoardServiceImpl implements MovieBoardService {
     }
 
     @Override
-    public Page<MovieBoardEntity> selectMovieBoardListByCateAndTitle(Pageable pageable) {
-        return null;
+    public Page<MovieBoardEntity> selectMovieBoardListByCateAndTitle(Pageable pageable, String searchTitle, String searchCate) {
+
+        return movieBoardRepository.findAllByMovie_MovieNameContainsAndMovie_MovieCateContains(pageable, searchTitle, searchCate);
     }
 
 

@@ -1,9 +1,10 @@
 package bitc.fullstack405.bitcteam3prj.service;
 
-import bitc.fullstack405.bitcteam3prj.database.entity.BoardCommentEntity;
 import bitc.fullstack405.bitcteam3prj.database.entity.BoardEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import bitc.fullstack405.bitcteam3prj.database.entity.BoardLikeEntity;
+import bitc.fullstack405.bitcteam3prj.database.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.Optional;
 
 @Service
 public interface BoardService {
-
 
     List<BoardEntity> selectBoardList() throws Exception;
 
@@ -21,25 +21,17 @@ public interface BoardService {
 
     void deleteBoardById(long boardId) throws Exception;
 
-    List<BoardEntity> selectBoardListByCate(String cate) throws Exception;
+    Page<BoardEntity> selectBoardListByCate(Pageable pageable, String cate) throws Exception;
 
     void insertBoard(BoardEntity board) throws Exception;
 
     void updateBoard(BoardEntity board) throws Exception;
 
-    Optional<BoardEntity> findAllByTitle(String searchString) throws Exception;
 
-    List<BoardEntity> searchCateListBoard(Long boardId, String cate)throws Exception;
 
-    void boardCommentWrite(BoardCommentEntity board) throws Exception;
+    List<BoardEntity> findAllByUserId(Long userId) throws Exception;
 
-    void boardCommentUpdate(BoardCommentEntity board) throws Exception;
+    Page<BoardEntity> selectBoardListBySearchValue(Pageable pageable, String searchValue) throws Exception;
 
-    void boardCommentDelete(Long boardId) throws Exception;
-
-    List<BoardEntity> userBoardList(Long userId) throws Exception;
-
-    List<BoardEntity> userLikeBoardList(Long userId) throws Exception;
-
-    List<BoardEntity> movieBookmarkList(Long userId) throws Exception;
+    Page<BoardEntity> selectBoardListBySearchValueAndSearchCate(Pageable pageable, String searchValue, String searchCate);
 }

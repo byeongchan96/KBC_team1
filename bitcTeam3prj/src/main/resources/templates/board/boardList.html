@@ -9,6 +9,7 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
+    <script src="/js/layout.js"></script>
     <style>
         .search-form {
             margin-bottom: 2rem;
@@ -71,26 +72,26 @@
 <header th:replace="~{/layout/header::header}"></header>
 <main class="container mt-5">
     <!-- 검색 폼 -->
-    <div class="search-form">
-        <form id="search-form">
+    <div>
+        <form action="/board" method="get">
             <table class="table table-borderless mb-0">
                 <tbody>
                 <tr>
                     <!-- 카테고리 선택 -->
                     <td>
                         <label for="categorySelect" class="form-label">카테고리</label>
-                        <select class="form-select" id="categorySelect" name="category">
-                            <option value="">모든 카테고리</option>
-                            <option value="notice">공지</option>
-                            <option value="spoiler">스포일러</option>
-                            <option value="adult">성인</option>
-                            <option value="movie">영화</option>
+                        <select class="form-select" id="categorySelect" name="searchCate">
+                            <option th:value="'None'">선택</option>
+                            <option th:each="type : ${boardType}"
+                                    th:text="${type.description}">
+                                모든 카테고리
+                            </option>
                         </select>
                     </td>
 
                     <td>
                         <label for="titleSearch" class="form-label">제목</label>
-                        <input type="text" class="form-control" id="titleSearch" name="title" placeholder="제목 검색">
+                        <input type="text" class="form-control" id="titleSearch" name="searchValue" placeholder="제목 검색">
                     </td>
                 </tr>
                 <tr>
@@ -109,58 +110,56 @@
         <thead>
         <tr>
             <th>글번호</th>
+            <th></th>
             <th>카테고리</th> <!-- 새로 추가된 카테고리 열 -->
             <th>글제목</th>
             <th>작성자</th>
             <th>등록일</th>
             <th>조회수</th>
         </tr>
-        </thead>
         <tbody id="postsTableBody">
         <!-- Example row - replace with dynamic content -->
         <tr th:if="${#lists.size(boardList)} > 0" th:each="board : ${boardList}">
             <td th:text="${board.id}">1</td>
+            <td th:text="${board.warning}">주의</td>
             <td th:text="${board.category}">공지</td> <!-- 카테고리 데이터 -->
             <td><a href="#" th:href="@{|/board/${board.id}|}" th:text="${board.title}">게시물 제목</a></td>
-            <td th:text="${board.user.userId}">유재석</td>
-            <td th:text="${board.createdAt}">2024-07-26</td>
+            <td><a href="#" class="text-secondary text-decoration-none" th:href="@{|/profile/${board.user?.userId}|}" th:text="${board.user?.userId}">유재석</a></td>
+            <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}" >2024-07-26</td>
             <td th:text="${board.visitCnt}">12</td>
         </tr>
         </tbody>
     </table>
 
     <!-- 액션 컨테이너 -->
-    <div class="actions-container">
-        <!-- 글쓰기 버튼 -->
-        <a href="/board/write" class="btn btn-primary">글쓰기</a>
+    <div class="d-flex justify-content-center actions-container">
 
         <!-- 페이지 네비게이션 -->
-        <nav aria-label="Page navigation">
+        <nav  aria-label="Page navigation">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a class="page-link" th:href="${boardList.first} ? '#' : @{/board/(page=${boardList.number - 1})} " aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li th:each="barNum : ${barList}" class="page-item" th:class="${boardList.number == barNum} ? 'active'">
+                    <a class="page-link" th:href="@{/board/(page=${barNum})}" th:text="${barNum} + 1">1</a>
+                </li>
+
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                    <a class="page-link" th:href="${boardList.last} ? '#' : @{/board/(page=${boardList.number + 1})} "  aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
-
-        <!-- 정렬 아이콘 -->
-        <div class="sorting-icons">
-            <span>정렬:</span>
-            <i class="fas fa-sort-amount-down" title="최신순"></i>
-            <i class="fas fa-sort-amount-up" title="오래된순"></i>
-            <i class="fas fa-sort" title="기본 정렬"></i>
-        </div>
     </div>
+
+    <!-- 글쓰기 버튼 -->
+    <div class="d-flex justify-content-end">
+        <a href="/board/write" class="btn btn-primary" th:href="${#strings.isEmpty(session.userId)} ? @{/login} : @{/board/write}">글쓰기</a>
+    </div>
+
 </main>
 <footer th:replace="~{layout/footer::footer}"></footer>
 

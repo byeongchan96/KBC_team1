@@ -1,6 +1,7 @@
 
 package bitc.fullstack405.bitcteam3prj.controller;
 
+import bitc.fullstack405.bitcteam3prj.database.constant.MovieCategory;
 import bitc.fullstack405.bitcteam3prj.database.entity.*;
 import bitc.fullstack405.bitcteam3prj.database.repository.MovieRatingRepository;
 import bitc.fullstack405.bitcteam3prj.service.*;
@@ -49,24 +50,24 @@ public class MovieBoardController {
 
         Page<MovieBoardEntity> movieBoardList;
 
-        boolean searchCateChk = searchCate == null || searchCate.isEmpty();
+        boolean searchCateChk = searchCate == null || searchCate.isEmpty() || searchCate.equals("None");
         boolean searchTitleChk = searchTitle == null || searchTitle.isEmpty();
         
         if(searchCateChk && searchTitleChk){
             movieBoardList = movieBoardService.selectMovieBoardList(pageable);
         }
         else if (searchTitleChk){
-            movieBoardList = movieBoardService.selectMovieBoardListByCate(pageable);
+            movieBoardList = movieBoardService.selectMovieBoardListByCate(pageable, searchCate);
         }
         else if(searchCateChk){
             movieBoardList = movieBoardService.selectMovieBoardListByTitle(pageable, searchTitle);
         }
         else{
-            movieBoardList = movieBoardService.selectMovieBoardListByCateAndTitle(pageable);
+            movieBoardList = movieBoardService.selectMovieBoardListByCateAndTitle(pageable, searchTitle, searchCate);
         }
 
 
-
+        mv.addObject("movieCate", MovieCategory.values());
         mv.addObject("movieBoardList", movieBoardList);
         mv.addObject(
                 "barList",
@@ -113,8 +114,6 @@ public class MovieBoardController {
             int likeCnt = movieLikeService.getMovieLikeCnt(user.getId(), entity.getMovie().getId());
             if(likeCnt > 0) {isLike = true;}
         }
-
-
 
 
         mv.addObject("movie", entity);

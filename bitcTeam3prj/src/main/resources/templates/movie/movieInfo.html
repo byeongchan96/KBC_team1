@@ -8,6 +8,14 @@
   <link href="/css/bootstrap.css" rel="stylesheet">
   <script src="/js/bootstrap.bundle.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+    body {
+      font-family: "Noto Sans KR", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-style: normal;
+    }
+
       .about-text h3 { color: #333; }
       .about-text h4 { color: #007bff; }
       .btn-bar a { margin-right: 10px; }
@@ -22,26 +30,9 @@
   </style>
   <script th:inline="javascript">
     const sessionUserId = [[${session.userId}]];
-    const pageId = [[${pageId}]];
   </script>
   <script>
       $(document).ready(function () {
-          // const localStorageKey = 'btnLikeState';
-          // const userIdKey = 'userId';
-          // const pageKey = 'pageId';
-          //
-          // const savedUserId = localStorage.getItem(userIdKey);
-          // const savedPageId = localStorage.getItem(pageKey);
-          // const savedState = localStorage.getItem(localStorageKey + sessionUserId + '_' + pageId);
-          //
-          // if (sessionUserId !== savedUserId || pageId !== savedPageId) {
-          //     localStorage.setItem(userIdKey, sessionUserId);
-          //     localStorage.setItem(pageKey, pageId);
-          //     localStorage.setItem(localStorageKey + sessionUserId + '_' + pageId, savedState || '');
-          // } else if (savedState === 'on') {
-          //     $('#Bookmark').addClass('on');
-          // }
-
 
           $(".btn-delete").on("click", function () {
               var btn = $(this);
@@ -63,7 +54,7 @@
               frm[0].submit();
           });
 
-          $("#create-frm").on("submit", function (e) {
+          $("#rating-btn").on("click", function (e) {
               const userIdList = $(".user-id-list");
               var chk = false;
 
@@ -71,19 +62,25 @@
                   chk = false;
 
                   if($(userIdList[i]).val() === sessionUserId) {
-                      chk = true;
-                      break;
+                    alert('중복 입력이 불가합니다.');
+                    e.preventDefault();
+                      return;
                   }
               }
-                  if(chk) {
-                      alert('중복 입력이 불가합니다.');
-                      e.preventDefault();
-                  }
+
+              var frm = $("#create-frm");
+              frm[0].submit();
           });
 
-          $("#Bookmark").on("click", ()=>{
-              $("#add-like-frm")[0].submit();
-          });
+            $("#Bookmark").on("click", (e)=> {
+
+              if (sessionUserId) {
+                $("#add-like-frm")[0].submit();
+              } else {
+                alert('로그인 후 이용해주세요');
+                e.preventDefault();
+              }
+            });
 
 
       });
@@ -177,7 +174,7 @@
 <!--    평점 입력 form    -->
 
         <form id="create-frm" method="post" th:action="@{|/movie/${movieBoardId}/rating/${session.userId}|}">
-          <input type="hidden" name="board-id" th:value="${movie.id}">
+          <input type="hidden" name="boardId" th:value="${movie.id}">
           <h4 class="mb-5 fw-bold">관람평</h4>
           <div class="mt-2">
             <div class="form-floating">
@@ -195,7 +192,7 @@
             </div>
           </div>
           <div class="mt-3 py-2">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-pencil-alt"></i> 글등록</button>
+            <button type="button" class="btn btn-primary" id="rating-btn"><i class="fa fa-pencil-alt"></i> 글등록</button>
             <!--                        <a class="btn btn-trans btn-icon fa fa-video-camera" href="#"></a>-->
           </div>
         </form>
@@ -218,9 +215,12 @@
                           <div class="input-group">
                             <span class="input-group-text">평점</span>
                             <!--                                        <input type="" class="form-control" th:value="${item.movieRating}">-->
-                            <select class="form-control" name="movieRating">
+
+                            <select th:if="${#strings.equals(session.userId, item.user.userId)}" class="form-control" name="movieRating">
                               <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}" th:selected="${i == item.movieRating}">평점 선택</option>
                             </select>
+
+                            <input th:unless="${#strings.equals(session.userId, item.user.userId)}" type="text" class="form-control" th:value="${item.movieRating}" readonly>
                           </div>
                         </div>
                       </div>
@@ -228,7 +228,8 @@
                         <div class="input-group">
                           <div class="input-group">
                             <span class="input-group-text">한줄평</span>
-                            <textarea class="form-control" th:text="${item.content}" name="content" placeholder="comment"></textarea>
+                            <textarea class="form-control" th:text="${item.content}" name="content" placeholder="comment"
+                                      th:readonly="${!#strings.equals(session.userId, item.user.userId)}" ></textarea>
                           </div>
                         </div>
                         <div th:if="${session?.userId} == ${item.user?.userId}" class="col-sm d-flex justify-content-end mt-2">

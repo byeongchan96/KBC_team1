@@ -61,6 +61,15 @@ public class UserEntity {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   List<MovieBoardRatingEntity> movieRatingList;
 
+
+  @ToString.Exclude
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  List<BoardCommentEntity> boardCommentList;
+
   @Column(nullable = false)
   private char deletedYn = 'N';
+
+  @OneToOne(mappedBy="user")
+  @ToString.Exclude
+  private ManagerEntity manager;
 }

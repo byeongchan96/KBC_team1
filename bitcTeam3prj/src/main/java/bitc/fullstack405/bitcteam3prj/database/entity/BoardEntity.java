@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -42,4 +43,13 @@ public class BoardEntity extends BaseEntity{
     @JoinColumn(name="user_id")
     @ToString.Exclude
     private UserEntity user;
+
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<BoardCommentEntity> commentList;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    List<BoardLikeEntity> boardLikeList;
 }

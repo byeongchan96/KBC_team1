@@ -7,7 +7,16 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.js"></script>
+    <script src="/js/layout.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+
         .search-form {
             margin-bottom: 2rem;
             padding: 1rem;
@@ -78,11 +87,11 @@
                     <td>
                         <label for="categorySelect" class="form-label">카테고리</label>
                         <select class="form-select" id="categorySelect" name="searchCate">
-                            <option value="">모든 카테고리</option>
-                            <option value="notice">공지</option>
-                            <option value="spoiler">스포일러</option>
-                            <option value="adult">성인</option>
-                            <option value="movie">영화</option>
+                            <option value="None">모든 카테고리</option>
+                            <option th:each="cate: ${movieCate}"
+                                    th:text="${cate.description}"
+                                    >공지</option>
+
                         </select>
                     </td>
                     <td>
@@ -151,20 +160,7 @@
     </div>
 </main>
 <footer th:replace="~{/layout/footer::footer}"></footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-<script>
-    document.getElementById('search-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        // Implement search logic here
-        console.log('Search form submitted with:', {
-            category: document.getElementById('categorySelect').value,
-            dateFrom: document.getElementById('dateFrom').value,
-            dateTo: document.getElementById('dateTo').value,
-            title: document.getElementById('titleSearch').value,
-        });
-    });
-</script>
+
 </body>
 
 </html>
